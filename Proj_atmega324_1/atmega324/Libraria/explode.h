@@ -11,19 +11,17 @@ Comment:
 #ifndef _EXPLODE_H_
 	#define _EXPLODE_H_
 
-/*** Compiler ***/
-
-/*** Working Frequency ***/
-
 /*** Global Library ***/
 #include <inttypes.h>
 
+/*** Global Constant & Macro ***/
+
+/*** Global Variable ***/
 struct expldparam{
 	unsigned int XI;
 	unsigned int XF;
 };
 
-/*** Global Variable ***/
 struct expld{
 	// Variable
 	struct expldparam par;
