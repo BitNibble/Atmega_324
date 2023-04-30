@@ -15,9 +15,7 @@ Comment:
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-#include "atmega324analog.h"
-#include "atmega324preamble.h"
-#include "atmega324timer.h"
+#include "atmega324mapping.h"
 #include "keypad.h"
 #include "lcd.h"
 #include "lfsm.h"
@@ -48,7 +46,7 @@ int main(void)
 	char input;
 	char* value;
 	//Initialize objects
-	ATMEGA324 atmega324 = ATMEGA324enable();
+	//ATMEGA324 atmega324 = ATMEGA324enable();
 	TIMER_COUNTER1 tim1 = TIMER_COUNTER1enable(4,3);//4,0
 	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
 	LCD0 lcd0 = LCD0enable(&DDRC,&PINC,&PORTC);
@@ -86,7 +84,6 @@ int main(void)
 	tim1.start(prescaler);
     while (True)
     {
-		atmega324.ioread();
 		input=keypad.getkey();
 		if(input){
 			lcd0.BF();

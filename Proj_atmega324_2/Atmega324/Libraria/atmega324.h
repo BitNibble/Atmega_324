@@ -3,7 +3,7 @@
 Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
-Hardware: Atmega128 by ETT ET-BASE
+Hardware: Atmega324 by ETT ET-BASE
 Date: 29/04/2023
 Comment:
 	Virtual Image Atmega 324.
@@ -134,7 +134,6 @@ typedef struct {
 	uint8_t eedr; // 0x0040
 	HighLowByte eear; // 0x0041 0x0042
 } Atmega324Eeprom_TypeDef;
-
 
 // External Interrupts (EXINT)
 typedef struct {
