@@ -179,6 +179,7 @@ typedef struct {
 	Atmega324Usart1 usart1;
 	Atmega324WatchdogTimer wdt;
 	
+	HighLowByte HLbyte;
 	uint16_t (*readhlbyte)(HighLowByte reg);
 	uint16_t (*readlhbyte)(HighLowByte reg);
 	HighLowByte (*writehlbyte)(uint16_t val);

@@ -46,13 +46,16 @@ int main(void)
 	char input;
 	char* value;
 	//Initialize objects
-	//ATMEGA324 atmega324 = ATMEGA324enable();
+	ATMEGA324 atmega324 = ATMEGA324enable();
 	TIMER_COUNTER1 tim1 = TIMER_COUNTER1enable(4,3);//4,0
 	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
 	LCD0 lcd0 = LCD0enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROMenable();
     /* Init Values */
+	
+	atmega324.tc1.reg->tcnt1.H = 55;
+	
 	lcd0.gotoxy(0,0);
 	lcd0.string_size("Bom dia !",12);
 	lcd0.BF();
