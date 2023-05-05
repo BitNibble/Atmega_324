@@ -277,5 +277,6 @@ typedef struct {
 } Atmega324WatchdogTimer_TypeDef;
 
 #endif
+
 /***EOF***/
 
