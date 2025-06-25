@@ -1,5 +1,5 @@
 /*************************************************************************
-	ATMEGA324TIMER
+	ATMEGA 324 TIMER HANDLERS
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
@@ -74,6 +74,7 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	
 	timer0_state=0;
+	timer0.instance.sreg = ((_SREG_TypeDef*)0x005F);
 	timer0.instance.tifr0 = ((_TIFR0_Typedef*)0x0035);
 	timer0.instance.gtccr = ((_GTCCR_TypeDef*)0x0043);
 	timer0.instance.tccr0a = ((_TCCR0A_TypeDef*)0x0044);
@@ -181,7 +182,7 @@ void TIMER_COUNTER0_start(uint16_t prescaler)
 			break;
 		}
 		timer0.instance.tccr0b->var|=timer0_prescaler;
-		SYSTEM_REGISTER|=(1<<GLOBAL_INTERRUPT_ENABLE);
+		timer0.instance.sreg->par.i=1;
 		timer0_state=1;
 	}
 }
@@ -246,6 +247,7 @@ void TIMER_COUNTER0_stop(void)
 TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
+	timer1.instance.sreg = ((_SREG_TypeDef*)0x005F);
 	timer1.instance.tifr1 = ((_TIFR1_Typedef*)0x0036);
 	timer1.instance.timsk1 = ((_TIMSK1_TypeDef*)0x006F);
 	timer1.instance.tccr1a = ((_TCCR1A_TypeDef*)0x0080);
@@ -393,7 +395,7 @@ void TIMER_COUNTER1_start(uint16_t prescaler)
 				break;
 		}
 		timer1.instance.tccr1b->var|=timer1_prescaler;
-		SYSTEM_REGISTER|=(1<<GLOBAL_INTERRUPT_ENABLE);
+		timer1.instance.sreg->par.i=1;
 		timer1_state=1;
 	}
 }
@@ -462,6 +464,7 @@ void TIMER_COUNTER1_stop(void)
 TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
+	timer2.instance.sreg = ((_SREG_TypeDef*)0x005F);
 	timer2.instance.tifr2 = ((_TIFR2_Typedef*)0x0037);
 	timer2.instance.gtccr = ((_GTCCR_TypeDef*)0x0043);
 	timer2.instance.timsk2 = ((_TIMSK2_TypeDef*)0x0070);
@@ -571,7 +574,7 @@ void TIMER_COUNTER2_start(uint16_t prescaler)
 				break;
 		}
 		timer2.instance.tccr2b->var|=timer2_prescaler;
-		SYSTEM_REGISTER|=(1<<GLOBAL_INTERRUPT_ENABLE);
+		timer2.instance.sreg->par.i=1;
 		timer2_state=1;
 	}
 }

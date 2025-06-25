@@ -1,5 +1,5 @@
 /*************************************************************************
-	ATMEGA324TIMER
+	ATMEGA 324 TIMER HANDLERS 
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz

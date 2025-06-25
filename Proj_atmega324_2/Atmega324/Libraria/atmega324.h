@@ -1,5 +1,5 @@
 /************************************************************************
-	ATMEGA 324 REGISTERS
+	ATMEGA 324 INSTANCES
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
@@ -188,7 +188,8 @@ typedef struct {
 
 // Timer/Counter, 16-bit (TC1)
 typedef struct {
-	 _TIFR1_Typedef* tifr1; // 0x0036
+	_SREG_TypeDef* sreg; // 0x005F
+	_TIFR1_Typedef* tifr1; // 0x0036
 	_TIMSK1_TypeDef* timsk1; // 0x006F
 	_TCCR1A_TypeDef* tccr1a; // 0x0080
 	_TCCR1B_TypeDef* tccr1b; // 0x0081
@@ -201,6 +202,7 @@ typedef struct {
 
 // Timer/Counter, 8-bit (TC0)
 typedef struct {
+	_SREG_TypeDef* sreg; // 0x005F
 	_TIFR0_Typedef* tifr0; // 0x0035
 	_GTCCR_TypeDef* gtccr; // 0x0043
 	_TCCR0A_TypeDef* tccr0a; // 0x0044
@@ -213,6 +215,7 @@ typedef struct {
 
 // Timer/Counter, 8-bit Async (TC2)
 typedef struct {
+	_SREG_TypeDef* sreg; // 0x005F
 	_TIFR2_Typedef* tifr2; // 0x0037
 	_GTCCR_TypeDef* gtccr; // 0x0043
 	_TIMSK2_TypeDef* timsk2; // 0x0070
