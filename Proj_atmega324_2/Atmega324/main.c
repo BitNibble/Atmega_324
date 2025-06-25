@@ -100,7 +100,7 @@ int main(void)
 				tcompare=compare=2048;
 				prescaler=1024;
 				steprescaler=0;
-				tN_off=N_off=10;
+				tN_off=N_off=8000;
 				tN_on=N_on=8000;
 				tim1.stop();
 				tim1.compoutmodeA(1);

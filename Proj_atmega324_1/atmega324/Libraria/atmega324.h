@@ -17,7 +17,7 @@ Comment:
 #endif
 
 /*** Global Library ***/
-#include <inttypes.h>
+#include "atmega324_registers.h"
 
 /*** Global Constant & Macro ***/
 #define Atmega324GPWR_Address 0x0000
