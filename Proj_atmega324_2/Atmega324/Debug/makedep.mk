@@ -6,8 +6,6 @@ Libraria\74hc595.c
 
 Libraria\atmega324analog.c
 
-Libraria\atmega324mapping.c
-
 Libraria\atmega324timer.c
 
 Libraria\atmegaeeprom.c
@@ -17,8 +15,6 @@ Libraria\function.c
 Libraria\keypad.c
 
 Libraria\lcd.c
-
-Libraria\lfsm.c
 
 Libraria\rotenc.c
 

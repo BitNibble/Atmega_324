@@ -158,9 +158,6 @@
     <Compile Include="Libraria\atmega324analog.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324mapping.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Libraria\atmega324timer.c">
       <SubType>compile</SubType>
     </Compile>
@@ -183,9 +180,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\lcd.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\lfsm.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\rotenc.c">

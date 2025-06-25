@@ -9,6 +9,7 @@ Comment:
 *************************************************************************/
 #ifndef ATMEGA324TIMER_H_
   #define ATMEGA324TIMER_H_
+#include "atmega324.h"
 #if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
 #endif
@@ -18,7 +19,10 @@ Comment:
 /*
 ** variable
 */
+
+/******/
 struct TIMER_COUNTER0{
+	Atmega324TimerCounter0_TypeDef instance;
 	// prototype pointers
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
@@ -30,6 +34,7 @@ struct TIMER_COUNTER0{
 typedef struct TIMER_COUNTER0 TIMER_COUNTER0;
 /**/
 struct TIMER_COUNTER1{
+	Atmega324TimerCounter1_TypeDef instance;
 	// prototype pointers
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
@@ -41,6 +46,7 @@ struct TIMER_COUNTER1{
 typedef struct TIMER_COUNTER1 TIMER_COUNTER1;
 /**/
 struct TIMER_COUNTER2{
+	Atmega324TimerCounter2_TypeDef instance;
 	// prototype pointers
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
@@ -58,3 +64,4 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER2 TIMER_COUNTER2enable(uint8_t wavegenmode, uint8_t interrupt);
 #endif
 /***EOF***/
+

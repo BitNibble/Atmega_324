@@ -6,7 +6,6 @@ Hardware: Atmega324 by ETT ET-BASE
 Date:     24/06/2025
 Comment:
 	Instance
-	all registers are represented as a union
 ************************************************************************/
 #ifndef _ATMEGA324_H_
 	#define _ATMEGA324_H_
@@ -191,49 +190,40 @@ typedef struct {
 
 // Timer/Counter, 16-bit (TC1)
 typedef struct {
-	uint8_t tifr1; // 0x0036
-	uint8_t fill1[ 56 ]; // ( 0x006F - 0x0036 ) - 1
-	uint8_t timsk1; // 0x006F
-	uint8_t fill2[ 16 ]; // ( 0x0080 - 0x006F ) - 1
-	uint8_t tccr1a; // 0x0080
-	uint8_t tccr1b; // 0x0081
-	uint8_t tccr1c; // 0x0082
-	uint8_t fill3; // 0x0083
-	_uint16_t tcnt1; // 0x0084 0x0085
-	_uint16_t icr1; // 0x0086 0x0087
-	_uint16_t ocr1a; // 0x0088 0x0089
-	_uint16_t ocr1b; // 0x008A 0x008B
+	 _TIFR1_Typedef* tifr1; // 0x0036
+	_TIMSK1_TypeDef* timsk1; // 0x006F
+	_TCCR1A_TypeDef* tccr1a; // 0x0080
+	_TCCR1B_TypeDef* tccr1b; // 0x0081
+	_TCCR1C_TypeDef* tccr1c; // 0x0082
+	_uint16_t* tcnt1; // 0x0084 0x0085
+	_uint16_t* icr1; // 0x0086 0x0087
+	_uint16_t* ocr1a; // 0x0088 0x0089
+	_uint16_t* ocr1b; // 0x008A 0x008B
 } Atmega324TimerCounter1_TypeDef;
 
 // Timer/Counter, 8-bit (TC0)
 typedef struct {
-	uint8_t tifr0; // 0x0035
-	uint8_t fill1[ 13 ]; // ( 0x0043 - 0x0035 ) - 1
-	uint8_t gtccr; // 0x0043
-	uint8_t tccr0a; // 0x0044
-	uint8_t tccr0b; // 0x0045
-	uint8_t tcnt0; // 0x0046
-	uint8_t ocr0a; // 0x0047
-	uint8_t ocr0b; // 0x0048
-	uint8_t fill2[ 37 ]; // ( 0x006E - 0x0048 ) - 1
-	uint8_t timsk0; // 0x006E	
+	_TIFR0_Typedef* tifr0; // 0x0035
+	_GTCCR_TypeDef* gtccr; // 0x0043
+	_TCCR0A_TypeDef* tccr0a; // 0x0044
+	_TCCR0B_TypeDef* tccr0b; // 0x0045
+	_uint8_t* tcnt0; // 0x0046
+	_uint8_t* ocr0a; // 0x0047
+	_uint8_t* ocr0b; // 0x0048
+	_TIMSK0_TypeDef* timsk0; // 0x006E
 } Atmega324TimerCounter0_TypeDef;
 
 // Timer/Counter, 8-bit Async (TC2)
 typedef struct {
-	uint8_t tifr2; // 0x0037
-	uint8_t fill1[ 11 ]; // ( 0x0043 - 0x0037 ) - 1
-	uint8_t gtccr; // 0x0043
-	uint8_t fill2[ 44 ]; // ( 0x0070 - 0x0043 ) - 1
-	uint8_t timsk2; // 0x0070
-	uint8_t fill3[ 63 ]; // ( 0x00B0 - 0x0070 ) - 1
-	uint8_t tccr2a; // 0x00B0
-	uint8_t tccr2b; // 0x00B1
-	uint8_t tcnt2; // 0x00B2
-	uint8_t ocr2a; // 0x00B3
-	uint8_t ocr2b; // 0x00B4
-	uint8_t fill4; // 0x00B5
-	uint8_t assr; // 0x00B6
+	_TIFR2_Typedef* tifr2; // 0x0037
+	_GTCCR_TypeDef* gtccr; // 0x0043
+	_TIMSK2_TypeDef* timsk2; // 0x0070
+	_TCCR2A_TypeDef* tccr2a; // 0x00B0
+	_TCCR2B_TypeDef* tccr2b; // 0x00B1
+	_uint8_t* tcnt2; // 0x00B2
+	_uint8_t* ocr2a; // 0x00B3
+	_uint8_t* ocr2b; // 0x00B4
+	_ASSR_TypeDef* assr; // 0x00B6
 } Atmega324TimerCounter2_TypeDef;
 
 // Two Wire Serial Interface (TWI)

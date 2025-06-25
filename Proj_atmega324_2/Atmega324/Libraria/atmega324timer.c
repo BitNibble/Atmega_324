@@ -16,7 +16,6 @@ Comment:
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-#include <inttypes.h>
 /***/
 #include "atmega324timer.h"
 /*
@@ -71,8 +70,11 @@ Comment:
 /*
 ** variable
 */
+static TIMER_COUNTER0 timer0 = {0};
 static uint8_t timer0_state;
+static TIMER_COUNTER1 timer1 = {0};
 static uint8_t timer1_state;
+static TIMER_COUNTER2 timer2 = {0};
 static uint8_t timer2_state;
 /*
 ** procedure and function header
@@ -102,9 +104,17 @@ void TIMER_COUNTER2_stop(void);
 */
 TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt)
 {
-	TIMER_COUNTER0 timer0;
+	
 	timer0_state=0;
-
+	timer0.instance.tifr0 = ((_TIFR0_Typedef*)0x0035);
+	timer0.instance.gtccr = ((_GTCCR_TypeDef*)0x0043);
+	timer0.instance.tccr0a = ((_TCCR0A_TypeDef*)0x0044);
+	timer0.instance.tccr0b = ((_TCCR0B_TypeDef*)0x0045);
+	timer0.instance.tcnt0 = ((_uint8_t*)0x0046);
+	timer0.instance.ocr0a = ((_uint8_t*)0x0047);
+	timer0.instance.ocr0b = ((_uint8_t*)0x0048);
+	timer0.instance.timsk0 = ((_TIMSK0_TypeDef*)0x006E);
+	
 	TIMER_COUNTER0A_COMPARE_REGISTER=0XFF;
 	TIMER_COUNTER0B_COMPARE_REGISTER=0XFF;
 	TIMER_COUNTER0A_CONTROL_REGISTER&=~((1<<WGM00) | (1<<WGM01));
@@ -264,9 +274,17 @@ void TIMER_COUNTER0_stop(void)
 /*****************************************************************************************/
 TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt)
 {
-	TIMER_COUNTER1 timer1;
 	timer1_state=0;
-
+	timer1.instance.tifr1 = ((_TIFR1_Typedef*)0x0036);
+	timer1.instance.timsk1 = ((_TIMSK1_TypeDef*)0x006F);
+	timer1.instance.tccr1a = ((_TCCR1A_TypeDef*)0x0080);
+	timer1.instance.tccr1b = ((_TCCR1B_TypeDef*)0x0081);
+	timer1.instance.tccr1c = ((_TCCR1C_TypeDef*)0x0082);
+	timer1.instance.tcnt1 = ((_uint16_t*)0x0084);
+	timer1.instance.icr1 = ((_uint16_t*)0x0086);
+	timer1.instance.ocr1a = ((_uint16_t*)0x0088);
+	timer1.instance.ocr1b = ((_uint16_t*)0x008A);
+	
 	TIMER_COUNTER1A_COMPARE_REGISTER=0XFFFF;
 	TIMER_COUNTER1B_COMPARE_REGISTER=0XFFFF;
 	TIMER_COUNTER1A_CONTROL_REGISTER&=~((1<<WGM11) | (1<<WGM10));
@@ -468,8 +486,16 @@ void TIMER_COUNTER1_stop(void)
 /*****************************************************************************************/
 TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt)
 {
-	TIMER_COUNTER2 timer2;
 	timer2_state=0;
+	timer2.instance.tifr2 = ((_TIFR2_Typedef*)0x0037);
+	timer2.instance.gtccr = ((_GTCCR_TypeDef*)0x0043);
+	timer2.instance.timsk2 = ((_TIMSK2_TypeDef*)0x0070);
+	timer2.instance.tccr2a = ((_TCCR2A_TypeDef*)0x00B0);
+	timer2.instance.tccr2b = ((_TCCR2B_TypeDef*)0x00B1);
+	timer2.instance.tcnt2 = ((_uint8_t*)0x00B2);
+	timer2.instance.ocr2a = ((_uint8_t*)0x00B3);
+	timer2.instance.ocr2b = ((_uint8_t*)0x00B4);
+	timer2.instance.assr = ((_ASSR_TypeDef*)0x00B6);
 
 	TIMER_COUNTER2A_COMPARE_REGISTER=0XFF;
 	TIMER_COUNTER2B_COMPARE_REGISTER=0XFF;
@@ -635,8 +661,4 @@ void TIMER_COUNTER2_stop(void)
 	#error "Atmega324timer only supports Atemaga 324A Sorry!!"
 #endif
 /***EOF***/
-/***COMMENTS
-interrupt to be defined in MAIN file
-Note if you configure to use interrupts and do not define them, program will block,
-so be careful when enabling, make sure correct parameters for specified application are applied.
-***/
+
