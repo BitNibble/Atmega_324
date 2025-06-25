@@ -13,12 +13,16 @@ Comment:
 
 /*** Global Library ***/
 #include <avr/eeprom.h>
-#include <inttypes.h>
+#include "atmega324.h"
 
 /*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
 struct prm{
+	// registers
+	_EECR_TypeDef* eecr; // 0x003F
+	_uint8_t* eedr; // 0x0040
+	_uint16_t* eear; // 0x0041 0x0042
 	// vtable
 	uint8_t (*read_byte) ( const uint8_t * addr );
 	void (*write_byte) ( uint8_t *addr , uint8_t value );

@@ -14,12 +14,16 @@ Comment:
 /*** File Constant & Macro ***/
 
 /*** File Variable ***/
-
+static EEPROM eprom;
 /*** File Header ***/
 
 /*** Procedure & Function ***/
 EEPROM EEPROMenable(void){
-	EEPROM eprom;
+	// registers
+	eprom.eecr = ((_EECR_TypeDef*)0x003F);
+	eprom.eedr = ((_uint8_t*)0x0040);
+	eprom.eear = ((_uint16_t*)0x0041);
+	// v-table
 	eprom.read_byte = eeprom_read_byte;
 	eprom.write_byte = eeprom_write_byte;
 	eprom.update_byte = eeprom_update_byte;

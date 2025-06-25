@@ -187,6 +187,9 @@
     <Compile Include="Libraria\uart.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

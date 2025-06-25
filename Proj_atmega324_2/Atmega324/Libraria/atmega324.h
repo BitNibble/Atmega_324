@@ -164,13 +164,6 @@ typedef struct {
 	uint8_t osccal; // 0x0066
 } Atmega324CPURegister_TypeDef;
 
-// EEPROM (EEPROM)
-typedef struct {
-	uint8_t eecr; // 0x003F
-	uint8_t eedr; // 0x0040
-	_uint16_t eear; // 0x0041 0x0042
-} Atmega324Eeprom_TypeDef;
-
 // JTAG Interface (JTAG)
 typedef struct {
 	uint8_t ocdr; // 0x0051
