@@ -199,6 +199,4 @@ Purpose:  Read Analog Input
 	#error "Not ATmega 164A or 164PA or 324A or 324PA or 644A or 644PA or 1284 or 1284P"
 #endif
 /***EOF***/
-/***COMMENTS
-Do not think to much about it or you will get a seizure, lol.
-***/
+

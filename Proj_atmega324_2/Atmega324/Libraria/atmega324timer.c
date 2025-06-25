@@ -1,14 +1,8 @@
 /*************************************************************************
-Title:    ATMEGA324TIMER
-Author:   Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
-File:     $Id: atmega324timer.c,v 0.1 2018/08/18 13:00:00 sergio Exp $
-Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
-Hardware:
-	Atmega 324 at 8Mhz
+	ATMEGA324TIMER
+Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
-Comment:
-	TESTED
-	Very Stable
+Hardware: Atmega 324 at 8Mhz
 *************************************************************************/
 /*
 ** library
@@ -177,6 +171,9 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt)
 
 	return timer0;
 }
+
+TIMER_COUNTER0* TC0(void){ return &timer0; }
+
 void TIMER_COUNTER0_start(uint16_t prescaler)
 {
 	uint8_t timer0_prescaler;
@@ -385,6 +382,9 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt)
 
 	return timer1;
 }
+
+TIMER_COUNTER1* TC1(void){ return &timer1; }
+
 void TIMER_COUNTER1_start(uint16_t prescaler)
 {
 	uint8_t timer1_prescaler;
@@ -559,7 +559,9 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 
 	return timer2;
 }
-/******************************************************************************************************/
+
+TIMER_COUNTER2* TC2(void){ return &timer2; }
+
 void TIMER_COUNTER2_start(uint16_t prescaler)
 {
 	uint8_t timer2_prescaler;
@@ -654,9 +656,6 @@ void TIMER_COUNTER2_stop(void)
 	TIMER_COUNTER2B_CONTROL_REGISTER&=~((1<<CS22) | (1<<CS21) | (1<<CS20)); // No clock source. (Timer/Counter stopped)
 	timer2_state=0;
 }
-/*
-** interrupt
-*/
 #else
 	#error "Atmega324timer only supports Atemaga 324A Sorry!!"
 #endif

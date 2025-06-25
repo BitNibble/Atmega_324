@@ -51,7 +51,7 @@ int main(void)
 	EEPROM eeprom = EEPROMenable();
     /* Init Values */
 	
-	tim1.instance.tcnt1->par.h.var = 55;
+	TC1()->instance.tcnt1->par.h.var = 55;
 	
 	lcd0.gotoxy(0,0);
 	lcd0.string_size("Bom dia !",12);

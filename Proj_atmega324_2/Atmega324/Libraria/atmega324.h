@@ -4,8 +4,6 @@ Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
 Date:     24/06/2025
-Comment:
-	Instance
 ************************************************************************/
 #ifndef _ATMEGA324_H_
 	#define _ATMEGA324_H_
