@@ -51,7 +51,7 @@ int main(void)
 	EEPROM eeprom = EEPROMenable();
     /* Init Values */
 	
-	TC1()->instance.tcnt1->par.h.var = 55;
+	TC1()->tcnt1->par.h.var = 55;
 	
 	lcd0.gotoxy(0,0);
 	lcd0.string_size("Bom dia !",12);
@@ -303,9 +303,10 @@ int main(void)
 /***Prototypes***/
 void PORTINIT(void){
 	//DDRD = (1<<0) | (1<<4) | (1<<5);
-	DDRD = (1<<5);
-	//PORTD = (1<<4) | (1<<5);
-	PORTD = (1<<5);
+	DDRD = (1<<4) | (1<<5);
+	//DDRD = (1<<5);
+	PORTD = (1<<4) | (1<<5);
+	//PORTD = (1<<5);
 };
 /***Interrupts***/
 ISR(TIMER1_COMPA_vect)
