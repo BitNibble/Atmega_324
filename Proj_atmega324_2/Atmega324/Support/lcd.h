@@ -1,9 +1,10 @@
 /************************************************************************
 	LCD
-Author:   <sergio.salazar.santos@gmail.com>
-License:  GNU General Public License
+Author: Sergio Santos 
+	<sergio.salazar.santos@gmail.com>
+License: GNU General Public License
 Hardware: all
-Date:     12112022
+Date: 12112022
 Comment:
 	tested Atemga128 16Mhz and Atmega328 8Mhz
 ************************************************************************/
@@ -30,13 +31,9 @@ Comment:
 #define DB5 5
 #define DB6 6
 #define DB7 7
-/***************/
-// CMD RS
-#define INST 0
-#define DATA 1
 
 /***Global Variable***/
-typedef struct{
+struct dspl {
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
 	void (*BF)(void);
@@ -48,13 +45,13 @@ typedef struct{
 	void (*clear)(void);
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
-}LCD0, LCD1;
+};
+typedef struct dspl LCD0;
+typedef struct dspl LCD1;
 
 /***Global Header***/
-LCD0* lcd0(void);
-LCD1* lcd1(void);
-LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
-LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD1 LCD1enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
 

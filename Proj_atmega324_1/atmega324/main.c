@@ -38,7 +38,7 @@ int main(void)
 	uint8_t page=0;
 	uint8_t n;
 	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
-	LCD0 lcd = LCD0enable(&DDRC,&PINC,&PORTC);
+	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 	EEPROM eeprom = EEPROMenable();
 	LFSM lfsm = LFSMenable(&eeprom,146);
 	FUNC func = FUNCenable();

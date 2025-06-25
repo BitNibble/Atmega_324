@@ -46,7 +46,7 @@ int main(void)
 	//Initialize objects
 	TIMER_COUNTER1 tim1 = TIMER_COUNTER1enable(4,3);//4,0
 	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
-	LCD0 lcd0 = LCD0enable(&DDRC,&PINC,&PORTC);
+	LCD0 lcd0 = lcd0_enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROMenable();
     /* Init Values */
