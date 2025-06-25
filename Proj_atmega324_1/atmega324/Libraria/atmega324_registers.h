@@ -4,8 +4,6 @@ Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
 Date:     24/06/2025
-Comment:
-	All registers are represented as a volatile union
 ************************************************************************/
 #ifndef _ATMEGA324_REGISTERS_H_
 	#define _ATMEGA324_REGISTERS_H_
@@ -18,6 +16,7 @@ Comment:
 /*** Gloabl Library ***/
 #include <stdint.h>
 #include <inttypes.h>
+#include <stddef.h>
 
 /*** Base Types ***/
 typedef volatile union {
@@ -46,15 +45,15 @@ typedef volatile union {
 // _PIND 0x29 (_uint8_t)
 // _DDRD 0x2A (_uint8_t)
 // _PORTD 0x2B (_uint8_t)
-// NON 0x2C
-// NON 0x2D
-// NON 0x2E
-// NON 0x2F
-// NON 0x30
-// NON 0x31
-// NON 0x32
-// NON 0x33
-// NON 0x34
+// Reserved 0x2C
+// Reserved 0x2D
+// Reserved 0x2E
+// Reserved 0x2F
+// Reserved 0x30
+// Reserved 0x31
+// Reserved 0x32
+// Reserved 0x33
+// Reserved 0x34
 typedef	volatile union {
 	struct{
 		uint8_t tov0 : 1, ocf0a : 1, ocf0b : 1, fill0 : 5;
@@ -73,9 +72,9 @@ typedef	volatile union {
 	}par;
 	uint8_t var;
 } _TIFR2_Typedef; // 0x37
-// NON 0x38
-// NON 0x39
-// NON 0x3A
+// Reserved 0x38
+// Reserved 0x39
+// Reserved 0x3A
 typedef volatile union {
 	struct{
 		uint8_t pcif0 : 1, pcif1 : 1, pcif2 : 1, pcif3 : 1, fill0 : 4;
@@ -124,7 +123,7 @@ typedef volatile union {
 // _TCNT0 0x46 (_uint8_t)
 // _OCR0A 0x47 (_uint8_t)
 // _OCR0B 0x48 (_uint8_t)
-// NON 0x49
+// Reserved 0x49
 // _GPIOR1 0x4A (_uint8_t)
 // _GPIOR2 0x4B (_uint8_t)
 typedef volatile union {
@@ -140,7 +139,7 @@ typedef volatile union {
 	uint8_t var;
 } _SPSR_TypeDef; // 0x4D
 // _SPDR 0x4E (_uint8_t)
-// NON 0x4F
+// Reserved 0x4F
 typedef volatile union {
 	struct{
 		uint8_t acis0 : 1, acis1 : 1, acic : 1, acie : 1, aci : 1, aco : 1, acbg : 1, acd : 1;
@@ -148,7 +147,7 @@ typedef volatile union {
 	uint8_t var;
 } _ACSR_TypeDef; // 0x50
 // _OCDR 0x51 (_uint8_t)
-// NON 0x52
+// Reserved 0x52
 typedef volatile union {
 	struct{
 		uint8_t se : 1, sm0 : 1, sm1 : 1, sm2 : 1, fill0 : 4;
@@ -167,23 +166,23 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _MCUCR_TypeDef; // 0x55
-// NON 0x56
+// Reserved 0x56
 typedef volatile union {
 	struct{
 		uint8_t spmen : 1, pgers : 1, pgwrt : 1, blbset : 1, rwwsre : 1, sigrd : 1, rwwsb : 1, spmie : 1;
 	}par;
 	uint8_t var;
 } _SPMCSR_TypeDef; // 0x57
-// NON 0x58
-// NON 0x59
-// NON 0x5A
+// Reserved 0x58
+// Reserved 0x59
+// Reserved 0x5A
 typedef volatile union {
 	struct{
 		uint8_t rampz0 : 1, fill0 : 7;
 	}par;
 	uint8_t var;
 } _RAMPZ_TypeDef; // 0x5B
-// NON 0x5C
+// Reserved 0x5C
 // _SPL SPH 0x5D 0x5E (_uint16_t)
 typedef volatile union {
 	struct{
@@ -203,17 +202,17 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _CLKPR_TypeDef; // 0x61
-// NON 0x62
-// NON 0x63
+// Reserved 0x62
+// Reserved 0x63
 typedef volatile union {
 	struct{
 		uint8_t pradc : 1, prusart0 : 1, prspi : 1, prtim1 : 1, prusart1 : 1, prtim0 : 1, prtim2 : 1, prtwi : 1;
 	}par;
 	uint8_t var;
 } _PRR_TypeDef; // 0x64
-// NON 0x65
+// Reserved 0x65
 // _OSCAL 0x66 (_uint8_t)
-// NON 0x67
+// Reserved 0x67
 typedef volatile union {
 	struct{
 		uint8_t pcie0 : 1, pcie1 : 1, pcie2 : 1, pcie3 : 1, fill0 : 4;
@@ -226,7 +225,7 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _EICRA_TypeDef; // 0x69
-// NON 0x6A
+// Reserved 0x6A
 typedef volatile union {
 	struct{
 		uint8_t pcint0 : 1, pcint1 : 1, pcint2 : 1, pcint3 : 1, pcint4 : 1, pcint5 : 1, pcint6 : 1, pcint7 : 1;
@@ -263,18 +262,18 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TIMSK2_TypeDef; // 0x70
-// NON 0x71
-// NON 0x72
+// Reserved 0x71
+// Reserved 0x72
 typedef volatile union {
 	struct{
 		uint8_t pcint24 : 1, pcint25 : 1, pcint26 : 1, pcint27 : 1, pcint28 : 1, pcint29 : 1, pcint30 : 1, pcint31 : 1;
 	}par;
 	uint8_t var;
 } _PCMSK3_TypeDef; // 0x73
-// NON 0x74
-// NON 0x75
-// NON 0x76
-// NON 0x77
+// Reserved 0x74
+// Reserved 0x75
+// Reserved 0x76
+// Reserved 0x77
 // _ADCL ADCH 0x78 0x79 (_uint16_t)
 typedef volatile union {
 	struct{
@@ -294,7 +293,7 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _ADMUX_TypeDef; // 0x7C
-// NON 0x7D
+// Reserved 0x7D
 typedef volatile union {
 	struct{
 		uint8_t adc0d : 1, adc1d : 1, adc2d : 1, adc3d : 1, adc4d : 1, adc5d : 1, adc6d : 1, adc7d : 1;
@@ -325,47 +324,47 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TCCR1C_TypeDef; // 0x82
-// NON 0x83
+// Reserved 0x83
 // _TCNT1L TCNT1H 0x84 0x85 (_uint16_t)
 // _ICR1L ICR1H 0x86 0x87 (_uint16_t)
 // _OCR1AL OCR1AH 0x88 0x89 (_uint16_t)
 // _OCR1BL OCR1BH 0x8A 0x8B (_uint16_t)
-// NON 0x8C
-// NON 0x8D
-// NON 0x8E
-// NON 0x8F
-// NON 0x90
-// NON 0x91
-// NON 0x92
-// NON 0x93
-// NON 0x94
-// NON 0x95
-// NON 0x96
-// NON 0x97
-// NON 0x98
-// NON 0x99
-// NON 0x9A
-// NON 0x9B
-// NON 0x9C
-// NON 0x9D
-// NON 0x9E
-// NON 0x9F
-// NON 0xA0
-// NON 0xA1
-// NON 0xA2
-// NON 0xA3
-// NON 0xA4
-// NON 0xA5
-// NON 0xA6
-// NON 0xA7
-// NON 0xA8
-// NON 0xA9
-// NON 0xAA
-// NON 0xAB
-// NON 0xAC
-// NON 0xAD
-// NON 0xAE
-// NON 0xAF
+// Reserved 0x8C
+// Reserved 0x8D
+// Reserved 0x8E
+// Reserved 0x8F
+// Reserved 0x90
+// Reserved 0x91
+// Reserved 0x92
+// Reserved 0x93
+// Reserved 0x94
+// Reserved 0x95
+// Reserved 0x96
+// Reserved 0x97
+// Reserved 0x98
+// Reserved 0x99
+// Reserved 0x9A
+// Reserved 0x9B
+// Reserved 0x9C
+// Reserved 0x9D
+// Reserved 0x9E
+// Reserved 0x9F
+// Reserved 0xA0
+// Reserved 0xA1
+// Reserved 0xA2
+// Reserved 0xA3
+// Reserved 0xA4
+// Reserved 0xA5
+// Reserved 0xA6
+// Reserved 0xA7
+// Reserved 0xA8
+// Reserved 0xA9
+// Reserved 0xAA
+// Reserved 0xAB
+// Reserved 0xAC
+// Reserved 0xAD
+// Reserved 0xAE
+// Reserved 0xAF
 typedef volatile union {
 	struct{
 		uint8_t wgm20 : 1, wgm21 : 1, fill0 : 2, com2b0 : 1, com2b1 : 1, com2a0 : 1, com2a1 : 1;
@@ -381,14 +380,14 @@ typedef volatile union {
 // _TCNT2 0xB2 (_uint8_t)
 // _OCR2A 0xB3 (_uint8_t)
 // _OCR2B 0xB4 (_uint8_t)
-// NON 0xB5
+// Reserved 0xB5
 typedef volatile union {
 	struct{
 		uint8_t tcr2bub : 1, tcr2aub : 1, ocr2bub : 1, ocr2aub : 1, tcn2ub : 1, as2 : 1, exclk : 1, fill0 : 1;
 	}par;
 	uint8_t var;
 } _ASSR_TypeDef; // 0xB6
-// NON 0xB7
+// Reserved 0xB7
 // _TWBR 0xB8 (_uint8_t)
 typedef volatile union {
 	struct{
@@ -415,8 +414,8 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TWAMR_TypeDef; // 0xBD
-// NON 0xBE
-// NON 0xBF
+// Reserved 0xBE
+// Reserved 0xBF
 typedef volatile union {
 	struct{
 		uint8_t mpcm0 : 1, u2x0 : 1, upe0 : 1, dor0 : 1, fe0 : 1, udre0 : 1, txc0 : 1, rxc0 : 1;
@@ -435,10 +434,10 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _UCSR0C_TypeDef; // 0xC2
-// NON 0xC3
+// Reserved 0xC3
 // _UBRR0L UBRR0H 0xC4 0xC5 (_uint16_t)
 // _UDR0 0xC6 (_uint8_t)
-// NON 0xC7
+// Reserved 0xC7
 typedef volatile union {
 	struct{
 		uint8_t mpcm1 : 1, u2x1 : 1, upe1 : 1, dor1 : 1, fe1 : 1, udre1 : 1, txc1 : 1, rxc1 : 1;
@@ -457,58 +456,58 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _UCSR1C_TypeDef; // 0xCA
-// NON 0xCB
+// Reserved 0xCB
 // _UBRR1L UBRR1H 0xCC 0xCD (_uint16_t)
 // _UDR1 0xCE (_uint8_t)
-// NON 0xCF
-// NON 0xD0
-// NON 0xD1
-// NON 0xD2
-// NON 0xD3
-// NON 0xD4
-// NON 0xD5
-// NON 0xD6
-// NON 0xD7
-// NON 0xD8
-// NON 0xD9
-// NON 0xDA
-// NON 0xDB
-// NON 0xDC
-// NON 0xDD
-// NON 0xDE
-// NON 0xDF
-// NON 0xE0
-// NON 0xE1
-// NON 0xE2
-// NON 0xE3
-// NON 0xE4
-// NON 0xE5
-// NON 0xE6
-// NON 0xE7
-// NON 0xE8
-// NON 0xE9
-// NON 0xEA
-// NON 0xEB
-// NON 0xEC
-// NON 0xED
-// NON 0xEE
-// NON 0xEF
-// NON 0xF0
-// NON 0xF1
-// NON 0xF2
-// NON 0xF3
-// NON 0xF4
-// NON 0xF5
-// NON 0xF6
-// NON 0xF7
-// NON 0xF8
-// NON 0xF9
-// NON 0xFA
-// NON 0xFB
-// NON 0xFC
-// NON 0xFD
-// NON 0xFE
-// NON 0xFF
+// Reserved 0xCF
+// Reserved 0xD0
+// Reserved 0xD1
+// Reserved 0xD2
+// Reserved 0xD3
+// Reserved 0xD4
+// Reserved 0xD5
+// Reserved 0xD6
+// Reserved 0xD7
+// Reserved 0xD8
+// Reserved 0xD9
+// Reserved 0xDA
+// Reserved 0xDB
+// Reserved 0xDC
+// Reserved 0xDD
+// Reserved 0xDE
+// Reserved 0xDF
+// Reserved 0xE0
+// Reserved 0xE1
+// Reserved 0xE2
+// Reserved 0xE3
+// Reserved 0xE4
+// Reserved 0xE5
+// Reserved 0xE6
+// Reserved 0xE7
+// Reserved 0xE8
+// Reserved 0xE9
+// Reserved 0xEA
+// Reserved 0xEB
+// Reserved 0xEC
+// Reserved 0xED
+// Reserved 0xEE
+// Reserved 0xEF
+// Reserved 0xF0
+// Reserved 0xF1
+// Reserved 0xF2
+// Reserved 0xF3
+// Reserved 0xF4
+// Reserved 0xF5
+// Reserved 0xF6
+// Reserved 0xF7
+// Reserved 0xF8
+// Reserved 0xF9
+// Reserved 0xFA
+// Reserved 0xFB
+// Reserved 0xFC
+// Reserved 0xFD
+// Reserved 0xFE
+// Reserved 0xFF
 #endif
 /***EOF***/
 
