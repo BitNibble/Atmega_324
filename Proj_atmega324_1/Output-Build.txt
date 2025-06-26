@@ -5,8 +5,8 @@ Target "Clean" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targ
 	Task "RunCompilerTask"
 		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
 		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe clean 
-		rm -rf  Libraria/atmega324analog.o Libraria/atmega324preamble.o Libraria/atmega324timer.o Libraria/atmegaeeprom.o Libraria/function.o Libraria/keypad.o Libraria/lcd.o Libraria/lfsm.o Libraria/rotenc.o Libraria/uart.o main.o   
-		rm -rf  Libraria/atmega324analog.d Libraria/atmega324preamble.d Libraria/atmega324timer.d Libraria/atmegaeeprom.d Libraria/function.d Libraria/keypad.d Libraria/lcd.d Libraria/lfsm.d Libraria/rotenc.d Libraria/uart.d main.d   
+		rm -rf  Libraria/atmega324.o Libraria/atmega324analog.o Libraria/atmega324preamble.o Libraria/atmega324timer.o Libraria/atmega324_usart0.o Libraria/atmega324_usart1.o Libraria/atmegaeeprom.o Libraria/function.o Libraria/keypad.o Libraria/lcd.o Libraria/lfsm.o Libraria/rotenc.o main.o   
+		rm -rf  Libraria/atmega324.d Libraria/atmega324analog.d Libraria/atmega324preamble.d Libraria/atmega324timer.d Libraria/atmega324_usart0.d Libraria/atmega324_usart1.d Libraria/atmegaeeprom.d Libraria/function.d Libraria/keypad.d Libraria/lcd.d Libraria/lfsm.d Libraria/rotenc.d main.d   
 		rm -rf "atmega324.elf" "atmega324.a" "atmega324.hex" "atmega324.lss" "atmega324.eep" "atmega324.map" "atmega324.srec" "atmega324.usersignatures"
 	Done executing task "RunCompilerTask".
 Done building target "Clean" in project "atmega324.cproj".

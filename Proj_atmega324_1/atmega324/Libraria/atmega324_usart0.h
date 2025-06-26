@@ -1,5 +1,5 @@
 /************************************************************************
-	ATMEGA 324 USART1
+	ATMEGA 324 USART0
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega324
@@ -7,8 +7,8 @@ Update:   26/06/2025
 Comment:
 
 ************************************************************************/
-#ifndef _ATMEGA324_USART1_H_
-	#define _ATMEGA324_USART1_H_
+#ifndef _ATMEGA324_USART0_H_
+	#define _ATMEGA324_USART0_H_
 
 /*** Global Library ***/
 #include "atmega324.h"
@@ -17,8 +17,8 @@ Comment:
 #ifndef GLOBAL_INTERRUPT_ENABLE
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
-#ifndef UART1_RX_BUFFER_SIZE
-	#define UART1_RX_BUFFER_SIZE 32
+#ifndef UART0_RX_BUFFER_SIZE
+	#define UART0_RX_BUFFER_SIZE 32
 #endif
 
 #define UARTvar char
@@ -28,19 +28,19 @@ Comment:
 #define EVEN 2
 #define ODD 3
 
-//#if ( ( UART1_RX_BUFFER_SIZE ) >= ( RAMEND ) )
-//	#error "size of UART1_RX_BUFFER_SIZE larger than size of SRAM"
+//#if ( ( UART0_RX_BUFFER_SIZE ) >= ( RAMEND ) )
+//	#error "size of UART0_RX_BUFFER_SIZE larger than size of SRAM"
 //#endif
 
-#if defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__) 
+#if defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
 	// ATmega with two USART
 	
 	#define UART_FRAME_ERROR		0x0800              /* Framing Error by UART        */
 	#define UART_OVERRUN_ERROR		0x0400              /* Overrun condition by UART    */
 	#define UART_BUFFER_OVERFLOW	0x0200              /* receive ring buffer overflow */
 	#define UART_NO_DATA			0x0100              /* no receive data available    */
-	#define UART1_RECEIVE_INTERRUPT   USART1_RX_vect
-	#define UART1_TRANSMIT_INTERRUPT  USART1_UDRE_vect
+	#define UART0_RECEIVE_INTERRUPT   USART0_RX_vect
+	#define UART0_TRANSMIT_INTERRUPT  USART0_UDRE_vect
 #else
 	#error "Not Atmega 324"
 #endif
@@ -49,11 +49,11 @@ Comment:
 typedef struct {
 	// registers
 	_SREG_TypeDef* sreg; // 0x005F
-	_UCSR1A_TypeDef* ucsr1a; // 0x00C0
-	_UCSR1B_TypeDef* ucsr1b; // 0x00C1
-	_UCSR1C_TypeDef* ucsr1c; // 0x00C2
-	_uint16_t* ubrr1; // 0x00C4
-	_uint8_t* udr1; // 0x00C6
+	_UCSR0A_TypeDef* ucsr0a; // 0x00C0
+	_UCSR0B_TypeDef* ucsr0b; // 0x00C1
+	_UCSR0C_TypeDef* ucsr0c; // 0x00C2
+	_uint16_t* ubrr0; // 0x00C4
+	_uint8_t* udr0; // 0x00C6
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);
@@ -62,13 +62,13 @@ typedef struct {
 	void (*write)(UARTvar data);
 	void (*putch)(UARTvar c);
 	void (*puts)(UARTvar* s);
-}USART1;
+}USART0;
 
 /*** Global ***/
-USART1* usart1(void);
-USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+USART0* usart0(void);
+USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 
-char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
+char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
 

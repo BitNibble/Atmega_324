@@ -150,6 +150,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Libraria\atmega324.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\atmega324analog.c">
       <SubType>compile</SubType>
     </Compile>
@@ -157,6 +160,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\atmega324timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\atmega324_usart0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\atmega324_usart0.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\atmega324_usart1.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\atmegaeeprom.c">
@@ -181,9 +193,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\rotenc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\uart.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 17112022
+Date: 26062025
 Comment:
 	Buffer
 ******************************************************************************/
@@ -23,7 +23,7 @@ BUFFvar* BUFF_raw(bufferparameter* par);
 void BUFF_flush(bufferparameter* par);
 
 /*** Procedure & Function ***/
-BUFF BUFFenable( uint8_t size_buff, BUFFvar* buff )
+BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 {
 	// OBJECT STRUCT
 	BUFF ret;

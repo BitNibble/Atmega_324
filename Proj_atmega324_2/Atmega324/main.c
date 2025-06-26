@@ -90,11 +90,13 @@ int main(void)
 	
     while (True)
     {
+		lcd.gotoxy(0,0);
+	
 		input=keypad.getkey();
 		
 		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
 		
-		lcd0()->string_size(uartreceive, 6);
+		lcd0()->string_size(uartreceive, 20);
 		
 		if(input){
 			lcd.BF();

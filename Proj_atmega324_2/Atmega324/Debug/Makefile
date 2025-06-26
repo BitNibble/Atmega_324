@@ -43,6 +43,7 @@ C_SRCS +=  \
 ../Libraria/atmega324analog.c \
 ../Libraria/atmega324timer.c \
 ../Libraria/atmega324_usart0.c \
+../Libraria/atmega324_usart1.c \
 ../Libraria/atmegaeeprom.c \
 ../Libraria/buffer.c \
 ../Libraria/function.c \
@@ -64,6 +65,7 @@ Libraria/atmega324.o \
 Libraria/atmega324analog.o \
 Libraria/atmega324timer.o \
 Libraria/atmega324_usart0.o \
+Libraria/atmega324_usart1.o \
 Libraria/atmegaeeprom.o \
 Libraria/buffer.o \
 Libraria/function.o \
@@ -78,6 +80,7 @@ Libraria/atmega324.o \
 Libraria/atmega324analog.o \
 Libraria/atmega324timer.o \
 Libraria/atmega324_usart0.o \
+Libraria/atmega324_usart1.o \
 Libraria/atmegaeeprom.o \
 Libraria/buffer.o \
 Libraria/function.o \
@@ -92,6 +95,7 @@ Libraria/atmega324.d \
 Libraria/atmega324analog.d \
 Libraria/atmega324timer.d \
 Libraria/atmega324_usart0.d \
+Libraria/atmega324_usart1.d \
 Libraria/atmegaeeprom.d \
 Libraria/buffer.d \
 Libraria/function.d \
@@ -106,6 +110,7 @@ Libraria/atmega324.d \
 Libraria/atmega324analog.d \
 Libraria/atmega324timer.d \
 Libraria/atmega324_usart0.d \
+Libraria/atmega324_usart1.d \
 Libraria/atmegaeeprom.d \
 Libraria/buffer.d \
 Libraria/function.d \
@@ -157,6 +162,13 @@ Libraria/atmega324timer.o: ../Libraria/atmega324timer.c
 	
 
 Libraria/atmega324_usart0.o: ../Libraria/atmega324_usart0.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+Libraria/atmega324_usart1.o: ../Libraria/atmega324_usart1.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

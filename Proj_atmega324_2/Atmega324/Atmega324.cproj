@@ -188,6 +188,9 @@
     <Compile Include="Libraria\atmega324_usart0.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\atmega324_usart1.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\atmegaeeprom.c">
       <SubType>compile</SubType>
     </Compile>

@@ -12,6 +12,8 @@ Libraria\atmega324timer.c
 
 Libraria\atmega324_usart0.c
 
+Libraria\atmega324_usart1.c
+
 Libraria\atmegaeeprom.c
 
 Libraria\buffer.c

@@ -4,7 +4,7 @@ Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
-Date: 17112022
+Date: 26062025
 Comment:
 	Circular Buffer
 *******************************************************************************/
@@ -35,7 +35,7 @@ struct buffer
 typedef struct buffer BUFF;
 
 /*** Global Header ***/
-BUFF BUFFenable(uint8_t size_buff, BUFFvar* buff);
+BUFF buff_enable(uint8_t size_buff, BUFFvar* buff);
 
 #endif
 
