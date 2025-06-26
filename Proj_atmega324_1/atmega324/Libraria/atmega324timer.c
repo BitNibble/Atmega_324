@@ -74,15 +74,15 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	
 	timer0_state=0;
-	timer0.sreg = ((_SREG_TypeDef*)0x005F);
-	timer0.tifr0 = ((_TIFR0_Typedef*)0x0035);
-	timer0.gtccr = ((_GTCCR_TypeDef*)0x0043);
-	timer0.tccr0a = ((_TCCR0A_TypeDef*)0x0044);
-	timer0.tccr0b = ((_TCCR0B_TypeDef*)0x0045);
-	timer0.tcnt0 = ((_uint8_t*)0x0046);
-	timer0.ocr0a = ((_uint8_t*)0x0047);
-	timer0.ocr0b = ((_uint8_t*)0x0048);
-	timer0.timsk0 = ((_TIMSK0_TypeDef*)0x006E);
+	timer0.sreg = ((_SREG_TypeDef*) 0x005F);
+	timer0.tifr0 = ((_TIFR0_Typedef*) 0x0035);
+	timer0.gtccr = ((_GTCCR_TypeDef*) 0x0043);
+	timer0.tccr0a = ((_TCCR0A_TypeDef*) 0x0044);
+	timer0.tccr0b = ((_TCCR0B_TypeDef*) 0x0045);
+	timer0.tcnt0 = ((_uint8_t*) 0x0046);
+	timer0.ocr0a = ((_uint8_t*) 0x0047);
+	timer0.ocr0b = ((_uint8_t*) 0x0048);
+	timer0.timsk0 = ((_TIMSK0_TypeDef*) 0x006E);
 	
 	timer0.ocr0a->var = 0XFF;
 	timer0.ocr0b->var = 0XFF;
@@ -251,16 +251,16 @@ void TIMER_COUNTER0_stop(void)
 TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
-	timer1.sreg = ((_SREG_TypeDef*)0x005F);
-	timer1.tifr1 = ((_TIFR1_Typedef*)0x0036);
-	timer1.timsk1 = ((_TIMSK1_TypeDef*)0x006F);
-	timer1.tccr1a = ((_TCCR1A_TypeDef*)0x0080);
-	timer1.tccr1b = ((_TCCR1B_TypeDef*)0x0081);
-	timer1.tccr1c = ((_TCCR1C_TypeDef*)0x0082);
-	timer1.tcnt1 = ((_uint16_t*)0x0084);
-	timer1.icr1 = ((_uint16_t*)0x0086);
-	timer1.ocr1a = ((_uint16_t*)0x0088);
-	timer1.ocr1b = ((_uint16_t*)0x008A);
+	timer1.sreg = ((_SREG_TypeDef*) 0x005F);
+	timer1.tifr1 = ((_TIFR1_Typedef*) 0x0036);
+	timer1.timsk1 = ((_TIMSK1_TypeDef*) 0x006F);
+	timer1.tccr1a = ((_TCCR1A_TypeDef*) 0x0080);
+	timer1.tccr1b = ((_TCCR1B_TypeDef*) 0x0081);
+	timer1.tccr1c = ((_TCCR1C_TypeDef*) 0x0082);
+	timer1.tcnt1 = ((_uint16_t*) 0x0084);
+	timer1.icr1 = ((_uint16_t*) 0x0086);
+	timer1.ocr1a = ((_uint16_t*) 0x0088);
+	timer1.ocr1b = ((_uint16_t*) 0x008A);
 	
 	timer1.ocr1a->var = 0XFFFF;
 	timer1.ocr1b->var = 0XFFFF;
@@ -472,16 +472,16 @@ void TIMER_COUNTER1_stop(void)
 TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
-	timer2.sreg = ((_SREG_TypeDef*)0x005F);
-	timer2.tifr2 = ((_TIFR2_Typedef*)0x0037);
-	timer2.gtccr = ((_GTCCR_TypeDef*)0x0043);
-	timer2.timsk2 = ((_TIMSK2_TypeDef*)0x0070);
-	timer2.tccr2a = ((_TCCR2A_TypeDef*)0x00B0);
-	timer2.tccr2b = ((_TCCR2B_TypeDef*)0x00B1);
-	timer2.tcnt2 = ((_uint8_t*)0x00B2);
-	timer2.ocr2a = ((_uint8_t*)0x00B3);
-	timer2.ocr2b = ((_uint8_t*)0x00B4);
-	timer2.assr = ((_ASSR_TypeDef*)0x00B6);
+	timer2.sreg = ((_SREG_TypeDef*) 0x005F);
+	timer2.tifr2 = ((_TIFR2_Typedef*) 0x0037);
+	timer2.gtccr = ((_GTCCR_TypeDef*) 0x0043);
+	timer2.timsk2 = ((_TIMSK2_TypeDef*) 0x0070);
+	timer2.tccr2a = ((_TCCR2A_TypeDef*) 0x00B0);
+	timer2.tccr2b = ((_TCCR2B_TypeDef*) 0x00B1);
+	timer2.tcnt2 = ((_uint8_t*) 0x00B2);
+	timer2.ocr2a = ((_uint8_t*) 0x00B3);
+	timer2.ocr2b = ((_uint8_t*) 0x00B4);
+	timer2.assr = ((_ASSR_TypeDef*) 0x00B6);
 
 	timer2.ocr2a->var = 0XFF;
 	timer2.ocr2b->var = 0XFF;

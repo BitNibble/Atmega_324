@@ -72,7 +72,12 @@ typedef	volatile union {
 	}par;
 	uint8_t var;
 } _TIFR2_Typedef; // 0x37
-// Reserved 0x38
+typedef	volatile union {
+	struct{
+		uint8_t tov3 : 1, ocf3a : 1, ocf3b : 1, fill0 : 2, icf3 : 1, fill1 : 2;
+	}par;
+	uint8_t var;
+} _TIFR3_Typedef; // 0x38
 // Reserved 0x39
 // Reserved 0x3A
 typedef volatile union {
@@ -262,7 +267,12 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TIMSK2_TypeDef; // 0x70
-// Reserved 0x71
+typedef volatile union {
+	struct{
+		uint8_t toie3 : 1, ocie3a : 1, ocie3b : 1, fill0 : 2, icie3 : 1, fill1 : 2;
+	}par;
+	uint8_t var;
+} _TIMSK3_TypeDef; // 0x71
 // Reserved 0x72
 typedef volatile union {
 	struct{
@@ -333,18 +343,29 @@ typedef volatile union {
 // Reserved 0x8D
 // Reserved 0x8E
 // Reserved 0x8F
-// Reserved 0x90
-// Reserved 0x91
-// Reserved 0x92
+typedef volatile union {
+	struct{
+		uint8_t wgm30 : 1, wgm31 : 1, fill0 : 2, com3b0 : 1, com3b1 : 1, com3a0 : 1, com3a1 : 1;
+	}par;
+	uint8_t var;
+} _TCCR3A_TypeDef; // 0x90
+typedef volatile union {
+	struct{
+		uint8_t cs30 : 1, cs31 : 1, cs32 : 1, wgm32 : 1, wgm33 : 1, fill0 : 1, ices3 : 1, icnc3 : 1;
+	}par;
+	uint8_t var;
+} _TCCR3B_TypeDef; // 0x91
+typedef volatile union {
+	struct{
+		uint8_t fill0 : 6, foc3b : 1, foc3a : 1;
+	}par;
+	uint8_t var;
+} _TCCR3C_TypeDef; // 0x92
 // Reserved 0x93
-// Reserved 0x94
-// Reserved 0x95
-// Reserved 0x96
-// Reserved 0x97
-// Reserved 0x98
-// Reserved 0x99
-// Reserved 0x9A
-// Reserved 0x9B
+// _TCNT1L TCNT1H 0x94 0x95 (_uint16_t)
+// _ICR1L ICR1H 0x96 0x97 (_uint16_t)
+// _OCR1AL OCR1AH 0x98 0x99 (_uint16_t)
+// _OCR1BL OCR1BH 0x9A 0x9B (_uint16_t)
 // Reserved 0x9C
 // Reserved 0x9D
 // Reserved 0x9E

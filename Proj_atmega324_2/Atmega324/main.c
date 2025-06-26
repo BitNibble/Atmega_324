@@ -315,11 +315,8 @@ int main(void)
 }//endmain
 /***Prototypes***/
 void PORTINIT(void){
-	//DDRD = (1<<0) | (1<<4) | (1<<5);
 	DDRD = (1<<4) | (1<<5);
-	//DDRD = (1<<5);
 	PORTD = (1<<4) | (1<<5);
-	//PORTD = (1<<5);
 };
 /***Interrupts***/
 ISR(TIMER1_COMPA_vect)
