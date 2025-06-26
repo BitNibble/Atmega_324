@@ -19,7 +19,7 @@ Hardware: Atmega324A
 #include "atmega324analog.h"
 #include "atmegaeeprom.h"
 #include "atmega324timer.h"
-#include "uart.h"
+#include "atmega324_usart0.h"
 //Constant & macros
 #define True 1
 #define False 0
@@ -27,6 +27,7 @@ Hardware: Atmega324A
 uint16_t N_off=10;
 uint16_t N_on=8000;
 volatile uint16_t counter=0;
+char* uartreceive = NULL; // capture
 //Prototype header
 void PORTINIT(void);
 /******/
@@ -46,16 +47,17 @@ int main(void)
 	//Initialize objects
 	TIMER_COUNTER1 tim1 = TIMER_COUNTER1enable(4,3);//4,0
 	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
-	LCD0 lcd0 = lcd0_enable(&DDRC,&PINC,&PORTC);
+	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROMenable();
+	usart0_enable(38400,8,1,NONE);
     /* Init Values */
 	
 	TC1()->tcnt1->par.h.var = 55;
 	
-	lcd0.gotoxy(0,0);
-	lcd0.string_size("Bom dia !",12);
-	lcd0.BF();
+	lcd.gotoxy(0,0);
+	lcd.string_size("Bom dia !",12);
+	lcd.BF();
 	tcompare=compare=eeprom.read_word((uint16_t*)0);
 	prescaler=eeprom.read_word((uint16_t*)4);
 	tN_off=N_off=eeprom.read_word((uint16_t*)8);
@@ -78,23 +80,32 @@ int main(void)
 			break;
 		default:
 			break;
-	}//endswitch	
+	}//end switch	
 	tim1.compoutmodeA(1);
 	tim1.compareA(compare);
 	tim1.start(prescaler);
+	
+	char uartmsg[UART0_RX_BUFFER_SIZE]; // One shot
+	char uartmsgprint[UART0_RX_BUFFER_SIZE]; // triggered
+	
     while (True)
     {
 		input=keypad.getkey();
+		
+		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
+		
+		lcd0()->string_size(uartreceive, 6);
+		
 		if(input){
-			lcd0.BF();
-			lcd0.gotoxy(1,0);
-			lcd0.string("Key: ");
-			lcd0.putch(input);
-			lcd0.hspace(3);
-			lcd0.BF();
-			lcd0.gotoxy(0,0);
-			lcd0.string_size("Running !",12);
-			lcd0.BF();
+			lcd.BF();
+			lcd.gotoxy(1,0);
+			lcd.string("Key: ");
+			lcd.putch(input);
+			lcd.hspace(3);
+			lcd.BF();
+			lcd.gotoxy(0,0);
+			lcd.string_size("Running !",12);
+			lcd.BF();
 			//DEFAULT
 			if(input == 'D'){
 				tcompare=compare=2048;
@@ -276,26 +287,26 @@ int main(void)
 		/***DISPLAY***/
 		//Parameters
 		value = func.i32toa(compare);
-		lcd0.gotoxy(2,0);
-		lcd0.string_size(value,5);
-		lcd0.BF();
-		lcd0.hspace(1);
-		lcd0.string("at");
-		lcd0.hspace(1);
+		lcd.gotoxy(2,0);
+		lcd.string_size(value,5);
+		lcd.BF();
+		lcd.hspace(1);
+		lcd.string("at");
+		lcd.hspace(1);
 		value = func.i32toa(prescaler);
-		lcd0.string_size(value,5);
-		lcd0.BF();
+		lcd.string_size(value,5);
+		lcd.BF();
 		//Cycle
 		value = func.i32toa(N_on/2);
-		lcd0.gotoxy(3,0);
-		lcd0.string_size(value,5);
-		lcd0.BF();
-		lcd0.hspace(1);
-		lcd0.string("and");
-		lcd0.hspace(1);
+		lcd.gotoxy(3,0);
+		lcd.string_size(value,5);
+		lcd.BF();
+		lcd.hspace(1);
+		lcd.string("and");
+		lcd.hspace(1);
 		value = func.i32toa(N_off/2);
-		lcd0.string_size(value,5);
-		lcd0.BF();
+		lcd.string_size(value,5);
+		lcd.BF();
 		//Default
 		
     }//endwhile

@@ -39,14 +39,16 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../Libraria/74hc595.c \
+../Libraria/atmega324.c \
 ../Libraria/atmega324analog.c \
 ../Libraria/atmega324timer.c \
+../Libraria/atmega324_usart0.c \
 ../Libraria/atmegaeeprom.c \
+../Libraria/buffer.c \
 ../Libraria/function.c \
 ../Libraria/keypad.c \
 ../Libraria/lcd.c \
 ../Libraria/rotenc.c \
-../Libraria/uart.c \
 ../main.c
 
 
@@ -58,50 +60,58 @@ ASM_SRCS +=
 
 OBJS +=  \
 Libraria/74hc595.o \
+Libraria/atmega324.o \
 Libraria/atmega324analog.o \
 Libraria/atmega324timer.o \
+Libraria/atmega324_usart0.o \
 Libraria/atmegaeeprom.o \
+Libraria/buffer.o \
 Libraria/function.o \
 Libraria/keypad.o \
 Libraria/lcd.o \
 Libraria/rotenc.o \
-Libraria/uart.o \
 main.o
 
 OBJS_AS_ARGS +=  \
 Libraria/74hc595.o \
+Libraria/atmega324.o \
 Libraria/atmega324analog.o \
 Libraria/atmega324timer.o \
+Libraria/atmega324_usart0.o \
 Libraria/atmegaeeprom.o \
+Libraria/buffer.o \
 Libraria/function.o \
 Libraria/keypad.o \
 Libraria/lcd.o \
 Libraria/rotenc.o \
-Libraria/uart.o \
 main.o
 
 C_DEPS +=  \
 Libraria/74hc595.d \
+Libraria/atmega324.d \
 Libraria/atmega324analog.d \
 Libraria/atmega324timer.d \
+Libraria/atmega324_usart0.d \
 Libraria/atmegaeeprom.d \
+Libraria/buffer.d \
 Libraria/function.d \
 Libraria/keypad.d \
 Libraria/lcd.d \
 Libraria/rotenc.d \
-Libraria/uart.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
 Libraria/74hc595.d \
+Libraria/atmega324.d \
 Libraria/atmega324analog.d \
 Libraria/atmega324timer.d \
+Libraria/atmega324_usart0.d \
 Libraria/atmegaeeprom.d \
+Libraria/buffer.d \
 Libraria/function.d \
 Libraria/keypad.d \
 Libraria/lcd.d \
 Libraria/rotenc.d \
-Libraria/uart.d \
 main.d
 
 OUTPUT_FILE_PATH +=Atmega324.elf
@@ -125,6 +135,13 @@ Libraria/74hc595.o: ../Libraria/74hc595.c
 	@echo Finished building: $<
 	
 
+Libraria/atmega324.o: ../Libraria/atmega324.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 Libraria/atmega324analog.o: ../Libraria/atmega324analog.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -139,7 +156,21 @@ Libraria/atmega324timer.o: ../Libraria/atmega324timer.c
 	@echo Finished building: $<
 	
 
+Libraria/atmega324_usart0.o: ../Libraria/atmega324_usart0.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 Libraria/atmegaeeprom.o: ../Libraria/atmegaeeprom.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+Libraria/buffer.o: ../Libraria/buffer.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -168,13 +199,6 @@ Libraria/lcd.o: ../Libraria/lcd.c
 	
 
 Libraria/rotenc.o: ../Libraria/rotenc.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-Libraria/uart.o: ../Libraria/uart.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
