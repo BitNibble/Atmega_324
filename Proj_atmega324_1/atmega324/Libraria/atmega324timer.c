@@ -194,12 +194,14 @@ void TIMER_COUNTER0_compoutmodeA(uint8_t compoutmode)
 		// Toggle OC0 on compare match
 		timer0.tccr0a->var|=(1<<COM0A0);
 		break;
-		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+		case 2: // Clear OC0 on compare match when up-counting. 
+		// Set OC0 on compare
 		// match when down counting.
 		// Clear OC0 on compare match
 		timer0.tccr0a->var|=(1<<COM0A1);
 		break;
-		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC0 on compare match when up-counting. 
+		// Clear OC0 on compare
 		// match when down counting.
 		// Set OC0 on compare match
 		timer0.tccr0a->var|=((1<<COM0A0) | (1<<COM0A1));
@@ -216,12 +218,14 @@ void TIMER_COUNTER0_compoutmodeB(uint8_t compoutmode)
 		// Toggle OC0 on compare match
 		timer0.tccr0a->var|=(1<<COM0B0);
 		break;
-		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+		case 2: // Clear OC0 on compare match when up-counting. 
+		// Set OC0 on compare
 		// match when down counting.
 		// Clear OC0 on compare match
 		timer0.tccr0a->var|=(1<<COM0B1);
 		break;
-		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC0 on compare match when up-counting. 
+		// Clear OC0 on compare
 		// match when down counting.
 		// Set OC0 on compare match
 		timer0.tccr0a->var|=((1<<COM0B0) | (1<<COM0B1));
@@ -407,12 +411,14 @@ void TIMER_COUNTER1_compoutmodeA(uint8_t compoutmode)
 			// Toggle OC1A on compare match
 			timer1.tccr1a->var|=(1<<COM1A0);
 			break;
-		case 2: // Clear OC1A on compare match when up-counting. Set OC1A on compare
+		case 2: // Clear OC1A on compare match when up-counting. 
+			// Set OC1A on compare
 			// match when down counting.
 			// Clear OC1A on compare match
 			timer1.tccr1a->var|=(1<<COM1A1);
 			break;
-		case 3: // Set OC1A on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC1A on compare match when up-counting. 
+			// Clear OC1 on compare
 			// match when down counting.
 			// Set OC1A on compare match
 			timer1.tccr1a->var|=((1<<COM1A0) | (1<<COM1A1));
@@ -429,12 +435,14 @@ void TIMER_COUNTER1_compoutmodeB(uint8_t compoutmode)
 			// Toggle OC1B on compare match
 			timer1.tccr1a->var|=(1<<COM1B0);
 			break;
-		case 2: // Clear OC1B on compare match when up-counting. Set OC0 on compare
+		case 2: // Clear OC1B on compare match when up-counting. 
+			// Set OC1 on compare
 			// match when down counting.
 			// Clear OC1B on compare match
 			timer1.tccr1a->var|=(1<<COM1B1);
 			break;
-		case 3: // Set OC1B on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC1B on compare match when up-counting. 
+			// Clear OC1 on compare
 			// match when down counting.
 			// Set OC1 on compare match
 			timer1.tccr1a->var|=((1<<COM1B0) | (1<<COM1B1));
@@ -583,20 +591,22 @@ void TIMER_COUNTER2_compoutmodeA(uint8_t compoutmode)
 	timer2.tccr2a->var &= ~((1<<COM2A0) | (1<<COM2A1));
 	switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
 		case 1: // Reserved
-			// Toggle OC0 on compare match
+			// Toggle OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2A0);
 			break;
-		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+		case 2: // Clear OC2 on compare match when up-counting. 
+			// Set OC2 on compare
 			// match when down counting.
-			// Clear OC0 on compare match
+			// Clear OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2A1);
 			break;
-		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC2 on compare match when up-counting. 
+			// Clear OC2 on compare
 			// match when down counting.
-			// Set OC0 on compare match
+			// Set OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2A0) | (1<<COM2A1);
 			break;
-		default: // Normal port operation, OC0 disconnected.
+		default: // Normal port operation, OC2 disconnected.
 			break;
 	}
 }
@@ -605,20 +615,22 @@ void TIMER_COUNTER2_compoutmodeB(uint8_t compoutmode)
 	timer2.tccr2a->var&=~((1<<COM2B0) | (1<<COM2B1));
 	switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
 		case 1: // Reserved
-			// Toggle OC0 on compare match
+			// Toggle OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2B0);
 			break;
-		case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+		case 2: // Clear OC2 on compare match when up-counting. 
+			// Set OC2 on compare
 			// match when downcounting.
-			// Clear OC0 on compare match
+			// Clear OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2B1);
 			break;
-		case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+		case 3: // Set OC2 on compare match when up-counting. 
+			// Clear OC2 on compare
 			// match when downcounting.
-			// Set OC0 on compare match
+			// Set OC2 on compare match
 			timer2.tccr2a->var|=(1<<COM2B0) | (1<<COM2B1);
 			break;
-		default: // Normal port operation, OC0 disconnected.
+		default: // Normal port operation, OC2 disconnected.
 			break;
 	}
 }
