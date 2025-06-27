@@ -211,7 +211,10 @@ char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* en
 	ptr = uart->gets();
 	length = strlen(ptr);
 	if(length >= endlength){
-		if( !strcmp( ptr+(length-endlength), endl ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
+		if( !strcmp( ptr+(length-endlength), endl ) ){
+			*(ptr+(length-endlength)) = 0;
+			strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF;
+		}
 		// default
 		//else if( !strcmp( ptr+(length-endlength), "\r" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }
 		//else if( !strcmp( ptr+(length-endlength), "\n" ) ){ strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF; }

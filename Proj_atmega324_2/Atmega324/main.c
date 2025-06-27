@@ -96,7 +96,7 @@ int main(void)
 		
 		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
 		
-		lcd0()->string_size(uartreceive, 20);
+		lcd0()->string_size(uartmsgprint, 20);
 		
 		if(input){
 			lcd.BF();

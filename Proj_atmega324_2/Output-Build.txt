@@ -4,8 +4,8 @@ Target "Compile" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.ta
 	Using "RunCompilerTask" task from assembly "C:\Program Files (x86)\Atmel\Studio\7.0\Extensions\Application\AvrGCC.dll".
 	Task "RunCompilerTask"
 		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
-		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe "main.o" 
-		make: 'main.o' is up to date.
+		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe "Libraria/atmega324_usart1.o" 
+		make: 'Libraria/atmega324_usart1.o' is up to date.
 	Done executing task "RunCompilerTask".
 Done building target "Compile" in project "Atmega324.cproj".
 Done building project "Atmega324.cproj".
