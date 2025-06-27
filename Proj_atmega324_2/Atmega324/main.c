@@ -85,8 +85,8 @@ int main(void)
 	tim1.compareA(compare);
 	tim1.start(prescaler);
 	
-	char uartmsg[UART0_RX_BUFFER_SIZE]; // One shot
-	char uartmsgprint[UART0_RX_BUFFER_SIZE]; // triggered
+	char uartmsg[UART0_RX_BUFFER_SIZE] = {0}; // One shot
+	char uartmsgprint[UART0_RX_BUFFER_SIZE] = {0}; // triggered
 	
     while (True)
     {
@@ -94,7 +94,7 @@ int main(void)
 	
 		input=keypad.getkey();
 		
-		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
+		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, ".");
 		
 		lcd0()->string_size(uartmsgprint, 20);
 		

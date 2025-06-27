@@ -18,7 +18,7 @@ static USART1 atmega324_usart1;
 
 static BUFF rx1buff;
 static UARTvar UART1_Rx;
-static UARTvar UART1_RxBuf[UART1_RX_BUFFER_SIZE];
+static UARTvar UART1_RxBuf[UART1_RX_BUFFER_SIZE] = {0};
 static const uint16_t uart1_rx_buffer_size = UART1_RX_BUFFER_SIZE - 1;
 static uint8_t UART1_LastRxError;
 static uint8_t uart1flag;
@@ -212,7 +212,6 @@ char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* en
 	length = strlen(ptr);
 	if(length >= endlength){
 		if( !strcmp( ptr+(length-endlength), endl ) ){
-			*(ptr+(length-endlength)) = 0;
 			strcpy(oneshot, ptr); strcpy(msg, ptr); uart1flag = 0xFF;
 		}
 		// default
