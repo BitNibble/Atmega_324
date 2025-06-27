@@ -24,10 +24,14 @@ Comment:
 #define NONE 0
 #define EVEN 2
 #define ODD 3
+#ifndef SRAMEND
+	#define SRAMSTART 0x0100
+	#define SRAMEND 0x08FF
+#endif
 
-//#if ( ( UART0_RX_BUFFER_SIZE ) >= ( RAMEND ) )
-//	#error "size of UART0_RX_BUFFER_SIZE larger than size of SRAM"
-//#endif
+#if ( ( UART0_RX_BUFFER_SIZE ) >= ( SRAMEND ) - SRAMSTART )
+	#error "size of UART0_RX_BUFFER_SIZE larger than size of SRAM"
+#endif
 
 #if defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
 	// ATmega with two USART

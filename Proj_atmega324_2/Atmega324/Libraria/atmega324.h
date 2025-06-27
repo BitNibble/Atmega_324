@@ -27,6 +27,8 @@ Date:     24/06/2025
 #define WORD_BITS 16
 #define DWORD_BITS 32
 #define QWORD_BITS 64
+#define SRAMSTART 0x0100
+#define SRAMEND 0x08FF
 #define Atmega324_GPW 0x0000
 #define Atmega324_GPIOA 0x0020
 #define Atmega324_GPIOB 0x0023
