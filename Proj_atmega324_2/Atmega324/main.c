@@ -124,7 +124,7 @@ int main(void)
 			//off decrement
 			if(input=='*'){
 				tN_on-=1;
-				if(tN_on>N_on || tN_on<0)
+				if(tN_on>N_on)
 					tN_on=N_on=0;
 				else
 					N_on=tN_on;
@@ -154,7 +154,7 @@ int main(void)
 			//on decrement
 			if(input==35){
 				tN_off-=1;
-				if(tN_off>N_off || tN_off<0)
+				if(tN_off>N_off)
 					tN_off=N_off=0;
 				else
 					N_off=tN_off;

@@ -14,9 +14,6 @@ Comment:
 #include "atmega324.h"
 
 /*** Global Constant & Macro ***/
-#ifndef GLOBAL_INTERRUPT_ENABLE
-	#define GLOBAL_INTERRUPT_ENABLE 7
-#endif
 #ifndef UART1_RX_BUFFER_SIZE
 	#define UART1_RX_BUFFER_SIZE 32
 #endif
