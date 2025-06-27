@@ -217,6 +217,9 @@
     <Compile Include="Libraria\lcd.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\rotenc.c">
       <SubType>compile</SubType>
     </Compile>

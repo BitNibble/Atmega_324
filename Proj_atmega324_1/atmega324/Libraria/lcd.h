@@ -3,9 +3,9 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     12112022
+Date:     27062025
 Comment:
-	tested Atemga128 16Mhz and Atmega328 8Mhz
+
 ************************************************************************/
 #ifndef _LCD_H_
 	#define _LCD_H_
@@ -18,6 +18,7 @@ Comment:
 #endif
 
 /***Global Library***/
+#include <stdint.h>
 #include <inttypes.h>
 
 /***Global Constant & Macro***/

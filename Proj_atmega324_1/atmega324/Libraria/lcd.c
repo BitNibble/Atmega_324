@@ -3,18 +3,13 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     12112022
+Date:     27062025
 Comment:
-	Tested Atemga128 16Mhz and Atmega328 8Mhz                    
+                  
 ************************************************************************/
 /***File Library***/
 #include "lcd.h"
 #include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /***File Variable***/
 static LCD0 setup_lcd0;
@@ -167,7 +162,6 @@ char LCD0_read(unsigned short D_I)
 	return c;
 }
 void LCD0_BF(void)
-// it has to read at minimum one equal and exit immediately if not equal, weird property.
 {
 	uint8_t i;
 	char inst = 0x80;
@@ -374,7 +368,7 @@ void LCD1_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
-	for(i=0; (0x80 & inst); i++){ // it has to read at minimum one equal and exit immediately if not equal, weird property.
+	for(i=0; (0x80 & inst); i++){
 		inst = LCD0_read(INST);
 		if(i > 10)
 			break;
