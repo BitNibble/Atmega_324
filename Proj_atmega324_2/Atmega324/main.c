@@ -12,7 +12,6 @@ Hardware: Atmega324A
 #define F_CPU 8000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <inttypes.h>
 #include "keypad.h"
 #include "lcd.h"
 #include "function.h"
@@ -30,6 +29,7 @@ volatile uint16_t counter=0;
 char* uartreceive = NULL; // capture
 //Prototype header
 void PORTINIT(void);
+/******/
 /******/
 int main(void)
 {
@@ -53,7 +53,7 @@ int main(void)
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
 	
-	TC1()->reg->tcnt1->par.h.var = 55;
+	tc1_instance()->tcnt1->par.h.var = 55;
 	
 	lcd.gotoxy(0,0);
 	lcd.string_size("Bom dia !",12);

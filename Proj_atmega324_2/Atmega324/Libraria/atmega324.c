@@ -197,6 +197,14 @@ static const Atmega324Usart1_TypeDef usart1 = {
 Atmega324Usart1_TypeDef* usart1_instance(void) {
 	return (Atmega324Usart1_TypeDef*) &usart1;
 }
+// Static instance with register mappings
+static const Atmega324WatchdogTimer_TypeDef wdt = {
+	.wdtcsr = (_WDTCSR_TypeDef*) 0x0060
+};
+// Singleton accessor
+Atmega324WatchdogTimer_TypeDef* wdt_instance(void) {
+	return (Atmega324WatchdogTimer_TypeDef*) &wdt;
+}
 /*******************************************************************************************************************************************/
 /*******************************************************************************************************************************************/
 /*** Atmega 128 Procedure and Function ***/

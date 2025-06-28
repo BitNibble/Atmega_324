@@ -114,7 +114,7 @@ typedef struct {
 
 Atmega324AnalogComparator_TypeDef* ac_instance(void);
 
-// Analog to Digital Converter (ADC0)
+// Analog to Digital Converter (ADC)
 typedef struct {
 	_uint16_t* adc; // 0x0078 0x0079
 	_ADCSRA_TypeDef* adcsra; // 0x007A
@@ -234,30 +234,32 @@ Atmega324TwoWireSerialInterface_TypeDef* twi_instance(void);
 
 // USART (USART0)
 typedef struct {
-	_UCSR0A_TypeDef* ucsr0a;  // 0x00C0
-	_UCSR0B_TypeDef* ucsr0b;  // 0x00C1
-	_UCSR0C_TypeDef* ucsr0c;  // 0x00C2
-	_uint16_t*       ubrr0;   // 0x00C4–0x00C5 (UBRR0H: 0x00C4, UBRR0L: 0x00C5)
-	_uint8_t*        udr0;    // 0x00C6
+	_UCSR0A_TypeDef* ucsr0a; // 0x00C0
+	_UCSR0B_TypeDef* ucsr0b; // 0x00C1
+	_UCSR0C_TypeDef* ucsr0c; // 0x00C2
+	_uint16_t* ubrr0; // 0x00C4–0x00C5 (UBRR0H: 0x00C4, UBRR0L: 0x00C5)
+	_uint8_t* udr0; // 0x00C6
 } Atmega324Usart0_TypeDef;
 
 Atmega324Usart0_TypeDef* usart0_instance(void);
 
 // USART (USART1)
 typedef struct {
-	_UCSR1A_TypeDef* ucsr1a;  // 0x00C8
-	_UCSR1B_TypeDef* ucsr1b;  // 0x00C9
-	_UCSR1C_TypeDef* ucsr1c;  // 0x00CA
-	_uint16_t*       ubrr1;   // 0x00CC–0x00CD (UBRR1H: 0x00CC, UBRR1L: 0x00CD)
-	_uint8_t*        udr1;    // 0x00CE
+	_UCSR1A_TypeDef* ucsr1a; // 0x00C8
+	_UCSR1B_TypeDef* ucsr1b; // 0x00C9
+	_UCSR1C_TypeDef* ucsr1c; // 0x00CA
+	_uint16_t* ubrr1; // 0x00CC–0x00CD (UBRR1H: 0x00CC, UBRR1L: 0x00CD)
+	_uint8_t* udr1; // 0x00CE
 } Atmega324Usart1_TypeDef;
 
 Atmega324Usart1_TypeDef* usart1_instance(void);
 
 // Watchdog Timer (WDT)
 typedef struct {
-	uint8_t wdtcsr; // 0x0060
+	_WDTCSR_TypeDef* wdtcsr; // 0x0060
 } Atmega324WatchdogTimer_TypeDef;
+
+Atmega324WatchdogTimer_TypeDef* wdt_instance(void);
 
 /*** Atmega 128 Procedure and Function ***/
 uint16_t swapbyte(uint16_t num);
