@@ -49,12 +49,7 @@ Comment:
 /*** Global Variable ***/
 typedef struct {
 	// registers
-	_SREG_TypeDef* sreg; // 0x005F
-	_UCSR0A_TypeDef* ucsr0a; // 0x00C0
-	_UCSR0B_TypeDef* ucsr0b; // 0x00C1
-	_UCSR0C_TypeDef* ucsr0c; // 0x00C2
-	_uint16_t* ubrr0; // 0x00C4
-	_uint8_t* udr0; // 0x00C6
+	Atmega324Usart0_TypeDef* reg;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);

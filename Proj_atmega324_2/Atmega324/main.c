@@ -53,7 +53,7 @@ int main(void)
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
 	
-	TC1()->tcnt1->par.h.var = 55;
+	TC1()->reg->tcnt1->par.h.var = 55;
 	
 	lcd.gotoxy(0,0);
 	lcd.string_size("Bom dia !",12);
