@@ -1,0 +1,4 @@
+
+28062025:
+Program Memory Usage 	:	15962 bytes   48,7 % Full
+Data Memory Usage 		:	385 bytes   18,8 % Full

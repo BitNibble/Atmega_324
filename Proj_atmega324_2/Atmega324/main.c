@@ -58,11 +58,14 @@ int main(void)
 	lcd.gotoxy(0,0);
 	lcd.string_size("Bom dia !",12);
 	lcd.BF();
+	
+	gpiod_instance()->port->par.b2 = 1;
+	
 	tcompare=compare=eeprom.read_word((uint16_t*)0);
 	prescaler=eeprom.read_word((uint16_t*)4);
 	tN_off=N_off=eeprom.read_word((uint16_t*)8);
 	tN_on=N_on=eeprom.read_word((uint16_t*)12);
-	switch(prescaler){
+	switch(prescaler) {
 		case 1:
 			steprescaler=1;
 			break;
@@ -98,7 +101,7 @@ int main(void)
 		
 		lcd0()->string_size(uartmsgprint, 20);
 		
-		if(input){
+		if(input) {
 			lcd.BF();
 			lcd.gotoxy(1,0);
 			lcd.string("Key: ");
@@ -109,7 +112,7 @@ int main(void)
 			lcd.string_size("Running !",12);
 			lcd.BF();
 			//DEFAULT
-			if(input == 'D'){
+			if(input == 'D') {
 				tcompare=compare=2048;
 				prescaler=1024;
 				steprescaler=0;
@@ -122,14 +125,14 @@ int main(void)
 			}
 			//Adjust Impulses off and impulses on
 			//off decrement
-			if(input=='*'){
+			if(input=='*') {
 				tN_on-=1;
 				if(tN_on>N_on)
 					tN_on=N_on=0;
 				else
 					N_on=tN_on;
 			}
-			if(input=='0'){
+			if(input=='0') {
 				tN_on-=10;
 				if(tN_on>N_on)
 					tN_on=N_on=0;
@@ -137,14 +140,14 @@ int main(void)
 					N_on=tN_on;
 			}
 			//off increment
-			if(input=='7'){
+			if(input=='7') {
 				tN_on+=1;
 				if(tN_on<N_on)
 					tN_on=N_on=65535;
 				else
 					N_on=tN_on;
 			}
-			if(input=='8'){
+			if(input=='8') {
 				tN_on+=10;
 				if(tN_on<N_on)
 					tN_on=N_on=65535;
@@ -152,7 +155,7 @@ int main(void)
 					N_on=tN_on;
 			}
 			//on decrement
-			if(input==35){
+			if(input==35) {
 				tN_off-=1;
 				if(tN_off>N_off)
 					tN_off=N_off=0;
@@ -160,7 +163,7 @@ int main(void)
 					N_off=tN_off;
 			}
 			//on increment
-			if(input=='9'){
+			if(input=='9') {
 				tN_off+=1;
 				if(tN_off<N_off)
 					tN_off=N_off=65535;
@@ -169,7 +172,7 @@ int main(void)
 			}
 			//Adjust compare OCR1A
 			//decrement
-			if(input=='4'){
+			if(input=='4') {
 				//tim1.stop();
 				tcompare-=1;
 				if(tcompare>compare || tcompare<3)
@@ -179,7 +182,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='5'){
+			if(input=='5') {
 				//tim1.stop();
 				tcompare-=10;
 				if(tcompare>compare)
@@ -189,7 +192,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='6'){
+			if(input=='6') {
 				//tim1.stop();
 				tcompare-=100;
 				if(tcompare>compare)
@@ -199,7 +202,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='B'){
+			if(input=='B') {
 				//tim1.stop();
 				tcompare-=1000;
 				if(tcompare>compare)
@@ -210,7 +213,7 @@ int main(void)
 				//tim1.start(prescaler);
 			}
 			//increment
-			if(input=='1'){
+			if(input=='1') {
 				//tim1.stop();
 				tcompare+=1;
 				if(tcompare<compare)
@@ -220,7 +223,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='2'){
+			if(input=='2') {
 				//tim1.stop();
 					tcompare+=10;
 				if(tcompare<compare)
@@ -230,7 +233,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='3'){
+			if(input=='3') {
 				//tim1.stop();
 					tcompare+=100;
 				if(tcompare<compare)
@@ -240,7 +243,7 @@ int main(void)
 				tim1.compareA(compare);
 				//tim1.start(prescaler);
 			}
-			if(input=='A'){
+			if(input=='A') {
 				//tim1.stop();
 					tcompare+=1000;
 				if(tcompare<compare)
@@ -251,7 +254,7 @@ int main(void)
 				//tim1.start(prescaler);
 			}
 			//Adjust prescaler 'C' toggles between possible selections
-			if(input=='C'){
+			if(input=='C') {
 				switch(steprescaler){
 					case 0:
 						prescaler=1;
@@ -315,8 +318,9 @@ int main(void)
 }//endmain
 /***Prototypes***/
 void PORTINIT(void){
-	DDRD = (1<<4) | (1<<5);
-	PORTD = (1<<4) | (1<<5);
+	gpiod_instance()->ddr->par.b2 = 1;
+	gpiod_instance()->ddr->var |= (1<<4) | (1<<5);
+	gpiod_instance()->port->var = (1<<4) | (1<<5);
 };
 /***Interrupts***/
 ISR(TIMER1_COMPA_vect)
