@@ -14,9 +14,7 @@ Hardware: Atmega 324 at 8Mhz
 #endif
 
 typedef struct {
-	// registers
-	Atmega324TimerCounter0_TypeDef* reg;
-	// prototype pointers
+	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
 	void (*compareA)(uint8_t compare);
@@ -26,9 +24,7 @@ typedef struct {
 } TIMER_COUNTER0;
 /**/
 typedef struct {
-	// registers
-	Atmega324TimerCounter1_TypeDef* reg;
-	// prototype pointers
+	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
 	void (*compareA)(uint16_t compare);
@@ -38,9 +34,7 @@ typedef struct {
 } TIMER_COUNTER1;
 /**/
 typedef struct {
-	// registers
-	Atmega324TimerCounter2_TypeDef* reg;
-	// prototype pointers
+	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);
 	void (*compoutmodeB)(uint8_t compoutmode);
 	void (*compareA)(uint8_t compare);
@@ -55,6 +49,7 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER1* TC1(void);
 TIMER_COUNTER2 TIMER_COUNTER2enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER2* TC2(void);
+
 #endif
 /***EOF***/
 

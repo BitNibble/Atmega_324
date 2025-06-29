@@ -8,16 +8,16 @@ Date:     28/06/2025
 #include "atmega324.h"
 
 static const _GPIOA_TypeDef gpioa  = {.pin = ((_uint8_t*) 0x0020), .ddr = ((_uint8_t*) 0x0021), .port = ((_uint8_t*) 0x0022) };
-_GPIOA_TypeDef* gpioa_instance(void) {  return (_GPIOA_TypeDef*) &gpioa; }
+_GPIOA_TypeDef* gpioa_reg(void) {  return (_GPIOA_TypeDef*) &gpioa; }
 	
 static const _GPIOB_TypeDef gpiob  = {.pin = ((_uint8_t*) 0x0023), .ddr = ((_uint8_t*) 0x0024), .port = ((_uint8_t*) 0x0025) };
-_GPIOB_TypeDef* gpiob_instance(void) {  return (_GPIOB_TypeDef*) &gpiob; }
+_GPIOB_TypeDef* gpiob_reg(void) {  return (_GPIOB_TypeDef*) &gpiob; }
 	
 static const _GPIOC_TypeDef gpioc  = {.pin = ((_uint8_t*) 0x0026), .ddr = ((_uint8_t*) 0x0027), .port = ((_uint8_t*) 0x0028) };
-_GPIOC_TypeDef* gpioc_instance(void) {  return (_GPIOC_TypeDef*) &gpioc; }
+_GPIOC_TypeDef* gpioc_reg(void) {  return (_GPIOC_TypeDef*) &gpioc; }
 	
 static const _GPIOD_TypeDef gpiod  = {.pin = ((_uint8_t*) 0x0029), .ddr = ((_uint8_t*) 0x002A), .port = ((_uint8_t*) 0x002B) };
-_GPIOD_TypeDef* gpiod_instance(void) {  return (_GPIOD_TypeDef*) &gpiod; }
+_GPIOD_TypeDef* gpiod_reg(void) {  return (_GPIOD_TypeDef*) &gpiod; }
 
 // Static instance with mapped register addresses
 static const Atmega324ExternalInterrupts_TypeDef exint = {
@@ -32,7 +32,7 @@ static const Atmega324ExternalInterrupts_TypeDef exint = {
 	.pcmsk3  = (_PCMSK3_TypeDef*)  0x0073
 };
 // Singleton-style accessor
-Atmega324ExternalInterrupts_TypeDef* exint_instance(void) {
+Atmega324ExternalInterrupts_TypeDef* exint_reg(void) {
 	return (Atmega324ExternalInterrupts_TypeDef*) &exint;
 }
 // Static instance with hardware register mappings
@@ -42,7 +42,7 @@ static const Atmega324AnalogComparator_TypeDef ac = {
 	.didr1  = (_DIDR1_TypeDef*) 0x007F
 };
 // Singleton accessor
-Atmega324AnalogComparator_TypeDef* ac_instance(void) {
+Atmega324AnalogComparator_TypeDef* ac_reg(void) {
 	return (Atmega324AnalogComparator_TypeDef*) &ac;
 }
 // Static instance with hardware bindings
@@ -54,7 +54,7 @@ static const Atmega324AnalogToDigitalConverter_TypeDef adc = {
 	.didr0   = (_DIDR0_TypeDef*)  0x007E
 };
 // Singleton accessor
-Atmega324AnalogToDigitalConverter_TypeDef* adc_instance(void) {
+Atmega324AnalogToDigitalConverter_TypeDef* adc_reg(void) {
 	return (Atmega324AnalogToDigitalConverter_TypeDef*) &adc;
 }
 // Static instance with hardware mapping
@@ -62,7 +62,7 @@ static const Atmega324BootLoader_TypeDef boot = {
 	.spmcsr = (_SPMCSR_TypeDef*) 0x0057
 };
 // Singleton accessor
-Atmega324BootLoader_TypeDef* boot_instance(void) {
+Atmega324BootLoader_TypeDef* boot_reg(void) {
 	return (Atmega324BootLoader_TypeDef*) &boot;
 }
 // Static instance
@@ -80,7 +80,7 @@ static const Atmega324CPURegister_TypeDef cpu = {
 	.osccal = (_uint8_t*)     0x0066
 };
 // Singleton accessor
-Atmega324CPURegister_TypeDef* cpu_instance(void) {
+Atmega324CPURegister_TypeDef* cpu_reg(void) {
 	return (Atmega324CPURegister_TypeDef*) &cpu;
 }
 // Static instance
@@ -90,7 +90,7 @@ static const Atmega324Eeprom_TypeDef eeprom = {
 	.eear = (_uint16_t*)      0x0041
 };
 // Singleton accessor
-Atmega324Eeprom_TypeDef* eeprom_instance(void) {
+Atmega324Eeprom_TypeDef* eeprom_reg(void) {
 	return (Atmega324Eeprom_TypeDef*) &eeprom;
 }
 // Static instance
@@ -100,7 +100,7 @@ static const Atmega324JtagInterface_TypeDef jtag = {
 	.mcucr = (_MCUCR_TypeDef*) 0x0055
 };
 // Singleton accessor
-Atmega324JtagInterface_TypeDef* jtag_instance(void) {
+Atmega324JtagInterface_TypeDef* jtag_reg(void) {
 	return (Atmega324JtagInterface_TypeDef*) &jtag;
 }
 // Static instance
@@ -110,7 +110,7 @@ static const Atmega324SerialPeripherialInterface_TypeDef spi = {
 	.spdr0 = (_uint8_t*)      0x004E
 };
 // Singleton accessor
-Atmega324SerialPeripherialInterface_TypeDef* spi_instance(void) {
+Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void) {
 	return (Atmega324SerialPeripherialInterface_TypeDef*) &spi;
 }
 // Static instance
@@ -126,7 +126,7 @@ static const Atmega324TimerCounter1_TypeDef tc1 = {
 	.ocr1b   = (_uint16_t*)       0x008A
 };
 // Singleton accessor
-Atmega324TimerCounter1_TypeDef* tc1_instance(void) {
+Atmega324TimerCounter1_TypeDef* tc1_reg(void) {
 	return (Atmega324TimerCounter1_TypeDef*) &tc1;
 }
 // Static instance
@@ -141,7 +141,7 @@ static const Atmega324TimerCounter0_TypeDef tc0 = {
 	.timsk0 = (_TIMSK0_TypeDef*) 0x006E
 };
 // Singleton accessor
-Atmega324TimerCounter0_TypeDef* tc0_instance(void) {
+Atmega324TimerCounter0_TypeDef* tc0_reg(void) {
 	return (Atmega324TimerCounter0_TypeDef*) &tc0;
 }
 // Static instance
@@ -157,7 +157,7 @@ static const Atmega324TimerCounter2_TypeDef tc2 = {
 	.assr   = (_ASSR_TypeDef*)   0x00B6
 };
 // Singleton accessor
-Atmega324TimerCounter2_TypeDef* tc2_instance(void) {
+Atmega324TimerCounter2_TypeDef* tc2_reg(void) {
 	return (Atmega324TimerCounter2_TypeDef*) &tc2;
 }
 // Static instance
@@ -170,7 +170,7 @@ static const Atmega324TwoWireSerialInterface_TypeDef twi = {
 	.twamr = (_TWAMR_TypeDef*)  0x00BD
 };
 // Singleton accessor
-Atmega324TwoWireSerialInterface_TypeDef* twi_instance(void) {
+Atmega324TwoWireSerialInterface_TypeDef* twi_reg(void) {
 	return (Atmega324TwoWireSerialInterface_TypeDef*) &twi;
 }
 // Static instance
@@ -182,7 +182,7 @@ static const Atmega324Usart0_TypeDef usart0 = {
 	.udr0   = (_uint8_t*)   0x00C6
 };
 // Singleton accessor
-Atmega324Usart0_TypeDef* usart0_instance(void) {
+Atmega324Usart0_TypeDef* usart0_reg(void) {
 	return (Atmega324Usart0_TypeDef*) &usart0;
 }
 // Static instance with register mappings
@@ -194,7 +194,7 @@ static const Atmega324Usart1_TypeDef usart1 = {
 	.udr1   = (_uint8_t*)        0x00CE
 };
 // Singleton accessor
-Atmega324Usart1_TypeDef* usart1_instance(void) {
+Atmega324Usart1_TypeDef* usart1_reg(void) {
 	return (Atmega324Usart1_TypeDef*) &usart1;
 }
 // Static instance with register mappings
@@ -202,7 +202,7 @@ static const Atmega324WatchdogTimer_TypeDef wdt = {
 	.wdtcsr = (_WDTCSR_TypeDef*) 0x0060
 };
 // Singleton accessor
-Atmega324WatchdogTimer_TypeDef* wdt_instance(void) {
+Atmega324WatchdogTimer_TypeDef* wdt_reg(void) {
 	return (Atmega324WatchdogTimer_TypeDef*) &wdt;
 }
 /*******************************************************************************************************************************************/

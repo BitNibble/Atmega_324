@@ -2,29 +2,47 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Libraria\74hc595.c
+Libraria\src\74hc595.c
 
-Libraria\atmega324.c
+Libraria\src\atcommands.c
 
-Libraria\atmega324analog.c
+Libraria\src\atmega324.c
 
-Libraria\atmega324timer.c
+Libraria\src\atmega324analog.c
 
-Libraria\atmega324_usart0.c
+Libraria\src\atmega324timer.c
 
-Libraria\atmega324_usart1.c
+Libraria\src\atmega324_usart0.c
 
-Libraria\atmegaeeprom.c
+Libraria\src\atmega324_usart1.c
 
-Libraria\buffer.c
+Libraria\src\atmegaeeprom.c
 
-Libraria\function.c
+Libraria\src\buffer.c
 
-Libraria\keypad.c
+Libraria\src\clock.c
 
-Libraria\lcd.c
+Libraria\src\explode.c
 
-Libraria\rotenc.c
+Libraria\src\function.c
+
+Libraria\src\hx711.c
+
+Libraria\src\keypad.c
+
+Libraria\src\lcd.c
+
+Libraria\src\lcd2p.c
+
+Libraria\src\lfsm.c
+
+Libraria\src\mm74c923.c
+
+Libraria\src\rotenc.c
+
+Libraria\src\watch.c
+
+Libraria\src\znpid.c
 
 main.c
 

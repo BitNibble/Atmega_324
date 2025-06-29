@@ -54,57 +54,6 @@ typedef struct {
 	_uint16_t z; // 0x001E 0x001F
 } _GPW_TypeDef;
 
-// I/O Port (PORTA)
-typedef struct {
-	_uint8_t* pin; // 0x0020
-	_uint8_t* ddr; // 0x0021
-	_uint8_t* port; // 0x0022
-} _GPIOA_TypeDef;
-
-_GPIOA_TypeDef* gpioa_instance(void);
-
-// I/O Port (PORTB)
-typedef struct {
-	_uint8_t* pin; // 0x0023
-	_uint8_t* ddr; // 0x0024
-	_uint8_t* port; // 0x0025
-} _GPIOB_TypeDef;
-
-_GPIOB_TypeDef* gpiob_instance(void);
-
-// I/O Port (PORTC)
-typedef struct {
-	_uint8_t* pin; // 0x0026
-	_uint8_t* ddr; // 0x0027
-	_uint8_t* port; // 0x0028
-} _GPIOC_TypeDef;
-
-_GPIOC_TypeDef* gpioc_instance(void);
-
-// I/O Port (PORTD)
-typedef struct {
-	_uint8_t* pin; // 0x0029
-	_uint8_t* ddr; // 0x002A
-	_uint8_t* port; // 0x002B
-} _GPIOD_TypeDef;
-
-_GPIOD_TypeDef* gpiod_instance(void);
-
-// External Interrupts (EXINT)
-typedef struct {
-	_PCIFR_TypeDef* pcifr; // 0x003B
-	_EIFR_TypeDef* eifr; // 0x003C
-	_EIMSK_TypeDef* eimsk; // 0x003D
-	_PCICR_TypeDef* pcicr; // 0x0068
-	_EICRA_TypeDef* eicra; // 0x0069
-	_PCMSK0_TypeDef* pcmsk0; // 0x006B
-	_PCMSK1_TypeDef* pcmsk1; // 0x006C
-	_PCMSK2_TypeDef* pcmsk2; // 0x006D
-	_PCMSK3_TypeDef* pcmsk3; // 0x0073	
-} Atmega324ExternalInterrupts_TypeDef;
-
-Atmega324ExternalInterrupts_TypeDef* exint_instance(void);
-
 // Analog Comparator (AC)
 typedef struct {
 	_ACSR_TypeDef* acsr; // 0x0050
@@ -112,7 +61,7 @@ typedef struct {
 	_DIDR1_TypeDef* didr1; // 0x007F
 } Atmega324AnalogComparator_TypeDef;
 
-Atmega324AnalogComparator_TypeDef* ac_instance(void);
+Atmega324AnalogComparator_TypeDef* ac_reg(void);
 
 // Analog to Digital Converter (ADC)
 typedef struct {
@@ -123,14 +72,14 @@ typedef struct {
 	_DIDR0_TypeDef* didr0; // 0x007E
 } Atmega324AnalogToDigitalConverter_TypeDef;
 
-Atmega324AnalogToDigitalConverter_TypeDef* adc_instance(void);
+Atmega324AnalogToDigitalConverter_TypeDef* adc_reg(void);
 
 // Boot loader (BOOT_LOAD)
 typedef struct {
 	_SPMCSR_TypeDef* spmcsr; // 0x0057
 } Atmega324BootLoader_TypeDef;
 
-Atmega324BootLoader_TypeDef* boot_instance(void);
+Atmega324BootLoader_TypeDef* boot_reg(void);
 
 // CPU Register (CPU)
 typedef struct {
@@ -147,7 +96,7 @@ typedef struct {
 	_uint8_t* osccal; // 0x0066
 } Atmega324CPURegister_TypeDef;
 
-Atmega324CPURegister_TypeDef* cpu_instance(void);
+Atmega324CPURegister_TypeDef* cpu_reg(void);
 
 // EEPROM (EEPROM)
 typedef struct {
@@ -156,7 +105,58 @@ typedef struct {
 	_uint16_t* eear; // 0x0041 0x0042
 } Atmega324Eeprom_TypeDef;
 
-Atmega324Eeprom_TypeDef* eeprom_instance(void);
+Atmega324Eeprom_TypeDef* eeprom_reg(void);
+
+// External Interrupts (EXINT)
+typedef struct {
+	_PCIFR_TypeDef* pcifr; // 0x003B
+	_EIFR_TypeDef* eifr; // 0x003C
+	_EIMSK_TypeDef* eimsk; // 0x003D
+	_PCICR_TypeDef* pcicr; // 0x0068
+	_EICRA_TypeDef* eicra; // 0x0069
+	_PCMSK0_TypeDef* pcmsk0; // 0x006B
+	_PCMSK1_TypeDef* pcmsk1; // 0x006C
+	_PCMSK2_TypeDef* pcmsk2; // 0x006D
+	_PCMSK3_TypeDef* pcmsk3; // 0x0073
+} Atmega324ExternalInterrupts_TypeDef;
+
+Atmega324ExternalInterrupts_TypeDef* exint_reg(void);
+
+// I/O Port (PORTA)
+typedef struct {
+	_uint8_t* pin; // 0x0020
+	_uint8_t* ddr; // 0x0021
+	_uint8_t* port; // 0x0022
+} _GPIOA_TypeDef;
+
+_GPIOA_TypeDef* gpioa_reg(void);
+
+// I/O Port (PORTB)
+typedef struct {
+	_uint8_t* pin; // 0x0023
+	_uint8_t* ddr; // 0x0024
+	_uint8_t* port; // 0x0025
+} _GPIOB_TypeDef;
+
+_GPIOB_TypeDef* gpiob_reg(void);
+
+// I/O Port (PORTC)
+typedef struct {
+	_uint8_t* pin; // 0x0026
+	_uint8_t* ddr; // 0x0027
+	_uint8_t* port; // 0x0028
+} _GPIOC_TypeDef;
+
+_GPIOC_TypeDef* gpioc_reg(void);
+
+// I/O Port (PORTD)
+typedef struct {
+	_uint8_t* pin; // 0x0029
+	_uint8_t* ddr; // 0x002A
+	_uint8_t* port; // 0x002B
+} _GPIOD_TypeDef;
+
+_GPIOD_TypeDef* gpiod_reg(void);
 
 // JTAG Interface (JTAG)
 typedef struct {
@@ -165,7 +165,7 @@ typedef struct {
 	_MCUCR_TypeDef* mcucr; // 0x0055
 } Atmega324JtagInterface_TypeDef;
 
-Atmega324JtagInterface_TypeDef* jtag_instance(void);
+Atmega324JtagInterface_TypeDef* jtag_reg(void);
 
 // Serial Peripheral Interface (SPI)
 typedef struct {
@@ -174,7 +174,7 @@ typedef struct {
 	_uint8_t* spdr0; // 0x004E
 } Atmega324SerialPeripherialInterface_TypeDef;
 
-Atmega324SerialPeripherialInterface_TypeDef* spi_instance(void);
+Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void);
 
 // Timer/Counter, 16-bit (TC1)
 typedef struct {
@@ -189,7 +189,7 @@ typedef struct {
 	_uint16_t* ocr1b; // 0x008A 0x008B
 } Atmega324TimerCounter1_TypeDef;
 
-Atmega324TimerCounter1_TypeDef* tc1_instance(void);
+Atmega324TimerCounter1_TypeDef* tc1_reg(void);
 
 // Timer/Counter, 8-bit (TC0)
 typedef struct {
@@ -203,7 +203,7 @@ typedef struct {
 	_TIMSK0_TypeDef* timsk0; // 0x006E	
 } Atmega324TimerCounter0_TypeDef;
 
-Atmega324TimerCounter0_TypeDef* tc0_instance(void);
+Atmega324TimerCounter0_TypeDef* tc0_reg(void);
 
 // Timer/Counter, 8-bit Async (TC2)
 typedef struct {
@@ -218,7 +218,7 @@ typedef struct {
 	_ASSR_TypeDef* assr; // 0x00B6
 } Atmega324TimerCounter2_TypeDef;
 
-Atmega324TimerCounter2_TypeDef* tc2_instance(void);
+Atmega324TimerCounter2_TypeDef* tc2_reg(void);
 
 // Two Wire Serial Interface (TWI)
 typedef struct {
@@ -230,7 +230,7 @@ typedef struct {
 	_TWAMR_TypeDef* twamr; // 0x00BD
 } Atmega324TwoWireSerialInterface_TypeDef;
 
-Atmega324TwoWireSerialInterface_TypeDef* twi_instance(void);
+Atmega324TwoWireSerialInterface_TypeDef* twi_reg(void);
 
 // USART (USART0)
 typedef struct {
@@ -241,7 +241,7 @@ typedef struct {
 	_uint8_t* udr0; // 0x00C6
 } Atmega324Usart0_TypeDef;
 
-Atmega324Usart0_TypeDef* usart0_instance(void);
+Atmega324Usart0_TypeDef* usart0_reg(void);
 
 // USART (USART1)
 typedef struct {
@@ -252,14 +252,14 @@ typedef struct {
 	_uint8_t* udr1; // 0x00CE
 } Atmega324Usart1_TypeDef;
 
-Atmega324Usart1_TypeDef* usart1_instance(void);
+Atmega324Usart1_TypeDef* usart1_reg(void);
 
 // Watchdog Timer (WDT)
 typedef struct {
 	_WDTCSR_TypeDef* wdtcsr; // 0x0060
 } Atmega324WatchdogTimer_TypeDef;
 
-Atmega324WatchdogTimer_TypeDef* wdt_instance(void);
+Atmega324WatchdogTimer_TypeDef* wdt_reg(void);
 
 /*** Atmega 128 Procedure and Function ***/
 uint16_t swapbyte(uint16_t num);

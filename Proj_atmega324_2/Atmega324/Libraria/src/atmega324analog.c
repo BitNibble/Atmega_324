@@ -1,31 +1,20 @@
 /*************************************************************************
 Title:    Interrupt ANALOG INPUT
-Author:   Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
-File:     $Id: atmega324analog.c,v 0.2 2018/08/18 13:00:00 Sergio Exp $
-Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
-Hardware: AVR with built-in ADC, tested on ATmega128 at 16 MHz,
+Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Comment:
-	Very Stable
 *************************************************************************/
-/*
-** library
-*/
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdarg.h>
 #include <inttypes.h>
-/***/
+
 #include "atmega324analog.h"
-/*
-** constant and macro
-*/
-#if defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164PA__) || defined(__AVR_ATmega324A__) ||\
-	defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) ||\
-	defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
-// if using differential channels this value has to be greater than one
+
+#if defined(__AVR_ATmega324A__)
+
 #define MAX_CHANNEL 8
-/******/
+
 #define GLOBAL_INTERRUPT_ENABLE 7
 #define ADC_SELECT ADMUX
 #define ADC_CONTROL ADCSRA
@@ -33,9 +22,8 @@ Comment:
 #define DIGITAL_INPUT_DISABLE_REGISTER DIDR0
 #define MUX_MASK 31
 #define ANALOG_INTERRUPT ADC_vect
-/*
-** variable
-*/
+
+static ANALOG analog;
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 volatile int ADC_N_CHANNEL;
@@ -43,37 +31,22 @@ volatile int ADC_SELECTOR;
 volatile int adc_sample;
 volatile int adc_tmp;
 volatile unsigned char adc_n_sample;
-/*
-** procedure and function header
-*/
+
 int ANALOG_read(int selection);
-/*
-** procedure and function
-*/
+
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
-/*
-* Interrupt running mode setup
-* setup, and list of channels to be probed
-*/
 {
-	/***LOCAL VARIABLES***/
 	uint8_t tSREG;
 	va_list list;
 	int i;
-	//inic variables
+	
 	tSREG=SREG;
 	SREG&=~(1<<GLOBAL_INTERRUPT_ENABLE);
-	/***GLOBAL VARIABLES INICIALIZE***/
+	
 	ADC_N_CHANNEL=n_channel;
 	ADC_SELECTOR=0;
 	adc_n_sample=0;
-	//PROTOTIPOS
-	//int ANALOG_read(int channel);
-	//ALLOCAÇÂO MEMORIA PARA Estrutura
-	ANALOG analog;
-	//import parametros
-	//inic parameters
-	//Direccionar apontadores para PROTOTIPOS
+	// V-table
 	analog.read=ANALOG_read;
 	/******/
 	ADC_SELECT&=~(3<<REFS0);
@@ -154,10 +127,6 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	return analog;
 }
 int ANALOG_read(int selection)
-/*
-* 
-* Returns selected Channel ADC_VALUE
-*/
 {
 	uint8_t ADSC_FLAG;
 	ADSC_FLAG=(1<<ADSC);
@@ -168,16 +137,9 @@ int ANALOG_read(int selection)
 	}
 	return ADC_VALUE[selection];
 }
-/*
-** interrupt
-*/
+
 ISR(ANALOG_INTERRUPT)
-/*************************************************************************
-Function: ANALOG interrupt
-Purpose:  Read Analog Input
-**************************************************************************/
 {
-	/******/
 	adc_tmp=ADCL;
 	adc_tmp|=(ADCH<<8);
 	if(adc_n_sample < (1<<ADC_NUMBER_SAMPLE)){
@@ -186,7 +148,7 @@ Purpose:  Read Analog Input
 	}else{
 		ADC_VALUE[ADC_SELECTOR]=adc_sample>>ADC_NUMBER_SAMPLE;
 		adc_n_sample=adc_sample=0;
-		/******/
+		
 		if(ADC_SELECTOR < ADC_N_CHANNEL)
 			ADC_SELECTOR++;
 		else
@@ -196,7 +158,8 @@ Purpose:  Read Analog Input
 	}
 }
 #else
-	#error "Not ATmega 164A or 164PA or 324A or 324PA or 644A or 644PA or 1284 or 1284P"
+	#error "Not ATmega 324A"
+
 #endif
 /***EOF***/
 

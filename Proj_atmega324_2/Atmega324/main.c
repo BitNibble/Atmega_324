@@ -19,6 +19,7 @@ Hardware: Atmega324A
 #include "atmegaeeprom.h"
 #include "atmega324timer.h"
 #include "atmega324_usart0.h"
+#include "atmega324_usart1.h"
 //Constant & macros
 #define True 1
 #define False 0
@@ -53,13 +54,13 @@ int main(void)
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
 	
-	tc1_instance()->tcnt1->par.h.var = 55;
+	tc1_reg()->tcnt1->par.h.var = 55;
 	
 	lcd.gotoxy(0,0);
 	lcd.string_size("Bom dia !",12);
 	lcd.BF();
 	
-	gpiod_instance()->port->par.b2 = 1;
+	gpiod_reg()->port->par.b2 = 1;
 	
 	tcompare=compare=eeprom.read_word((uint16_t*)0);
 	prescaler=eeprom.read_word((uint16_t*)4);
@@ -318,9 +319,9 @@ int main(void)
 }//endmain
 /***Prototypes***/
 void PORTINIT(void){
-	gpiod_instance()->ddr->par.b2 = 1;
-	gpiod_instance()->ddr->var |= (1<<4) | (1<<5);
-	gpiod_instance()->port->var = (1<<4) | (1<<5);
+	gpiod_reg()->ddr->par.b2 = 1;
+	gpiod_reg()->ddr->var |= (1<<4) | (1<<5);
+	gpiod_reg()->port->var = (1<<4) | (1<<5);
 };
 /***Interrupts***/
 ISR(TIMER1_COMPA_vect)

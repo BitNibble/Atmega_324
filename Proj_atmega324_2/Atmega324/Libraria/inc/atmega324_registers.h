@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
-Date:     24/06/2025
+Date:     29/06/2025
 ************************************************************************/
 #ifndef _ATMEGA324_REGISTERS_H_
 	#define _ATMEGA324_REGISTERS_H_
@@ -540,6 +540,7 @@ typedef volatile union {
 // Reserved 0xFD
 // Reserved 0xFE
 // Reserved 0xFF
+
 #endif
 /***EOF***/
 

@@ -8,3 +8,36 @@ Data Memory Usage 		:	407 bytes   19,9 % Full
 
 Program Memory Usage 	:	16456 bytes   50,2 % Full
 Data Memory Usage 		:	397 bytes   19,4 % Full
+
+29062025
+Program Memory Usage 	:	16576 bytes   50,6 % Full
+Data Memory Usage 		:	381 bytes   18,6 % Full
+
+Program Memory Usage 	:	16576 bytes   50,6 % Full
+Data Memory Usage 		:	409 bytes   20,0 % Full
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MCU:
+#if defined(__AVR_ATmega164A__) || defined(__AVR_ATmega164PA__) || defined(__AVR_ATmega324A__) ||\
+	defined(__AVR_ATmega324PA__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644PA__) ||\
+	defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__)
+
+
+

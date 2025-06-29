@@ -33,7 +33,7 @@ Comment:
 	#error "size of UART0_RX_BUFFER_SIZE larger than size of SRAM"
 #endif
 
-#if defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
+#if defined(__AVR_ATmega324A__)
 	// ATmega with two USART
 	
 	#define UART_FRAME_ERROR		0x0800              /* Framing Error by UART        */
@@ -48,8 +48,6 @@ Comment:
 
 /*** Global Variable ***/
 typedef struct {
-	// registers
-	Atmega324Usart0_TypeDef* reg;
 	// prototype pointers
 	UARTvar (*read)(void);
 	UARTvar (*getch)(void);
@@ -67,6 +65,5 @@ USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits,
 char* usart0_messageprint(USART0* uart, char* oneshot, char* msg, const char* endl);
 
 #endif
-
 /***EOF***/
 

@@ -1,29 +1,18 @@
 /*************************************************************************
 	eeprom wrapper
-Author: Sergio Manuel Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: ATmega
-Date: 04122022
-Comment:
-   Very Stable
+Date:     04122022
 *************************************************************************/
 #ifndef _ATMEGAEEPROM_H_
 	#define _ATMEGAEEPROM_H_
 
-/*** Global Library ***/
 #include <avr/eeprom.h>
 #include "atmega324.h"
 
-/*** Global Constant & Macro ***/
-
-/*** Global Variable ***/
-struct prm{
-	// registers
-	_EECR_TypeDef* eecr; // 0x003F
-	_uint8_t* eedr; // 0x0040
-	_uint16_t* eear; // 0x0041 0x0042
-	// vtable
+struct prm {
+	// V-table
 	uint8_t (*read_byte) ( const uint8_t * addr );
 	void (*write_byte) ( uint8_t *addr , uint8_t value );
 	void (*update_byte) ( uint8_t *addr , uint8_t value );
@@ -42,10 +31,8 @@ struct prm{
 };
 typedef struct prm EEPROM;
 
-/*** Global Header ***/
 EEPROM EEPROMenable(void);
 
 #endif
-
 /***EOF***/
 
