@@ -7,6 +7,7 @@ Hardware: Atmega324A
 	-PORTA - keypad
 	-PORTC - LCD
 	-PORTD5 - Oscillator output
+	-PORTD - HC05 blue tooth (usart0)
  ***************************************************************************/
 //Good practice initialize
 #define F_CPU 8000000UL
@@ -20,6 +21,7 @@ Hardware: Atmega324A
 #include "atmega324timer.h"
 #include "atmega324_usart0.h"
 #include "atmega324_usart1.h"
+#include "watch.h"
 //Constant & macros
 #define True 1
 #define False 0
@@ -28,6 +30,8 @@ uint16_t N_off=10;
 uint16_t N_on=8000;
 volatile uint16_t counter=0;
 char* uartreceive = NULL; // capture
+WATCH watch;
+uint8_t increment = 0;
 //Prototype header
 void PORTINIT(void);
 /******/
@@ -51,14 +55,12 @@ int main(void)
 	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROMenable();
+	WATCH watch = WATCHenable();
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
+	watch.preset(0,0,5);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
-	
-	lcd.gotoxy(0,0);
-	lcd.string_size("Bom dia !",12);
-	lcd.BF();
 	
 	gpiod_reg()->port->par.b2 = 1;
 	
@@ -91,27 +93,29 @@ int main(void)
 	
 	char uartmsg[UART0_RX_BUFFER_SIZE] = {0}; // One shot
 	char uartmsgprint[UART0_RX_BUFFER_SIZE] = {0}; // triggered
-	
+	/******/
     while (True)
     {
 		lcd.gotoxy(0,0);
 	
 		input=keypad.getkey();
 		
+		if( increment ) { watch.increment(); increment = 0; }
+		
 		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, ".");
 		
 		lcd0()->string_size(uartmsgprint, 20);
 		
+		lcd.gotoxy(1,8);
+		lcd.string_size(watch.show(),12);
+		
+		if(watch.start_delay(0,20)) { gpiod_reg()->port->par.b2 ^= 1; }
+		
 		if(input) {
-			lcd.BF();
 			lcd.gotoxy(1,0);
-			lcd.string("Key: ");
+			lcd.string_size("Key: ",5);
 			lcd.putch(input);
-			lcd.hspace(3);
-			lcd.BF();
-			lcd.gotoxy(0,0);
-			lcd.string_size("Running !",12);
-			lcd.BF();
+			//watch.increment();
 			//DEFAULT
 			if(input == 'D') {
 				tcompare=compare=2048;
@@ -327,12 +331,14 @@ void PORTINIT(void){
 ISR(TIMER1_COMPA_vect)
 {
 	counter++;
-	if(counter>N_off)
+	if(counter>N_off) {
 		PORTD &= ~(1<<4);
-	if(counter>(N_off+N_on)){
+	}
+	if(counter>(N_off+N_on)) {
 		PORTD |=(1<<4);
 		counter=0;
 	}
+	increment = 1;
 }
 
 /***EOF***/
