@@ -12,6 +12,8 @@ Libraria\src\atmega324analog.c
 
 Libraria\src\atmega324timer.c
 
+Libraria\src\atmega324_twi.c
+
 Libraria\src\atmega324_usart0.c
 
 Libraria\src\atmega324_usart1.c

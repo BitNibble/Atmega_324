@@ -19,7 +19,7 @@ Comment:
 #define W12_HOUR_SECONDS 43199
 #define W24_HOUR_SECONDS 84399
 /*** File Variable ***/
-struct WATCHTIME time;
+struct WATCH_TIME time;
 char WATCH_vector[9];
 static uint32_t WATCH_trigger[N_DELAY] = {0};
 uint8_t WATCH_delay_flag[N_DELAY] = {0};
@@ -53,18 +53,17 @@ WATCH WATCHenable(void)
 }
 
 uint8_t WATCH_start_delay(uint8_t delay_n, uint32_t seconds){
-	uint32_t segundos;
-	uint8_t ret;
-	ret = 0; // one shot repeat
+	uint32_t segundos = 0;
+	uint8_t ret = 0; // one shot repeat
 	delay_n &= N_DELAY_MASK;
-	segundos = time.seconds;
 	if(WATCH_delay_flag[delay_n]) {
-		if(segundos >= WATCH_trigger[delay_n]) {
+		segundos = time.seconds;
+		if( segundos >= WATCH_trigger[delay_n] ) {
 			WATCH_delay_flag[delay_n] = 0;
 			ret = 1;
 		}
 	}else {
-		segundos += seconds;
+		segundos = time.seconds + seconds;
 		if(segundos > W24_HOUR_SECONDS)
 			WATCH_trigger[delay_n] = segundos - (W24_HOUR_SECONDS + 1);
 		else
