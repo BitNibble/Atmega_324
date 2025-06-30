@@ -17,24 +17,24 @@ Comment:
 /*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
-struct WATCH_TIME{
+typedef struct {
 	uint8_t hour;
 	uint8_t minute;
 	uint8_t second;
-	uint32_t seconds;
-};
-struct WATCH{
-	struct WATCH_TIME* time;
+	volatile uint32_t seconds;
+} WATCH_TIME;
+
+typedef struct {
 	void (*preset)(uint8_t hour, uint8_t minute, uint8_t second);
 	uint8_t (*start_delay)(uint8_t n_delay, uint32_t seconds);
 	void (*increment)(void);
-	void (*decrement)(void);
 	char* (*show)(void);
-};
-typedef struct WATCH WATCH;
+} WATCH;
 
 /*** Global Header ***/
-WATCH WATCHenable(void);
+WATCH WATCH_enable(void);
+void WATCH_increment(void);
+void WATCH_decrement(void);
 
 #endif
 

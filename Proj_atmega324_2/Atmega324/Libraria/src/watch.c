@@ -19,23 +19,21 @@ Comment:
 #define W12_HOUR_SECONDS 43199
 #define W24_HOUR_SECONDS 84399
 /*** File Variable ***/
-struct WATCH_TIME time;
-char WATCH_vector[9];
+static WATCH_TIME time;
+static char WATCH_vector[9];
 static uint32_t WATCH_trigger[N_DELAY] = {0};
-uint8_t WATCH_delay_flag[N_DELAY] = {0};
+static uint8_t WATCH_delay_flag[N_DELAY] = {0};
 
 /*** File Header ***/
 void WATCH_set_hour(uint8_t hour);
 void WATCH_set_minute(uint8_t min);
 void WATCH_preset(uint8_t hour, uint8_t minute, uint8_t second);
 uint8_t WATCH_start_delay(uint8_t n_delay, uint32_t seconds);
-void WATCH_increment(void);
-void WATCH_decrement(void);
 void WATCH_result(void);
 char* WATCH_show(void);
 
 /*** Procedure & Function ***/
-WATCH WATCHenable(void)
+WATCH WATCH_enable(void)
 {
 	time.hour = 0;
 	time.minute = 0;
@@ -43,11 +41,9 @@ WATCH WATCHenable(void)
 	time.seconds = 0;
 	
 	WATCH watch;
-	watch.time = &time;
 	watch.preset = WATCH_preset;
 	watch.start_delay = WATCH_start_delay;
 	watch.increment = WATCH_increment;
-	watch.decrement = WATCH_decrement;
 	watch.show = WATCH_show;
 	return watch;
 }
@@ -121,7 +117,7 @@ void WATCH_decrement(void)
 
 void WATCH_result(void)
 {
-	uint32_t remainder = time.seconds % 3600;
+	uint16_t remainder = time.seconds % 3600;
 	time.hour = time.seconds / 3600;
 	time.minute = remainder / 60;
 	time.second = remainder % 60;

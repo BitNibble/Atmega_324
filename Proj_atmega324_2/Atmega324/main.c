@@ -55,10 +55,10 @@ int main(void)
 	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROMenable();
-	WATCH watch = WATCHenable();
+	WATCH watch = WATCH_enable();
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
-	watch.preset(21,39,0);
+	watch.preset(1,35,0);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
 	
@@ -100,8 +100,6 @@ int main(void)
 	
 		input=keypad.getkey();
 		
-		if( increment ) { watch.increment(); increment = 0; }
-		
 		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, ".");
 		
 		lcd0()->string_size(uartmsgprint, 20);
@@ -115,7 +113,6 @@ int main(void)
 			lcd.gotoxy(1,0);
 			lcd.string_size("Key: ",5);
 			lcd.putch(input);
-			//watch.increment();
 			//DEFAULT
 			if(input == 'D') {
 				tcompare=compare=2048;
@@ -338,6 +335,7 @@ ISR(TIMER1_COMPA_vect)
 		PORTD |=(1<<4);
 		counter=0;
 	}
+	WATCH_increment();
 	increment = 1;
 }
 
