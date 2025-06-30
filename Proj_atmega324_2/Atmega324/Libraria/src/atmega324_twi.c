@@ -3,9 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega324A
-Update:   29/06/2025
-Comment:
-	Stable
+Update:   30/06/2025
 ***************************************************************************************************/
 /*** File Library ***/
 #include "atmega324_twi.h"
@@ -89,7 +87,7 @@ void TWI_start(void) // $08
 	TWI_wait_twint( Nticks );
 	
 	switch( TWI_status( ) ){
-		case TWI_T_START:
+		case TW_START:
 			// Do nothing
 		break;
 		default:
@@ -112,10 +110,10 @@ void TWI_connect( uint8_t address, uint8_t rw )
 	TWI_wait_twint( Nticks );
 	
 	switch( TWI_status( ) ){
-		case TWI_M_SLAW_R_ACK:
+		case TW_MT_SLA_ACK:
 			// Do nothing
 		break;
-		case TWI_M_SLAR_R_ACK:
+		case TW_MR_SLA_ACK:
 			// Do nothing
 		break;
 		default:
@@ -136,7 +134,7 @@ void TWI_master_write( uint8_t var_twiData_u8 )
 	TWI_wait_twint( Nticks );
 	
 	switch( TWI_status( ) ){
-		case TWI_M_DATABYTE_R_ACK:
+		case TW_MR_DATA_ACK:
 			// Do nothing
 		break;
 		default:
@@ -179,7 +177,7 @@ void TWI_stop( void )
 // auxiliary
 uint8_t TWI_status( void )
 {
-	uint8_t cmd = twi_reg()->twsr->var & TWI_STATUS_MASK;
+	uint8_t cmd = twi_reg()->twsr->var & TW_NO_INFO;
 	return cmd;
 }
 
