@@ -33,8 +33,8 @@ typedef struct {
 
 /*** Global Header ***/
 WATCH WATCH_enable(void);
-void WATCH_increment(void);
-void WATCH_decrement(void);
+extern void WATCH_increment(void);
+extern void WATCH_decrement(void);
 
 #endif
 

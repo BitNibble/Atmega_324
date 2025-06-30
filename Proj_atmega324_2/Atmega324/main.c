@@ -58,7 +58,7 @@ int main(void)
 	WATCH watch = WATCH_enable();
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
-	watch.preset(1,35,0);
+	watch.preset(8,01,0);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
 	
