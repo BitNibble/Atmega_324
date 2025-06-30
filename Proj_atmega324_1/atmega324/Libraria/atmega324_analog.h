@@ -2,10 +2,10 @@
 Title:    Interrupt ANALOG INPUT
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
-Comment:
+Date:     30062025
 ************************************************************************/
-#ifndef ATMEGA324ANALOG_H
-	#define ATMEGA324ANALOG_H
+#ifndef ATMEGA324_ANALOG_H
+	#define ATMEGA324_ANALOG_H
 	
 #if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
@@ -28,7 +28,7 @@ struct ANALOG{
 };
 typedef struct ANALOG ANALOG;
 
-ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 
 #endif
 /***EOF***/

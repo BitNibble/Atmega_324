@@ -172,13 +172,13 @@
     <Compile Include="Libraria\inc\atmega324.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\inc\atmega324analog.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\inc\atmega324timer.h">
+    <Compile Include="Libraria\inc\atmega324_analog.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\inc\atmega324_registers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\atmega324_timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\inc\atmega324_twi.h">
@@ -190,7 +190,7 @@
     <Compile Include="Libraria\inc\atmega324_usart1.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\inc\atmegaeeprom.h">
+    <Compile Include="Libraria\inc\atmega_eeprom.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\inc\buffer.h">
@@ -244,10 +244,10 @@
     <Compile Include="Libraria\src\atmega324.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\src\atmega324analog.c">
+    <Compile Include="Libraria\src\atmega324_analog.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\src\atmega324timer.c">
+    <Compile Include="Libraria\src\atmega324_timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\src\atmega324_twi.c">
@@ -259,7 +259,7 @@
     <Compile Include="Libraria\src\atmega324_usart1.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\src\atmegaeeprom.c">
+    <Compile Include="Libraria\src\atmega_eeprom.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\src\buffer.c">

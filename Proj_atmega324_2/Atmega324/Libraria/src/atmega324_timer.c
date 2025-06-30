@@ -3,6 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
+Date:     30062025
 *************************************************************************/
 /*
 ** library
@@ -11,7 +12,7 @@ Hardware: Atmega 324 at 8Mhz
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 /***/
-#include "atmega324timer.h"
+#include "atmega324_timer.h"
 /*
 ** constant and macro
 */
@@ -70,7 +71,7 @@ void TIMER_COUNTER2_stop(void);
 /*
 ** procedure and function
 */
-TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt)
+TIMER_COUNTER0 TIMER_COUNTER0_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	
 	timer0_state=0;
@@ -239,7 +240,7 @@ void TIMER_COUNTER0_stop(void)
 	timer0_state=0;
 }
 /*****************************************************************************************/
-TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt)
+TIMER_COUNTER1 TIMER_COUNTER1_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
 	
@@ -450,7 +451,7 @@ void TIMER_COUNTER1_stop(void)
 	timer1_state=0;
 }
 /*****************************************************************************************/
-TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt)
+TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
 	

@@ -8,9 +8,9 @@ Libraria\src\atcommands.c
 
 Libraria\src\atmega324.c
 
-Libraria\src\atmega324analog.c
+Libraria\src\atmega324_analog.c
 
-Libraria\src\atmega324timer.c
+Libraria\src\atmega324_timer.c
 
 Libraria\src\atmega324_twi.c
 
@@ -18,7 +18,7 @@ Libraria\src\atmega324_usart0.c
 
 Libraria\src\atmega324_usart1.c
 
-Libraria\src\atmegaeeprom.c
+Libraria\src\atmega_eeprom.c
 
 Libraria\src\buffer.c
 

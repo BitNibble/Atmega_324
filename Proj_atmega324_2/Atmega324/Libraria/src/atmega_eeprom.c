@@ -3,13 +3,13 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega
-Date:     04122022
+Date:     30062025
 *************************************************************************/
-#include "atmegaeeprom.h"
+#include "atmega_eeprom.h"
 
 static EEPROM eprom;
 
-EEPROM EEPROMenable(void) {
+EEPROM EEPROM_enable(void) {
 	// V-table
 	eprom.read_byte = eeprom_read_byte;
 	eprom.write_byte = eeprom_write_byte;

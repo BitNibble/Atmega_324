@@ -43,12 +43,12 @@ C_SRCS +=  \
 ../Libraria/src/74hc595.c \
 ../Libraria/src/atcommands.c \
 ../Libraria/src/atmega324.c \
-../Libraria/src/atmega324analog.c \
-../Libraria/src/atmega324timer.c \
+../Libraria/src/atmega324_analog.c \
+../Libraria/src/atmega324_timer.c \
 ../Libraria/src/atmega324_twi.c \
 ../Libraria/src/atmega324_usart0.c \
 ../Libraria/src/atmega324_usart1.c \
-../Libraria/src/atmegaeeprom.c \
+../Libraria/src/atmega_eeprom.c \
 ../Libraria/src/buffer.c \
 ../Libraria/src/clock.c \
 ../Libraria/src/explode.c \
@@ -75,12 +75,12 @@ OBJS +=  \
 Libraria/src/74hc595.o \
 Libraria/src/atcommands.o \
 Libraria/src/atmega324.o \
-Libraria/src/atmega324analog.o \
-Libraria/src/atmega324timer.o \
+Libraria/src/atmega324_analog.o \
+Libraria/src/atmega324_timer.o \
 Libraria/src/atmega324_twi.o \
 Libraria/src/atmega324_usart0.o \
 Libraria/src/atmega324_usart1.o \
-Libraria/src/atmegaeeprom.o \
+Libraria/src/atmega_eeprom.o \
 Libraria/src/buffer.o \
 Libraria/src/clock.o \
 Libraria/src/explode.o \
@@ -100,12 +100,12 @@ OBJS_AS_ARGS +=  \
 Libraria/src/74hc595.o \
 Libraria/src/atcommands.o \
 Libraria/src/atmega324.o \
-Libraria/src/atmega324analog.o \
-Libraria/src/atmega324timer.o \
+Libraria/src/atmega324_analog.o \
+Libraria/src/atmega324_timer.o \
 Libraria/src/atmega324_twi.o \
 Libraria/src/atmega324_usart0.o \
 Libraria/src/atmega324_usart1.o \
-Libraria/src/atmegaeeprom.o \
+Libraria/src/atmega_eeprom.o \
 Libraria/src/buffer.o \
 Libraria/src/clock.o \
 Libraria/src/explode.o \
@@ -125,12 +125,12 @@ C_DEPS +=  \
 Libraria/src/74hc595.d \
 Libraria/src/atcommands.d \
 Libraria/src/atmega324.d \
-Libraria/src/atmega324analog.d \
-Libraria/src/atmega324timer.d \
+Libraria/src/atmega324_analog.d \
+Libraria/src/atmega324_timer.d \
 Libraria/src/atmega324_twi.d \
 Libraria/src/atmega324_usart0.d \
 Libraria/src/atmega324_usart1.d \
-Libraria/src/atmegaeeprom.d \
+Libraria/src/atmega_eeprom.d \
 Libraria/src/buffer.d \
 Libraria/src/clock.d \
 Libraria/src/explode.d \
@@ -150,12 +150,12 @@ C_DEPS_AS_ARGS +=  \
 Libraria/src/74hc595.d \
 Libraria/src/atcommands.d \
 Libraria/src/atmega324.d \
-Libraria/src/atmega324analog.d \
-Libraria/src/atmega324timer.d \
+Libraria/src/atmega324_analog.d \
+Libraria/src/atmega324_timer.d \
 Libraria/src/atmega324_twi.d \
 Libraria/src/atmega324_usart0.d \
 Libraria/src/atmega324_usart1.d \
-Libraria/src/atmegaeeprom.d \
+Libraria/src/atmega_eeprom.d \
 Libraria/src/buffer.d \
 Libraria/src/clock.d \
 Libraria/src/explode.d \
@@ -206,14 +206,14 @@ Libraria/src/atmega324.o: ../Libraria/src/atmega324.c
 	@echo Finished building: $<
 	
 
-Libraria/src/atmega324analog.o: ../Libraria/src/atmega324analog.c
+Libraria/src/atmega324_analog.o: ../Libraria/src/atmega324_analog.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria/inc"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -Wextra -Wundef -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
-Libraria/src/atmega324timer.o: ../Libraria/src/atmega324timer.c
+Libraria/src/atmega324_timer.o: ../Libraria/src/atmega324_timer.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria/inc"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -Wextra -Wundef -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -241,7 +241,7 @@ Libraria/src/atmega324_usart1.o: ../Libraria/src/atmega324_usart1.c
 	@echo Finished building: $<
 	
 
-Libraria/src/atmegaeeprom.o: ../Libraria/src/atmegaeeprom.c
+Libraria/src/atmega_eeprom.o: ../Libraria/src/atmega_eeprom.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria/inc"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -Wextra -Wundef -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

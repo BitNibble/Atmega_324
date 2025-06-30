@@ -3,9 +3,10 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
+Date:     30062025
 *************************************************************************/
-#ifndef ATMEGA324TIMER_H_
-  #define ATMEGA324TIMER_H_
+#ifndef ATMEGA324_TIMER_H_
+  #define ATMEGA324_TIMER_H_
   
 #include "atmega324.h"
 
@@ -43,11 +44,11 @@ typedef struct {
 	void (*stop)(void);
 } TIMER_COUNTER2;
 
-TIMER_COUNTER0 TIMER_COUNTER0enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER0 TIMER_COUNTER0_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER0* TC0(void);
-TIMER_COUNTER1 TIMER_COUNTER1enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER1 TIMER_COUNTER1_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER1* TC1(void);
-TIMER_COUNTER2 TIMER_COUNTER2enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER2 TIMER_COUNTER2_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER2* TC2(void);
 
 #endif

@@ -16,12 +16,13 @@ Hardware: Atmega324A
 #include "keypad.h"
 #include "lcd.h"
 #include "function.h"
-#include "atmega324analog.h"
-#include "atmegaeeprom.h"
-#include "atmega324timer.h"
+#include "atmega324_analog.h"
+#include "atmega_eeprom.h"
+#include "atmega324_timer.h"
 #include "atmega324_usart0.h"
 #include "atmega324_usart1.h"
 #include "watch.h"
+#include "clock.h"
 //Constant & macros
 #define True 1
 #define False 0
@@ -50,15 +51,15 @@ int main(void)
 	char input;
 	char* value;
 	//Initialize objects
-	TIMER_COUNTER1 tim1 = TIMER_COUNTER1enable(4,3);//4,0
-	KEYPAD keypad = KEYPADenable(&DDRA,&PINA,&PORTA);
+	TIMER_COUNTER1 tim1 = TIMER_COUNTER1_enable(4,3);//4,0
+	KEYPAD keypad = KEYPAD_enable(&DDRA,&PINA,&PORTA);
 	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 	FUNC func = FUNCenable();
-	EEPROM eeprom = EEPROMenable();
+	EEPROM eeprom = EEPROM_enable();
 	WATCH watch = WATCH_enable();
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
-	watch.preset(8,01,0);
+	watch.preset(14,03,0);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
 	

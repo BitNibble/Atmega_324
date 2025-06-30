@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega324A
-Update:   30/06/2025
+Update:   30062025
  **************************************************************************************************/
 #ifndef _ATMEGA324_TWI_H_
 	#define _ATMEGA324_TWI_H_
