@@ -196,6 +196,9 @@
     <Compile Include="Libraria\inc\buffer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\inc\clock.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\inc\explode.h">
       <SubType>compile</SubType>
     </Compile>
@@ -263,9 +266,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\src\clock.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\src\clock.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\src\explode.c">

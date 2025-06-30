@@ -24,6 +24,7 @@
 #include "function.h"
 #include "keypad.h"
 #include "lfsm.h"
+#include "clock.h"
 char* string;
 #define True 1
 void PORTINIT(void);

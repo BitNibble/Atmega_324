@@ -16,6 +16,8 @@ Libraria\atmega324_usart1.c
 
 Libraria\atmegaeeprom.c
 
+Libraria\clock.c
+
 Libraria\function.c
 
 Libraria\keypad.c
