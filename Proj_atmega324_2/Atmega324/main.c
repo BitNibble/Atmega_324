@@ -13,6 +13,7 @@ Hardware: Atmega324A
 #define F_CPU 8000000UL
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdio.h>
 #include "keypad.h"
 #include "lcd.h"
 #include "function.h"
@@ -57,9 +58,10 @@ int main(void)
 	FUNC func = FUNCenable();
 	EEPROM eeprom = EEPROM_enable();
 	WATCH watch = WATCH_enable();
+	ANALOG an = ANALOG_enable( 1, 16, 1, 0 );
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
-	watch.preset(14,03,0);
+	watch.preset(15,12,0);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
 	
@@ -103,10 +105,14 @@ int main(void)
 		
 		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, ".");
 		
-		lcd0()->string_size(uartmsgprint, 20);
+		lcd0()->string_size(uartmsgprint, 12);
 		
-		lcd.gotoxy(1,8);
-		lcd.string_size(watch.show(),12);
+		if ( snprintf(uartmsg, (UART0_RX_BUFFER_SIZE - 1), "an: %d", an.read(0)) > 0 ) {
+			lcd0()->string_size(uartmsg, 8);
+		}
+		
+		lcd.gotoxy(1,12);
+		lcd.string_size( watch.show(), 8 );
 		
 		if(watch.start_delay(0,20)) { gpiod_reg()->port->par.b2 ^= 1; }
 		
