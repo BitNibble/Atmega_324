@@ -6,12 +6,16 @@ Hardware: Atmega 324 at 8Mhz
 Date:     30062025
 *************************************************************************/
 #ifndef ATMEGA324_TIMER_H_
-  #define ATMEGA324_TIMER_H_
-  
-#include "atmega324.h"
+	#define ATMEGA324_TIMER_H_
 
 #if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
+#endif
+
+#if defined(__AVR_ATmega324A__)
+	#include "atmega324.h"
+#else
+	#error "Not ATmega 324A"
 #endif
 
 typedef struct {

@@ -10,7 +10,12 @@ Update:   30062025
 
 /*** Global Library ***/
 #include <util/twi.h>
-#include "atmega324.h"
+
+#if defined(__AVR_ATmega324A__)
+	#include "atmega324.h"
+#else
+	#error "Not ATmega 324A"
+#endif
 
 /*** Global Constant & Macro ***/
 #ifndef _TWI_MODULE_

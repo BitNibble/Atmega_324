@@ -19,7 +19,7 @@ static USART1 atmega324_usart1;
 static BUFF rx1buff;
 static UARTvar UART1_Rx;
 static UARTvar UART1_RxBuf[UART1_RX_BUFFER_SIZE] = {0};
-static const uint16_t uart1_rx_buffer_size = UART1_RX_BUFFER_SIZE - 1;
+static const uint16_t uart1_rx_buffer_size = (UART1_RX_BUFFER_SIZE - 1);
 static uint8_t UART1_LastRxError;
 static uint8_t uart1flag;
 

@@ -59,6 +59,7 @@ C_SRCS +=  \
 ../Libraria/src/lcd2p.c \
 ../Libraria/src/lfsm.c \
 ../Libraria/src/mm74c923.c \
+../Libraria/src/pcf8563rtc.c \
 ../Libraria/src/rotenc.c \
 ../Libraria/src/watch.c \
 ../Libraria/src/znpid.c \
@@ -91,6 +92,7 @@ Libraria/src/lcd.o \
 Libraria/src/lcd2p.o \
 Libraria/src/lfsm.o \
 Libraria/src/mm74c923.o \
+Libraria/src/pcf8563rtc.o \
 Libraria/src/rotenc.o \
 Libraria/src/watch.o \
 Libraria/src/znpid.o \
@@ -116,6 +118,7 @@ Libraria/src/lcd.o \
 Libraria/src/lcd2p.o \
 Libraria/src/lfsm.o \
 Libraria/src/mm74c923.o \
+Libraria/src/pcf8563rtc.o \
 Libraria/src/rotenc.o \
 Libraria/src/watch.o \
 Libraria/src/znpid.o \
@@ -141,6 +144,7 @@ Libraria/src/lcd.d \
 Libraria/src/lcd2p.d \
 Libraria/src/lfsm.d \
 Libraria/src/mm74c923.d \
+Libraria/src/pcf8563rtc.d \
 Libraria/src/rotenc.d \
 Libraria/src/watch.d \
 Libraria/src/znpid.d \
@@ -166,6 +170,7 @@ Libraria/src/lcd.d \
 Libraria/src/lcd2p.d \
 Libraria/src/lfsm.d \
 Libraria/src/mm74c923.d \
+Libraria/src/pcf8563rtc.d \
 Libraria/src/rotenc.d \
 Libraria/src/watch.d \
 Libraria/src/znpid.d \
@@ -312,6 +317,13 @@ Libraria/src/lfsm.o: ../Libraria/src/lfsm.c
 	
 
 Libraria/src/mm74c923.o: ../Libraria/src/mm74c923.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria/inc"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -Wextra -Wundef -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+Libraria/src/pcf8563rtc.o: ../Libraria/src/pcf8563rtc.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Libraria/inc"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -Wextra -Wundef -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

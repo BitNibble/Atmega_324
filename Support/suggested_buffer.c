@@ -60,3 +60,4 @@ void Buffer_flush(CircularBuffer* b) {
     b->tail = 0;
     memset(b->buffer, 0, b->size);
 }
+

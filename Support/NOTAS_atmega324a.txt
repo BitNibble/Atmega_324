@@ -20,8 +20,11 @@ added twi:
 Program Memory Usage 	:	17500 bytes   53,4 % Full
 Data Memory Usage 		:	486 bytes   23,7 % Full
 
-
-
+30062025:
+added watch and analog: -> usart0 (hc05), tc1, analog, lcd, watch.
+Program Memory Usage 	:	18926 bytes   57,8 % Full
+Data Memory Usage 		:	506 bytes   24,7 % Full
+:- conluding it is better to have independent and global instances, that is module registers organized in volatile const struct with its pointers inicialized.
 
 
 

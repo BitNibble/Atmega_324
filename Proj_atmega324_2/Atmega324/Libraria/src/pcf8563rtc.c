@@ -12,16 +12,16 @@ Comment:
 #include "pcf8563rtc.h"
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
 	#include "atmega128mapping.h"
+	TWI i2c;
 #elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 	#include "atmega328mapping.h"
+	TWI i2c;
+#elif defined(__AVR_ATmega324A__)
+	#include "atmega324_twi.h"
+	TWI0 i2c;
 #else
 	#error "MCU Lib not available"
 #endif
-
-/*** File Constant & Macro ***/
-
-/*** File Variables ***/
-TWI i2c;
 
 /*** File Header ***/
 void PCF8563RTC_Init(void);
@@ -45,7 +45,13 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
 {
 	PCF8563RTC pcf;
-	i2c = TWIenable('A', prescaler); // Initialize the I2c module.
+	#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+		i2c = TWI_enable('A', prescaler);
+	#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+		i2c = TWI_enable('A', prescaler);
+	#elif defined(__AVR_ATmega324A__)
+		i2c = twi_enable('A', prescaler);
+	#endif
 	// Vtable
 	pcf.SetTime = PCF8563RTC_SetTime;
 	pcf.SetHour = PCF8563RTC_SetHour;

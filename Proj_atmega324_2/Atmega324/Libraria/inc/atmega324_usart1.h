@@ -11,7 +11,11 @@ Comment:
 	#define _ATMEGA324_USART1_H_
 
 /*** Global Library ***/
-#include "atmega324.h"
+#if defined(__AVR_ATmega324A__)
+	#include "atmega324.h"
+#else
+	#error "Not ATmega 324A"
+#endif
 
 /*** Global Constant & Macro ***/
 #ifndef UART1_RX_BUFFER_SIZE

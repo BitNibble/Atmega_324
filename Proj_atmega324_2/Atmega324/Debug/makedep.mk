@@ -40,6 +40,8 @@ Libraria\src\lfsm.c
 
 Libraria\src\mm74c923.c
 
+Libraria\src\pcf8563rtc.c
+
 Libraria\src\rotenc.c
 
 Libraria\src\watch.c

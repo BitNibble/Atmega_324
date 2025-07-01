@@ -11,17 +11,15 @@ Hardware: Atmega324A
  ***************************************************************************/
 //Good practice initialize
 #define F_CPU 8000000UL
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include <stdio.h>
-#include "keypad.h"
-#include "lcd.h"
-#include "function.h"
 #include "atmega324_analog.h"
 #include "atmega_eeprom.h"
 #include "atmega324_timer.h"
 #include "atmega324_usart0.h"
 #include "atmega324_usart1.h"
+#include "keypad.h"
+#include "lcd.h"
+#include "function.h"
 #include "watch.h"
 #include "clock.h"
 //Constant & macros
@@ -61,7 +59,7 @@ int main(void)
 	ANALOG an = ANALOG_enable( 1, 16, 1, 0 );
 	usart0_enable(38400,8,1,NONE);
     /* Init Values */
-	watch.preset(15,12,0);
+	watch.preset(21,58,0);
 	
 	tc1_reg()->tcnt1->par.h.var = 55;
 	
