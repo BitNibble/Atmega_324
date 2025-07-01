@@ -13,11 +13,7 @@ Comment:
 #include <stdio.h>
 #include <string.h>
 
-/*** File Constant & Macro ***/
-
-/*** File Variable ***/
-
-/*** File Header ***/
+/*** Function declaration ***/
 void BUFF_push(bufferparameter* par, BUFFvar data);
 BUFFvar* BUFF_raw(bufferparameter* par);
 void BUFF_flush(bufferparameter* par);
@@ -38,6 +34,7 @@ BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 	return ret; // return copy
 }
 
+/*** Function definition ***/
 void BUFF_push( bufferparameter* par, BUFFvar data ){
 	BUFFvar* head; BUFFvar* next;
 	head = par->head;
@@ -64,8 +61,6 @@ void BUFF_flush( bufferparameter* par ){
 	par->head = head;
 	*head = 0;
 }
-
-/*** File Interrupt ***/
 
 /***EOF***/
 

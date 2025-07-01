@@ -10,19 +10,11 @@ Update:   30062025
 
 /*** Global Library ***/
 #include <util/twi.h>
-
-#if defined(__AVR_ATmega324A__)
-	#include "atmega324.h"
-#else
-	#error "Not ATmega 324A"
-#endif
+#include "atmega324.h"
 
 /*** Global Constant & Macro ***/
 #ifndef _TWI_MODULE_
 	#define _TWI_MODULE_
-#endif
-#ifndef F_CPU
-	#define F_CPU 8000000UL
 #endif
 #ifndef TWI_SCL_CLOCK
 	#define	TWI_SCL_CLOCK 100000UL
@@ -82,8 +74,8 @@ typedef struct {
 }TWI0;
 
 /*** Global Header ***/
-TWI0* twi(void);
 TWI0 twi_enable(uint8_t atmega_ID, uint8_t prescaler);
+TWI0* twi(void);
 
 #endif
 /***EOF***/

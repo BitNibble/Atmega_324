@@ -19,7 +19,7 @@ static char WATCH_vector[9] = {0};
 static uint32_t WATCH_trigger[N_DELAY] = {0};
 static uint8_t WATCH_delay_flag[N_DELAY] = {0};
 
-/*** File Header ***/
+/*** Procedure and Function declaration ***/
 void WATCH_set_hour(uint8_t hour);
 void WATCH_set_minute(uint8_t min);
 void WATCH_preset(uint8_t hour, uint8_t minute, uint8_t second);
@@ -27,8 +27,8 @@ uint8_t WATCH_start_delay(uint8_t n_delay, uint32_t seconds);
 void WATCH_result(void);
 char* WATCH_show(void);
 
-/*** Procedure & Function ***/
-WATCH WATCH_enable(void)
+/*** Handler ***/
+WATCH watch_enable(void)
 {
 	wtime.hour = 0;
 	wtime.minute = 0;
@@ -43,6 +43,7 @@ WATCH WATCH_enable(void)
 	return watch;
 }
 
+/*** Procedure and Function definition ***/
 uint8_t WATCH_start_delay(uint8_t delay_n, uint32_t seconds){
 	uint32_t segundos = 0;
 	uint8_t ret = 0; // one shot repeat

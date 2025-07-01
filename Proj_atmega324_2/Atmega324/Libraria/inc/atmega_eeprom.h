@@ -31,7 +31,7 @@ struct prm {
 };
 typedef struct prm EEPROM;
 
-EEPROM EEPROM_enable(void);
+EEPROM eeprom_enable(void);
 
 #endif
 /***EOF***/

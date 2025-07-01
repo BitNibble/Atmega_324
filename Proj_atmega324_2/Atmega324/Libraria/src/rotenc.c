@@ -19,7 +19,7 @@ Comment:
 rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data);
 
 /*** Procedure & Function ***/
-ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
+ROTENC rotenc_enable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
 	ROTENC rtnc;

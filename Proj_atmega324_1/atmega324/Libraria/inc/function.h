@@ -19,12 +19,13 @@ Comment:
 #include <string.h>
 #include <errno.h>
 ********************/
+#include <stdint.h>
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#define FUNCSTRSIZE 31
+#define FUNC_STR_SIZE 32
 
-/*** Global Variable ***/
+/*** Handler ***/
 typedef struct
 {
 	// PROTOTYPES VTABLE
@@ -71,7 +72,7 @@ typedef struct
 }FUNC;
 
 /*** Global Header ***/
-FUNC FUNCenable(void);
+FUNC func_enable(void);
 
 #endif
 

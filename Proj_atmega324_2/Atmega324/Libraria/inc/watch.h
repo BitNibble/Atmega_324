@@ -27,7 +27,7 @@ typedef struct {
 } WATCH;
 
 /*** Global Header ***/
-WATCH WATCH_enable(void);
+WATCH watch_enable(void);
 extern void WATCH_increment(void);
 extern void WATCH_decrement(void);
 

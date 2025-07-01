@@ -42,7 +42,7 @@ hc595_parameter hc595_par_inic(volatile IO_var *ddr, volatile IO_var *port, uint
 }
 
 /*** 74HC595 Procedure & Function Definition ***/
-HC595 HC595enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
+HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
 {
 	HC595 setup_hc595;
 

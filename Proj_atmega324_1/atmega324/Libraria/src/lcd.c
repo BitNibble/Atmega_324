@@ -7,6 +7,9 @@ Date:     27062025
 Comment:
                   
 ************************************************************************/
+#ifndef F_CPU
+	#define F_CPU 8000000UL
+#endif
 /***File Library***/
 #include "lcd.h"
 #include <util/delay.h>
@@ -23,7 +26,7 @@ volatile uint8_t *lcd1_PIN;
 volatile uint8_t *lcd1_PORT;
 uint8_t lcd1_detect;
 
-/***File Header***/
+/*** Procedure and Function declaration ***/
 void LCD0_inic(void);
 void LCD0_write(char c, unsigned short D_I);
 char LCD0_read(unsigned short D_I);
@@ -51,7 +54,7 @@ void LCD1_reboot(void);
 void lcd_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 
-/***Procedure & Function***/
+/*** Handler ***/
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
@@ -86,6 +89,7 @@ LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 
 LCD0* lcd0(void){ return &setup_lcd0; }
 
+/*** Procedure and Function definition ***/
 void LCD0_inic(void)
 {
 	// LCD INIC
@@ -254,7 +258,7 @@ void LCD0_reboot(void)
 	lcd0_detect = tmp;
 }
 
-// LCD 1
+// LCD 1 Handler
 LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES

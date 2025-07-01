@@ -31,10 +31,15 @@ Date:     24/06/2025
 	#error "Not ATmega 324A"
 #endif
 
-#include <stddef.h>
-#include <stdint.h>
-#include <inttypes.h>
-
+/*** Global Constant & Macro ***/
+#define TWO 2
+#define NIBBLE_BITS 4
+#define BYTE_BITS 8
+#define WORD_BITS 16
+#define DWORD_BITS 32
+#define QWORD_BITS 64
+#define SRAMSTART 0x0100
+#define SRAMEND 0x08FF
 // Macros for common operations
 #define SET_REG(REG, HBITS)		(REG |= HBITS)
 #define CLEAR_REG(REG, HBITS)	(REG &= ~HBITS)

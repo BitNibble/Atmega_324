@@ -61,7 +61,7 @@ struct hx711{
 typedef struct hx711 HX711;
 
 /*** Global Header ***/
-HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
+HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin);
 
 #endif
 

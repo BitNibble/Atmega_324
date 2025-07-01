@@ -8,14 +8,12 @@ Date: 20042023
 Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz                    
 ************************************************************************/
+#ifndef F_CPU
+	#define F_CPU 8000000UL
+#endif
 /*** File Library ***/
 #include "lcd2p.h"
 #include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /*** File Constant & Macro ***/
 // CMD RS
@@ -34,7 +32,7 @@ volatile uint8_t *lcd02pdata_PIN;
 volatile uint8_t *lcd02pdata_PORT;
 uint8_t lcd02p_detect;
 
-/*** File Header ***/
+/*** Procedure and funtion declaration ***/
 void LCD02P_inic(void);
 void LCD02P_write(char c, unsigned short D_I);
 char LCD02P_read(unsigned short D_I);
@@ -50,8 +48,8 @@ void LCD02P_strobe(uint16_t num);
 void LCD02P_reboot(void);
 void LCD02P_ticks(uint16_t num);
 
-/*** Procedure & Function ***/
-LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
+/*** Handler ***/
+LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
 	// LOCAL VARIABLES
 	// ALLOCAÇÂO MEMORIA PARA Estrutura
@@ -86,6 +84,7 @@ LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile
 	
 	return setup_lcd02p;
 }
+/*** Procedure and function definition ***/
 void LCD02P_inic(void)
 {
 	// LCD INIC

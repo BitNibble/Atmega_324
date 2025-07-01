@@ -17,9 +17,10 @@ Comment:
 #include <math.h>
 
 /*** File Variable ***/
-static char FUNCstr[FUNCSTRSIZE + 1];
+static char FUNC_str[FUNC_STR_SIZE] = {0};
+static const uint16_t func_str_size = (FUNC_STR_SIZE - 1);
 
-/*** File Header ***/
+/*** Procedure and Function declaration ***/
 int StringLength (const char string[]);
 void Reverse(char s[]);
 uint8_t  bintobcd(uint8_t bin);
@@ -66,14 +67,13 @@ int FUNCreadint(int nmin, int nmax);
 ******************************/
 // uint8_t TRANupdate(struct TRAN *tr, uint8_t idata);
 
-/*** Procedure & Function ***/
-FUNC FUNCenable( void )
+/*** Handler ***/
+FUNC func_enable( void )
 {
 // Comment out links not being used, in order to release memmory.
 	// struct object
 	FUNC func;
 	// Inic FUNCstr
-	FUNCstr[FUNCSTRSIZE] = '\0';
 	// function pointers
 	func.stringlength = StringLength;
 	func.reverse = Reverse;
@@ -119,6 +119,7 @@ FUNC FUNCenable( void )
 	
 	return func;
 }
+/*** Procedure and Function definition ***/
 // mayia
 unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
 { // magic formula
@@ -171,11 +172,11 @@ char* FUNCui32toa(uint32_t n)
 {
 	uint8_t i = 0;
 	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
+		FUNC_str[i++] = (char) (n % 10 + '0'); // get next digit
 	}while ((n /= 10) > 0); // delete it
-	FUNCstr[i] = '\0';
-	Reverse(FUNCstr);
-	return FUNCstr;
+	FUNC_str[i] = '\0';
+	Reverse(FUNC_str);
+	return FUNC_str;
 }
 // i32toa: convert n to characters in s
 char* FUNCi32toa(int32_t n)
@@ -186,12 +187,12 @@ char* FUNCi32toa(int32_t n)
 	n = -n; // make n positive
 	i = 0;
 	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
+		FUNC_str[i++] = (char) (n % 10 + '0'); // get next digit
 	}while ((n /= 10) > 0); // delete it
-	if (sign < 0) FUNCstr[i++] = '-';
-	FUNCstr[i] = '\0';
-	Reverse(FUNCstr);
-	return FUNCstr;
+	if (sign < 0) FUNC_str[i++] = '-';
+	FUNC_str[i] = '\0';
+	Reverse(FUNC_str);
+	return FUNC_str;
 }
 // i16toa: convert n to characters in s
 char* FUNCi16toa(int16_t n)
@@ -202,21 +203,21 @@ char* FUNCi16toa(int16_t n)
 		n = -n; // make n positive
 	i = 0;
 	do { // generate digits in reverse order
-		FUNCstr[i++] = (char) (n % 10 + '0'); // get next digit
+		FUNC_str[i++] = (char) (n % 10 + '0'); // get next digit
 	}while ((n /= 10) > 0); // delete it
-	if (sign < 0) FUNCstr[i++] = '-';
-	FUNCstr[i] = '\0';
-	Reverse(FUNCstr);
-	return FUNCstr;
+	if (sign < 0) FUNC_str[i++] = '-';
+	FUNC_str[i] = '\0';
+	Reverse(FUNC_str);
+	return FUNC_str;
 }
 // ui16toa: convert n to characters in s
 char* FUNCui16toa(uint16_t n)
 {
 	uint8_t i;
-	for(i = 0, FUNCstr[i++] = n % 10 + '0'; (n /= 10) > 0; FUNCstr[i++] = n % 10 + '0');
-	FUNCstr[i] = '\0';
-	Reverse(FUNCstr);
-	return FUNCstr;
+	for(i = 0, FUNC_str[i++] = n % 10 + '0'; (n /= 10) > 0; FUNC_str[i++] = n % 10 + '0');
+	FUNC_str[i] = '\0';
+	Reverse(FUNC_str);
+	return FUNC_str;
 }
 // trim: remove trailing blanks, tabs, newlines
 int FUNCtrim(char s[])
@@ -325,17 +326,17 @@ char FUNCbcd2dec(char num)
 char* FUNCresizestr(char *string, int size)
 {
 	int i;
-	FUNCstr[size] = '\0';
+	FUNC_str[size] = '\0';
 	for(i = 0; i < size; i++){
 		if(*(string + i) == '\0'){
 			for(; i < size; i++){
-				FUNCstr[i] = ' ';
+				FUNC_str[i] = ' ';
 			}
 			break;
 		}
-		FUNCstr[i] = *(string + i);
+		FUNC_str[i] = *(string + i);
 	}
-	return FUNCstr;
+	return FUNC_str;
 }
 // trimmer
 long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max)
@@ -383,16 +384,16 @@ long FUNCgcd1(long a, long b)
 	}
 	return b;
 }
-// printbinary
+// print_binary
 char* FUNCprint_binary(unsigned int n_bits, unsigned int number)
 {
 	unsigned int i, c;
 	for(i = (1 << (n_bits - 1)), c = 0; i; i >>= 1, c++)
-		(number & i) ? (FUNCstr[c] = '1') : (FUNCstr[c] = '0');
-	FUNCstr[c] = '\0';
-	return FUNCstr;
+		(number & i) ? (FUNC_str[c] = '1') : (FUNC_str[c] = '0');
+	FUNC_str[c] = '\0';
+	return FUNC_str;
 }
-// leapyearcheck
+// leap_year_check
 uint8_t leap_year_check(uint16_t year){
 	uint8_t i;
 	if (!(year % 400))
@@ -413,8 +414,8 @@ uint8_t bintobcd(uint8_t bin)
 // intinvstr
 uint8_t FUNCintinvstr(uint32_t num, uint8_t index)
 {
-	for(FUNCstr[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNCstr[index++] = (char)((num % 10) + '0'));
-	FUNCstr[index] = '\0'; return index;
+	for(FUNC_str[index++] = (char)((num % 10) + '0'); (num /= 10) > 0 ; FUNC_str[index++] = (char)((num % 10) + '0'));
+	FUNC_str[index] = '\0'; return index;
 }
 // ftoa
 char* FUNCftoa(double num, uint8_t afterpoint)
@@ -422,23 +423,23 @@ char* FUNCftoa(double num, uint8_t afterpoint)
 	uint32_t ipart; double n, fpart; uint8_t k = 0; int8_t sign;
 	if (num < 0){ n = -num; sign = -1;}else{n = num; sign = 1;}
 	ipart = (uint32_t) n; fpart = n - (double)ipart;
-	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNCstr[k++] = '-'; FUNCstr[k] = '\0'; Reverse(FUNCstr);
-	FUNCstr[k++] = '.';
-	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNCstr + k);
-	return FUNCstr;
+	k = FUNCintinvstr(ipart, 0); if (sign < 0) FUNC_str[k++] = '-'; FUNC_str[k] = '\0'; Reverse(FUNC_str);
+	FUNC_str[k++] = '.';
+	FUNCintinvstr((fpart * pow(10, afterpoint)), k); Reverse(FUNC_str + k);
+	return FUNC_str;
 }
 // dectohex
 char* FUNCdectohex(int32_t num)
 {
 	int32_t remainder;
 	uint8_t j;
-	for(j = 0, FUNCstr[j] = '\0'; num; FUNCstr[j] = '\0', num = num / 16){
+	for(j = 0, FUNC_str[j] = '\0'; num; FUNC_str[j] = '\0', num = num / 16){
 		remainder = num % 16;
-		if (remainder < 10) FUNCstr[j++] = (char) (48 + remainder);
-		else FUNCstr[j++] = (char) (55 + remainder);
+		if (remainder < 10) FUNC_str[j++] = (char) (48 + remainder);
+		else FUNC_str[j++] = (char) (55 + remainder);
 	}
-	Reverse(FUNCstr);
-	return FUNCstr;
+	Reverse(FUNC_str);
+	return FUNC_str;
 }
 // swapbyte
 uint16_t FUNCSwapByte(uint16_t num)
@@ -452,10 +453,10 @@ char* FUNCprint( const char* format, ... )
 {
 	va_list aptr; int ret;
 	va_start(aptr, format);
-	ret = vsnprintf( FUNCstr, FUNCSTRSIZE, (const char*) format, aptr );
-	// ret = vsnprintf( ptr, FUNCSTRSIZE, format, aptr );
+	ret = vsnprintf( FUNC_str, func_str_size, (const char*) format, aptr );
+	// ret = vsnprintf( ptr, func_str_size, format, aptr );
 	va_end(aptr);
-	if(ret < 0){ return NULL; }else return FUNCstr;
+	if(ret < 0){ return NULL; }else return FUNC_str;
 }
 // strtovec
 void FUNCstrtovec(char* pos, const char* str){

@@ -9,7 +9,7 @@ Date:     30062025
 
 static EEPROM eprom;
 
-EEPROM EEPROM_enable(void) {
+EEPROM eeprom_enable(void) {
 	// V-table
 	eprom.read_byte = eeprom_read_byte;
 	eprom.write_byte = eeprom_write_byte;

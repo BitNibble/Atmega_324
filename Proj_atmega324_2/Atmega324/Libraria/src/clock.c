@@ -21,7 +21,7 @@ void CLOCK_decrement(void);
 char* CLOCK_show(void);
 
 /*** Procedure & Function ***/
-CLOCK CLOCK_enable(uint8_t hour, uint8_t minute, uint8_t second)
+CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 {
 	CLOCK clock;
 	(hour < 24) ? ctime.hour = hour : (void) hour;  

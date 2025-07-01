@@ -38,11 +38,11 @@ int main(void)
 	uint8_t mask=0;
 	uint8_t page=0;
 	uint8_t n;
-	KEYPAD keypad = KEYPAD_enable(&DDRA,&PINA,&PORTA);
+	KEYPAD keypad = keypad_enable(&DDRA,&PINA,&PORTA);
 	LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
-	EEPROM eeprom = EEPROM_enable();
-	LFSM lfsm = LFSMenable(&eeprom,146);
-	FUNC func = FUNCenable();
+	EEPROM eeprom = eeprom_enable();
+	LFSM lfsm = lfsm_enable(&eeprom,146);
+	FUNC func = func_enable();
 	/**************************************/
 	lfsm.setoutput(&lfsm,255);
 	/* Replace with your application code */

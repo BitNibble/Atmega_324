@@ -44,12 +44,12 @@ char* MM74C923_data(void);
 void MM74C923_data_clear(void);
 
 /*** Procedure & Function ***/
-MM74C923 MM74C923enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
+MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
 	// ALLOCACAO MEMORIA Para Estrutura
-	func=FUNCenable();
-	vari = EXPLODEenable();
+	func=func_enable();
+	vari = explode_enable();
 	MM74C923 mm74c923;
 	// import parameters
 	mm74c923_DDR = ddr;

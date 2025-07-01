@@ -34,7 +34,7 @@ struct rotenc{
 typedef struct rotenc ROTENC;
 
 /*** Global Header ***/
-ROTENC ROTENCenable(uint8_t ChnApin, uint8_t ChnBpin);
+ROTENC rotenc_enable(uint8_t ChnApin, uint8_t ChnBpin);
 
 #endif
 

@@ -46,7 +46,7 @@ typedef struct
 	void (*out)(hc595_parameter* par);
 }HC595;
 
-HC595 HC595enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
+HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 
 #endif
 

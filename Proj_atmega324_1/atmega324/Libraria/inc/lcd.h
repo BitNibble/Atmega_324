@@ -10,18 +10,10 @@ Comment:
 #ifndef _LCD_H_
 	#define _LCD_H_
 
-/***Compiler***/
-
-/***Working Frequency***/
-#ifndef F_CPU
-	#define F_CPU 16000000UL
-#endif
-
 /***Global Library***/
 #include <stdint.h>
 #include <inttypes.h>
 
-/***Global Constant & Macro***/
 // ASIGN PORT PINS TO LCD (can be setup in any way)
 #define RS 0
 #define RW 1
@@ -36,7 +28,7 @@ Comment:
 #define INST 0
 #define DATA 1
 
-/***Global Variable***/
+/*** Handler ***/
 typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
@@ -52,10 +44,10 @@ typedef struct{
 }LCD0, LCD1;
 
 /***Global Header***/
-LCD0* lcd0(void);
-LCD1* lcd1(void);
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD0* lcd0(void);
 LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+LCD1* lcd1(void);
 
 #endif
 

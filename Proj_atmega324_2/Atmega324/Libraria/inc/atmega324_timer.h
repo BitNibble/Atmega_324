@@ -48,12 +48,12 @@ typedef struct {
 	void (*stop)(void);
 } TIMER_COUNTER2;
 
-TIMER_COUNTER0 TIMER_COUNTER0_enable(uint8_t wavegenmode, uint8_t interrupt);
-TIMER_COUNTER0* TC0(void);
-TIMER_COUNTER1 TIMER_COUNTER1_enable(uint8_t wavegenmode, uint8_t interrupt);
-TIMER_COUNTER1* TC1(void);
-TIMER_COUNTER2 TIMER_COUNTER2_enable(uint8_t wavegenmode, uint8_t interrupt);
-TIMER_COUNTER2* TC2(void);
+TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER0* tc0(void);
+TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER1* tc1(void);
+TIMER_COUNTER2 tc2_enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER2* tc2(void);
 
 #endif
 /***EOF***/

@@ -11,13 +11,8 @@ Comment:
 #ifndef _LCD2P_H_
 	#define _LCD2P_H_
 
-/*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-#ifndef F_CPU
-	#define F_CPU 8000000UL
-#endif
 // ASIGN PORT PINS TO LCD (can be setup in any way)
 // CMD
 #define LCD02P_RS 0
@@ -30,7 +25,7 @@ Comment:
 #define LCD02P_DB6 2 // 6
 #define LCD02P_DB7 3 // 7
 
-/*** Global Variable ***/
+/*** Handler ***/
 struct dspl {
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
@@ -47,7 +42,7 @@ struct dspl {
 typedef struct dspl LCD02P;
 
 /*** Global Header ***/
-LCD02P LCD02Penable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
 
 #endif
 

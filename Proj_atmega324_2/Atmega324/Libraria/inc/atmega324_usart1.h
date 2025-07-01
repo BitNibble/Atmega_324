@@ -9,11 +9,7 @@ Update:   26/06/2025
 	#define _ATMEGA324_USART1_H_
 
 /*** Global Library ***/
-#if defined(__AVR_ATmega324A__)
-	#include "atmega324.h"
-#else
-	#error "Not ATmega 324A"
-#endif
+#include "atmega324.h"
 
 /*** Global Constant & Macro ***/
 #ifndef UART1_RX_BUFFER_SIZE
@@ -50,8 +46,8 @@ typedef struct {
 }USART1;
 
 /*** Global ***/
-USART1* usart1(void);
 USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+USART1* usart1(void);
 
 char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
 

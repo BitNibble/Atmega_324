@@ -51,7 +51,7 @@ uint8_t HX711_get_readflag(HX711* self);
 HX711_calibration* HX711_get_cal(HX711* self);
 
 /*** Procedure & Function ***/
-HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin)
+HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin)
 {
 	//LOCAL VARIABLES
 	uint8_t tSREG;

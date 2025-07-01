@@ -39,7 +39,7 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 
 /*** Procedure & Function ***/
 // LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
-LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
+LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom)
 {
 	// Local Variable
 	const uint8_t sizeblock = sizeof(struct lfsmdata);

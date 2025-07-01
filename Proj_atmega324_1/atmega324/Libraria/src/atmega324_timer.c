@@ -69,9 +69,8 @@ void TIMER_COUNTER2_stop(void);
 /*
 ** procedure and function
 */
-TIMER_COUNTER0 TIMER_COUNTER0_enable(uint8_t wavegenmode, uint8_t interrupt)
+TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
-	
 	timer0_state=0;
 	
 	tc0_reg()->ocr0a->var = 0XFF;
@@ -137,7 +136,7 @@ TIMER_COUNTER0 TIMER_COUNTER0_enable(uint8_t wavegenmode, uint8_t interrupt)
 	return timer0;
 }
 
-TIMER_COUNTER0* TC0(void){ return &timer0; }
+TIMER_COUNTER0* tc0(void){ return &timer0; }
 
 void TIMER_COUNTER0_start(uint16_t prescaler)
 {
@@ -238,7 +237,7 @@ void TIMER_COUNTER0_stop(void)
 	timer0_state=0;
 }
 /*****************************************************************************************/
-TIMER_COUNTER1 TIMER_COUNTER1_enable(uint8_t wavegenmode, uint8_t interrupt)
+TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
 	
@@ -344,7 +343,7 @@ TIMER_COUNTER1 TIMER_COUNTER1_enable(uint8_t wavegenmode, uint8_t interrupt)
 	return timer1;
 }
 
-TIMER_COUNTER1* TC1(void){ return &timer1; }
+TIMER_COUNTER1* tc1(void){ return &timer1; }
 
 void TIMER_COUNTER1_start(uint16_t prescaler)
 {
@@ -449,7 +448,7 @@ void TIMER_COUNTER1_stop(void)
 	timer1_state=0;
 }
 /*****************************************************************************************/
-TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char interrupt)
+TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
 	
@@ -517,7 +516,7 @@ TIMER_COUNTER2 TIMER_COUNTER2_enable(unsigned char wavegenmode, unsigned char in
 	return timer2;
 }
 
-TIMER_COUNTER2* TC2(void){ return &timer2; }
+TIMER_COUNTER2* tc2(void){ return &timer2; }
 
 void TIMER_COUNTER2_start(uint16_t prescaler)
 {

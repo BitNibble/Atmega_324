@@ -40,9 +40,9 @@ struct date PCF8563RTC_GetDate(void);
 uint8_t PCF8563RTC_bcd2dec(uint8_t num);
 uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 // PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
-PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
+PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 {
 	PCF8563RTC pcf;
 	#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)

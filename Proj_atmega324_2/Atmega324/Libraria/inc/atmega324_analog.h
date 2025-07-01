@@ -28,7 +28,7 @@ struct ANALOG{
 };
 typedef struct ANALOG ANALOG;
 
-ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
+ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
 
 #endif
 /***EOF***/
