@@ -4,8 +4,6 @@ Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega324
 Update:   26/06/2025
-Comment:
-	Stable
 *************************************************************************/
 /*** File Library ***/
 #include "atmega324_usart0.h"
@@ -18,6 +16,7 @@ static USART0 atmega324_usart0;
 
 static BUFF rx0buff;
 static UARTvar UART0_Rx;
+
 static UARTvar UART0_RxBuf[UART0_RX_BUFFER_SIZE] = {0};
 static const uint16_t uart0_rx_buffer_size = (UART0_RX_BUFFER_SIZE - 1);
 static uint8_t UART0_LastRxError;
@@ -45,7 +44,6 @@ void USART0DoubleTransmissionSpeed(void);
 /*** Procedure & Function ***/
 USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
-	// ATMEGA128enable();
 	uart0flag = 1;
 	uint16_t ubrr = 0;
 	rx0buff = buff_enable( uart0_rx_buffer_size, UART0_RxBuf );
@@ -173,7 +171,7 @@ void uart0_puts(UARTvar* s)
 }
 
 /*** Interrupts ***/
-ISR(UART0_RECEIVE_INTERRUPT)
+ISR(USART0_RX_vect)
 {
 	unsigned char bit9;
 	unsigned char usr;
@@ -188,7 +186,7 @@ ISR(UART0_RECEIVE_INTERRUPT)
 	rx0buff.push(&rx0buff.par, UART0_Rx);
 }
 
-ISR(UART0_TRANSMIT_INTERRUPT)
+ISR(USART0_UDRE_vect)
 {
 	usart0_reg()->ucsr0b->var &= ~(1 << UDRIE0);
 }

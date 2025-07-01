@@ -2,7 +2,7 @@
 	CLOCK
 Author:   <sergio.salazar.santos@gmail.com>
 Hardware: all
-Date:     30106025
+Date:     31106025
 ************************************************************************/
 #ifndef _CLOCK_H_
 	#define _CLOCK_H_
@@ -19,7 +19,7 @@ typedef volatile struct {
 	int8_t hour;
 	int8_t minute;
 	int8_t second;
-} CLOCK_TIME;
+} RELOGIO_TIME;
 
 struct clck{
 	void (*set)(uint8_t hour, uint8_t minute, uint8_t second);

@@ -12,7 +12,7 @@ Comment:
 	#define _LFSM_H_
 
 /*** Global Library ***/
-#include "atmegaeeprom.h"
+#include "atmega_eeprom.h"
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/

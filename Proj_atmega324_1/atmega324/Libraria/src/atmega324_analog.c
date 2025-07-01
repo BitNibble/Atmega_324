@@ -61,23 +61,7 @@ ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 			analog.VREFF = 0;
 			break;
 	}
-	//
-	adc_reg()->admux->var &= ~(1<<ADLAR);
-	/******/
-	va_start(list, n_channel);
-	for( i=0; i < n_channel; i++ ) {
-		ADC_CHANNEL[i] = va_arg(list, int);
-	}
-	va_end(list);
-	adc_reg()->admux->var &= ~MUX_MASK;
-	adc_reg()->admux->var |= (MUX_MASK & ADC_CHANNEL[ADC_SELECTOR]);
-	/******/
-	adc_reg()->adcsra->var |= (1 << ADEN);
-	adc_reg()->adcsra->var |= (1 << ADSC);
-	adc_reg()->adcsra->var &= ~(1 << ADATE);
-	adc_reg()->adcsrb->var &= ~(7 << ADTS0);
-	adc_reg()->adcsra->var |= (1 << ADIE);
-	/******/
+	
 	adc_reg()->adcsra->var &= ~(7 << ADPS0);
 	switch( Divfactor ) {
 		case 2://1
@@ -112,6 +96,23 @@ ANALOG ANALOG_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 			analog.DIVISION_FACTOR = 128;
 			break;
 	}
+	//
+	adc_reg()->admux->var &= ~(1<<ADLAR);
+	/******/
+	va_start(list, n_channel);
+	for( i=0; i < n_channel; i++ ) {
+		ADC_CHANNEL[i] = va_arg(list, int);
+	}
+	va_end(list);
+	adc_reg()->admux->var &= ~MUX_MASK;
+	adc_reg()->admux->var |= (MUX_MASK & ADC_CHANNEL[ADC_SELECTOR]);
+	/******/
+	adc_reg()->adcsra->var |= (1 << ADEN);
+	adc_reg()->adcsra->var |= (1 << ADSC);
+	adc_reg()->adcsra->var &= ~(1 << ADATE);
+	adc_reg()->adcsrb->var &= ~(7 << ADTS0);
+	adc_reg()->adcsra->var |= (1 << ADIE);
+	/******/
 	cpu_reg()->sreg->var |= (1 << GLOBAL_INTERRUPT_ENABLE);
 	/******/
 	return analog;
@@ -122,7 +123,7 @@ int ANALOG_read(int selection)
 	ADSC_FLAG = (1 << ADSC);
 	if( !(adc_reg()->adcsra->var & ADSC_FLAG) ) {
 		/***/
-		adc_reg()->adcsra->var |= (1 << ADSC);
+		adc_reg()->adcsra->var |= ADSC_FLAG;
 	}
 	return ADC_VALUE[selection];
 }

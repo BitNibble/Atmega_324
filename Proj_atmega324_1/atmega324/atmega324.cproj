@@ -127,7 +127,7 @@
         <avrgcc.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.209\include</Value>
-            <Value>../Libraria</Value>
+            <Value>../Libraria/inc</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -153,52 +153,145 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Libraria\atmega324.c">
+    <Compile Include="Libraria\inc\74hc595.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324analog.c">
+    <Compile Include="Libraria\inc\atcommands.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324preamble.c">
+    <Compile Include="Libraria\inc\atmega324.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324timer.c">
+    <Compile Include="Libraria\inc\atmega324_analog.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324_usart0.c">
+    <Compile Include="Libraria\inc\atmega324_registers.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324_usart0.h">
+    <Compile Include="Libraria\inc\atmega324_timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega324_usart1.c">
+    <Compile Include="Libraria\inc\atmega324_twi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmegaeeprom.c">
+    <Compile Include="Libraria\inc\atmega324_usart0.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmegaeeprom.h">
+    <Compile Include="Libraria\inc\atmega324_usart1.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\clock.c">
+    <Compile Include="Libraria\inc\atmega_eeprom.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\function.c">
+    <Compile Include="Libraria\inc\buffer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\keypad.c">
+    <Compile Include="Libraria\inc\clock.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\keypad.h">
+    <Compile Include="Libraria\inc\explode.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\lcd.c">
+    <Compile Include="Libraria\inc\function.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\lfsm.c">
+    <Compile Include="Libraria\inc\hx711.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\rotenc.c">
+    <Compile Include="Libraria\inc\keypad.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\lcd2p.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\lfsm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\mm74c923.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\pcf8563rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\rotenc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\watch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\inc\znpid.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\74hc595.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atcommands.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324_analog.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324_timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324_twi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324_usart0.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega324_usart1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\atmega_eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\buffer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\clock.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\explode.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\function.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\hx711.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\lcd2p.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\lfsm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\mm74c923.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\pcf8563rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\rotenc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\watch.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\src\znpid.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -207,6 +300,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Libraria" />
+    <Folder Include="Libraria\inc" />
+    <Folder Include="Libraria\src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

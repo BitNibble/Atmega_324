@@ -1,25 +1,16 @@
 /*************************************************************************
 	eeprom wrapper
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: ATmega
-Date: 04122022
-Comment:
-   Very Stable
+Date:     30062025
 *************************************************************************/
-/*** File Library ***/
-#include "atmegaeeprom.h"
+#include "atmega_eeprom.h"
 
-/*** File Constant & Macro ***/
+static EEPROM eprom;
 
-/*** File Variable ***/
-
-/*** File Header ***/
-
-/*** Procedure & Function ***/
-EEPROM EEPROMenable(void){
-	EEPROM eprom;
+EEPROM EEPROM_enable(void) {
+	// V-table
 	eprom.read_byte = eeprom_read_byte;
 	eprom.write_byte = eeprom_write_byte;
 	eprom.update_byte = eeprom_update_byte;
@@ -37,8 +28,6 @@ EEPROM EEPROMenable(void){
 	eprom.update_block = eeprom_update_block;
 	return eprom;
 }
-
-/*** File Interrupt ***/
 
 /***EOF***/
 

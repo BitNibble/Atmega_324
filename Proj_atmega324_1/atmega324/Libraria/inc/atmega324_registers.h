@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
-Date:     24/06/2025
+Date:     29/06/2025
 ************************************************************************/
 #ifndef _ATMEGA324_REGISTERS_H_
 	#define _ATMEGA324_REGISTERS_H_
@@ -35,6 +35,7 @@ typedef volatile union {
 	} par;
 	uint8_t var;
 } _uint8_t;
+
 typedef volatile union {
 	struct{
 		_uint8_t l, h;
@@ -422,13 +423,13 @@ typedef volatile union {
 // _TWBR 0xB8 (_uint8_t)
 typedef volatile union {
 	struct{
-		uint8_t twps0 : 1, twps1 : 1, fill0 : 1, tws3 : 1, tws4 : 1, tws5 : 1, tws6 : 1, tws7 : 1;
+		uint8_t twps : 2, fill0 : 1, tws3 : 1, tws4 : 1, tws5 : 1, tws6 : 1, tws7 : 1;
 	}par;
 	uint8_t var;
 } _TWSR_TypeDef; // 0xB9
 typedef volatile union {
 	struct{
-		uint8_t twgce : 1, twa0 : 1, twa1 : 1, twa2 : 1, twa3 : 1, twa4 : 1, twa5 : 1, twa6 : 1;
+		uint8_t twgce : 1, twa : 7;
 	}par;
 	uint8_t var;
 } _TWAR_TypeDef; // 0xBA
@@ -539,6 +540,7 @@ typedef volatile union {
 // Reserved 0xFD
 // Reserved 0xFE
 // Reserved 0xFF
+
 #endif
 /***EOF***/
 

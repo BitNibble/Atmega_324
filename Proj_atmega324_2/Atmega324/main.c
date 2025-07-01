@@ -11,6 +11,7 @@ Hardware: Atmega324A
  ***************************************************************************/
 //Good practice initialize
 #define F_CPU 8000000UL
+/******/
 #include <stdio.h>
 #include "atmega324_analog.h"
 #include "atmega_eeprom.h"
@@ -101,7 +102,7 @@ int main(void)
 	
 		input=keypad.getkey();
 		
-		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, ".");
+		uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
 		
 		lcd0()->string_size(uartmsgprint, 12);
 		
