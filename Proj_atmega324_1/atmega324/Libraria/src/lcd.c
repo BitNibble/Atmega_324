@@ -107,7 +107,7 @@ void LCD0_inic(void)
 	_delay_us(37);
 	LCD0_write(0x01, INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD0_write(0x04, INST); // 0x04 Curor dir, Display shift
+	LCD0_write(0x04, INST); // 0x04 Cursor dir, Display shift
 	LCD0_BF();
 
 	LCD0_clear();

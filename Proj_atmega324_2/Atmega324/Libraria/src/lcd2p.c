@@ -94,7 +94,7 @@ void LCD02P_inic(void)
 	_delay_us(37);
 	LCD02P_write(0x01, LCD02P_INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD02P_write(0x04, LCD02P_INST); // 0x04 Curor dir, Display shift
+	LCD02P_write(0x04, LCD02P_INST); // 0x04 Cursor dir, Display shift
 	LCD02P_BF();
 
 	LCD02P_clear();

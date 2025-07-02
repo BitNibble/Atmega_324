@@ -11,11 +11,7 @@ Date:     30062025
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
 #endif
 
-#if defined(__AVR_ATmega324A__)
-	#include "atmega324.h"
-#else
-	#error "Not ATmega 324A"
-#endif
+#include "atmega324.h"
 
 #define ADC_NUMBER_SAMPLE 2 // 0 to 4.
 

@@ -10,7 +10,7 @@ Hardware: Atmega324A
 	-PORTD - HC05 blue tooth (usart0)
  ***************************************************************************/
 //Good practice initialize
-#define F_CPU 8000000UL
+#define F_CPU 16000000UL
 /******/
 #include <stdio.h>
 #include "atmega324_analog.h"
