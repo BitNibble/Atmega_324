@@ -3,18 +3,18 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     27062025
-Comment:
-                  
+Date:     02072025              
 ************************************************************************/
-#ifndef F_CPU
-	#define F_CPU 8000000UL
-#endif
-/***File Library***/
+/*** File Library***/
 #include "lcd.h"
 #include <util/delay.h>
 
-/***File Variable***/
+/***************/
+// CMD RS
+#define INST 0
+#define DATA 1
+
+/***File Variable ***/
 static LCD0 setup_lcd0;
 static LCD1 setup_lcd1;
 volatile uint8_t *lcd0_DDR;
@@ -26,7 +26,7 @@ volatile uint8_t *lcd1_PIN;
 volatile uint8_t *lcd1_PORT;
 uint8_t lcd1_detect;
 
-/*** Procedure and Function declaration ***/
+/*** File Header ***/
 void LCD0_inic(void);
 void LCD0_write(char c, unsigned short D_I);
 char LCD0_read(unsigned short D_I);
@@ -54,7 +54,7 @@ void LCD1_reboot(void);
 void lcd_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 
-/*** Handler ***/
+/***Procedure & Function***/
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
@@ -89,7 +89,6 @@ LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 
 LCD0* lcd0(void){ return &setup_lcd0; }
 
-/*** Procedure and Function definition ***/
 void LCD0_inic(void)
 {
 	// LCD INIC
@@ -98,17 +97,17 @@ void LCD0_inic(void)
 
 	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
-	LCD0_write(0x30, INST); // 0x30 function set
+	LCD0_write(0x30, INST); // 0x30 4 bit, 2 line, 5x10, --, --
 	_delay_us(37);
-	LCD0_write(0x28, INST); // 0x28 function set
+	LCD0_write(0x28, INST); // 0x28 8 bit, 1 lin,e 5x10, --, --
 	_delay_us(37);
-	LCD0_write(0x28, INST); // 0x28 function set
+	LCD0_write(0x28, INST); // 0x28 8 bit, 1 line, 5x10, --, --
 	_delay_us(37);
-	LCD0_write(0x0C, INST); // 0x0C Display ON/OFF control
+	LCD0_write(0x0C, INST); // 0x0C Display ON, Cursor OFF, Blink ON
 	_delay_us(37);
 	LCD0_write(0x01, INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD0_write(0x04, INST); // 0x05 Entry mode set
+	LCD0_write(0x04, INST); // 0x04 Curor dir, Display shift
 	LCD0_BF();
 
 	LCD0_clear();
@@ -166,6 +165,7 @@ char LCD0_read(unsigned short D_I)
 	return c;
 }
 void LCD0_BF(void)
+// it has to read at minimum one equal and exit immediately if not equal, weird property.
 {
 	uint8_t i;
 	char inst = 0x80;
@@ -258,7 +258,7 @@ void LCD0_reboot(void)
 	lcd0_detect = tmp;
 }
 
-// LCD 1 Handler
+// LCD 1
 LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
@@ -372,7 +372,7 @@ void LCD1_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
-	for(i=0; (0x80 & inst); i++){
+	for(i=0; (0x80 & inst); i++){ // it has to read at minimum one equal and exit immediately if not equal, weird property.
 		inst = LCD0_read(INST);
 		if(i > 10)
 			break;

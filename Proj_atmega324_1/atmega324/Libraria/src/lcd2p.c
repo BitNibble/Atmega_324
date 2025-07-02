@@ -1,16 +1,10 @@
 /*************************************************************************
 	LCD2P
-Author: Sergio Santos 
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 20042023
-Comment:
-	Tested Atemga128 16Mhz and Atmega328 8Mhz                    
+Date:     02072025             
 ************************************************************************/
-#ifndef F_CPU
-	#define F_CPU 8000000UL
-#endif
 /*** File Library ***/
 #include "lcd2p.h"
 #include <util/delay.h>
@@ -19,20 +13,19 @@ Comment:
 // CMD RS
 #define LCD02P_INST 0
 #define LCD02P_DATA 1
-// ticks depends on CPU frequency this case 16Mhz
-#define LCD02P_N_TICKS 0
-#define LCD02P_BN_TICKS 0
 
 /*** File Variable ***/
+static LCD02P setup_lcd02p;
 volatile uint8_t *lcd02pcmd_DDR;
 volatile uint8_t *lcd02pcmd_PIN;
 volatile uint8_t *lcd02pcmd_PORT;
 volatile uint8_t *lcd02pdata_DDR;
 volatile uint8_t *lcd02pdata_PIN;
 volatile uint8_t *lcd02pdata_PORT;
+static uint8_t DDR_DATA_MASK;
 uint8_t lcd02p_detect;
 
-/*** Procedure and funtion declaration ***/
+/*** File Header ***/
 void LCD02P_inic(void);
 void LCD02P_write(char c, unsigned short D_I);
 char LCD02P_read(unsigned short D_I);
@@ -44,16 +37,14 @@ void LCD02P_string_size(const char* s, uint8_t size); // RAW
 void LCD02P_hspace(uint8_t n);
 void LCD02P_clear(void);
 void LCD02P_gotoxy(unsigned int y, unsigned int x);
-void LCD02P_strobe(uint16_t num);
+void lcd02p_set_reg(volatile uint8_t* reg, uint8_t hbits);
+void lcd02p_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 void LCD02P_reboot(void);
-void LCD02P_ticks(uint16_t num);
 
-/*** Handler ***/
+/*** Procedure & Function ***/
 LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
-	// LOCAL VARIABLES
-	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	LCD02P setup_lcd02p;
+	
 	// import parameters
 	lcd02pcmd_DDR = cmdddr;
 	lcd02pcmd_PIN = cmdpin;
@@ -61,12 +52,7 @@ LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatil
 	lcd02pdata_DDR = dataddr;
 	lcd02pdata_PIN = datapin;
 	lcd02pdata_PORT = dataport;
-	// initialize variables
-	*lcd02pcmd_DDR &= ~((1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (0 << LCD02P_NC));
-	*lcd02pcmd_PORT |= (1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (1 << LCD02P_NC);
-	*lcd02pdata_DDR &= ~((1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7));
-	*lcd02pdata_PORT |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
-	lcd02p_detect = *lcd02pcmd_PIN & (1 << LCD02P_NC);
+	DDR_DATA_MASK = (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
 	// Direccionar apontadores para PROTOTIPOS
 	setup_lcd02p.write = LCD02P_write;
 	setup_lcd02p.read = LCD02P_read;
@@ -84,101 +70,83 @@ LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatil
 	
 	return setup_lcd02p;
 }
-/*** Procedure and function definition ***/
+
+LCD02P* lcd02p(void){ return &setup_lcd02p; }
+
 void LCD02P_inic(void)
 {
 	// LCD INIC
 	*lcd02pcmd_DDR |= (1 << LCD02P_RS) | (1 << LCD02P_RW) | (1 << LCD02P_EN) | (0 << LCD02P_NC);
 	*lcd02pcmd_PORT |= (1 << LCD02P_NC);
-	// INICIALIZACAO LCD datasheet/
+	*lcd02pdata_DDR &= ~DDR_DATA_MASK;
+	*lcd02pdata_PORT |= DDR_DATA_MASK;
+	lcd02p_detect = *lcd02pcmd_PIN & (1 << LCD02P_NC);
+
+	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
-	LCD02P_write(0x38, LCD02P_INST); // function set
-	_delay_us(39);
-	LCD02P_write(0x38, LCD02P_INST); // function set
-	_delay_us(39);
-	LCD02P_write(0x38, LCD02P_INST); // function set
-	_delay_us(39);
-	LCD02P_write(0x28, LCD02P_INST); // function set 2B
+	LCD02P_write(0x30, LCD02P_INST); // 0x30 4 bit, 2 line, 5x10, --, --
 	_delay_us(37);
-	LCD02P_write(0x28, LCD02P_INST); // function set 2B
+	LCD02P_write(0x28, LCD02P_INST); // 0x28 8 bit, 1 lin,e 5x10, --, --
 	_delay_us(37);
-	/**************************************/
-	// for(repeat = 2 ; repeat ; repeat--){
-	// repeat twice in 4 bit length
-	LCD02P_write(0x28, LCD02P_INST); // function set 2B
-	LCD02P_BF();
-	LCD02P_write(0x28, LCD02P_INST); // function set 2B
-	LCD02P_BF();
-
-	LCD02P_write(0x0C, LCD02P_INST); // display on/off control
-	LCD02P_BF();
-	LCD02P_write(0x0C, LCD02P_INST); // display on/off control
+	LCD02P_write(0x28, LCD02P_INST); // 0x28 8 bit, 1 line, 5x10, --, --
+	_delay_us(37);
+	LCD02P_write(0x0C, LCD02P_INST); // 0x0C Display ON, Cursor OFF, Blink ON
+	_delay_us(37);
+	LCD02P_write(0x01, LCD02P_INST); // 0x01 Display clear
+	_delay_ms(2);
+	LCD02P_write(0x04, LCD02P_INST); // 0x04 Curor dir, Display shift
 	LCD02P_BF();
 
-	LCD02P_write(0x01, LCD02P_INST); // clear display
-	LCD02P_BF();
-	LCD02P_write(0x01, LCD02P_INST); // clear display
-	LCD02P_BF();
-
-	LCD02P_write(0x06, LCD02P_INST); // entry mode set (crazy settings)
-	LCD02P_BF();
-	LCD02P_write(0x06, LCD02P_INST); // entry mode set (crazy settings)
-	LCD02P_BF();
-	//}
-	// INICIALIZATION END
-	// LCD02P_write(0x1F, LCD02P_INST); // cursor or display shift
-	// _delay_us(39);
-	// LCD02P_write(0x03, LCD02P_INST); // return home
-	// _delay_ms(1.53);
+	LCD02P_clear();
 	LCD02P_gotoxy(0,0);
 }
 void LCD02P_write(char c, unsigned short D_I)
 {
-	*lcd02pcmd_PORT &= ~(1 << LCD02P_RW); // lcd as input
-	*lcd02pdata_DDR |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7); // mcu as output
+	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_RW)); // lcd as input
+	lcd02p_set_reg(lcd02pdata_DDR, DDR_DATA_MASK); // mcu as output
 	
-	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);
-	LCD02P_strobe(LCD02P_N_TICKS); LCD02P_ticks(LCD02P_BN_TICKS);
+	if(D_I) lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));  else lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));
 	
-	if(c & 0x80) *lcd02pdata_PORT |= 1 << LCD02P_DB7; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB7); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x40) *lcd02pdata_PORT |= 1 << LCD02P_DB6; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB6); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x20) *lcd02pdata_PORT |= 1 << LCD02P_DB5; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB5); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x10) *lcd02pdata_PORT |= 1 << LCD02P_DB4; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB4); LCD02P_ticks(LCD02P_BN_TICKS);
+	lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
+	if(c & 0x80) *lcd02pdata_PORT |= 1 << LCD02P_DB7; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB7);
+	if(c & 0x40) *lcd02pdata_PORT |= 1 << LCD02P_DB6; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB6);
+	if(c & 0x20) *lcd02pdata_PORT |= 1 << LCD02P_DB5; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB5);
+	if(c & 0x10) *lcd02pdata_PORT |= 1 << LCD02P_DB4; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB4);
+	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
 	
-	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);
-	LCD02P_strobe(LCD02P_N_TICKS); LCD02P_ticks(LCD02P_BN_TICKS);
+	if(D_I) lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));  else lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));
 	
-	if(c & 0x08) *lcd02pdata_PORT |= 1 << LCD02P_DB7; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB7); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x04) *lcd02pdata_PORT |= 1 << LCD02P_DB6; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB6); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x02) *lcd02pdata_PORT |= 1 << LCD02P_DB5; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB5); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(c & 0x01) *lcd02pdata_PORT |= 1 << LCD02P_DB4; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB4); LCD02P_ticks(LCD02P_BN_TICKS);
-	
-	*lcd02pcmd_PORT &= ~(1 << LCD02P_EN); LCD02P_ticks(LCD02P_N_TICKS);
+	lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
+	if(c & 0x08) *lcd02pdata_PORT |= 1 << LCD02P_DB7; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB7);
+	if(c & 0x04) *lcd02pdata_PORT |= 1 << LCD02P_DB6; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB6);
+	if(c & 0x02) *lcd02pdata_PORT |= 1 << LCD02P_DB5; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB5);
+	if(c & 0x01) *lcd02pdata_PORT |= 1 << LCD02P_DB4; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB4);
+	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
 }
 char LCD02P_read(unsigned short D_I)
 {
 	char c = 0x00;
-	*lcd02pdata_DDR &= ~((1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7)); // mcu as input
-	*lcd02pdata_PORT |= (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7); // pull up resistors
-	*lcd02pcmd_PORT |= (1 << LCD02P_RW); // lcd as output
+	lcd02p_clear_reg(lcd02pdata_DDR, DDR_DATA_MASK); // mcu as input
+	lcd02p_set_reg(lcd02pdata_PORT, DDR_DATA_MASK); // pull up resistors
+	lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_RW)); // lcd as output
 	
-	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);
-	LCD02P_strobe(LCD02P_N_TICKS); LCD02P_ticks(LCD02P_BN_TICKS);
+	if(D_I) lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));  else lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));
 	
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB7)) c |= 1 << 7; else c &= ~(1 << 7); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB6)) c |= 1 << 6; else c &= ~(1 << 6); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB5)) c |= 1 << 5; else c &= ~(1 << 5); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB4)) c |= 1 << 4; else c &= ~(1 << 4); LCD02P_ticks(LCD02P_BN_TICKS);
+	lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB7)) c |= 1 << 7; else c &= ~(1 << 7);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB6)) c |= 1 << 6; else c &= ~(1 << 6);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB5)) c |= 1 << 5; else c &= ~(1 << 5);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB4)) c |= 1 << 4; else c &= ~(1 << 4);
+	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
 	
-	if(D_I) *lcd02pcmd_PORT |= (1 << LCD02P_RS); else *lcd02pcmd_PORT &= ~(1 << LCD02P_RS);
-	LCD02P_strobe(LCD02P_N_TICKS); LCD02P_ticks(LCD02P_BN_TICKS);
+	if(D_I) lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));  else lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_RS));
 	
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB7)) c |= 1 << 3; else c &= ~(1 << 3); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB6)) c |= 1 << 2; else c &= ~(1 << 2); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB5)) c |= 1 << 1; else c &= ~(1 << 1); LCD02P_ticks(LCD02P_BN_TICKS);
-	if(*lcd02pdata_PIN & (1 << LCD02P_DB4)) c |= 1 << 0; else c &= ~(1 << 0); LCD02P_ticks(LCD02P_BN_TICKS);
-	
-	*lcd02pcmd_PORT &= ~(1 << LCD02P_EN); LCD02P_ticks(LCD02P_N_TICKS);
+	lcd02p_set_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB7)) c |= 1 << 3; else c &= ~(1 << 3);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB6)) c |= 1 << 2; else c &= ~(1 << 2);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB5)) c |= 1 << 1; else c &= ~(1 << 1);
+	if(*lcd02pdata_PIN & (1 << LCD02P_DB4)) c |= 1 << 0; else c &= ~(1 << 0);
+	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
 	
 	return c;
 }
@@ -263,11 +231,11 @@ void LCD02P_gotoxy(unsigned int y, unsigned int x)
 			break;
 	}
 }
-void LCD02P_strobe(uint16_t num)
-{
-	*lcd02pcmd_PORT &= ~(1 << LCD02P_EN);
-	LCD02P_ticks(num);
-	*lcd02pcmd_PORT |= (1 << LCD02P_EN);
+void lcd02p_set_reg(volatile uint8_t* reg, uint8_t hbits){
+	*reg |= hbits;
+}
+void lcd02p_clear_reg(volatile uint8_t* reg, uint8_t hbits){
+	*reg &= ~hbits;
 }
 void LCD02P_reboot(void)
 {
@@ -281,11 +249,6 @@ void LCD02P_reboot(void)
 		LCD02P_inic();
 	lcd02p_detect = tmp;
 }
-void LCD02P_ticks(uint16_t num)
-{
-	uint16_t count;
-	for(count = 0; count < num; count++) ;
-}
 
-/***EOF***/
+/*** EOF ***/
 

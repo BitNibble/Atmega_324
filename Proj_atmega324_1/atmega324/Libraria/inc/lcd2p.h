@@ -1,18 +1,22 @@
 /************************************************************************
 	LCD2P
-Author: Sergio Santos 
-   <sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 20042023
-Comment:
-	tested Atemga128 16Mhz and Atmega328 8Mhz
+Date:     02072025
 ************************************************************************/
 #ifndef _LCD2P_H_
 	#define _LCD2P_H_
 
+/*** Working Frequency ***/
+#ifndef F_CPU
+	#define F_CPU 8000000UL
+#endif
+
+/*** Global Library ***/
 #include <inttypes.h>
 
+/*** Global Constant & Macro ***/
 // ASIGN PORT PINS TO LCD (can be setup in any way)
 // CMD
 #define LCD02P_RS 0
@@ -25,8 +29,8 @@ Comment:
 #define LCD02P_DB6 2 // 6
 #define LCD02P_DB7 3 // 7
 
-/*** Handler ***/
-struct dspl {
+/*** Global Variable ***/
+typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
 	void (*BF)(void);
@@ -38,13 +42,13 @@ struct dspl {
 	void (*clear)(void);
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
-};
-typedef struct dspl LCD02P;
+}LCD02P;
 
-/*** Global Header ***/
+/*** Global Function declaration ***/
 LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+LCD02P* lcd02p(void);
 
 #endif
 
-/***EOF***/
+/*** EOF ***/
 
