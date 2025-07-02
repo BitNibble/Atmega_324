@@ -52,7 +52,7 @@ char input;
 char* value;
 //Initialize objects
 TIMER_COUNTER1 tim1 = tc1_enable(4,3);//4,0
-KEYPAD keypad = keypad_enable(&DDRA,&PINA,&PORTA);
+KEYPAD keypad = keypad_enable(&DDRB,&PINB,&PORTB);
 LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
 FUNC func = func_enable();
 EEPROM eeprom = eeprom_enable();
@@ -95,6 +95,7 @@ tim1.start(prescaler);
 	
 char uartmsg[UART0_RX_BUFFER_SIZE] = {0}; // One shot
 char uartmsgprint[UART0_RX_BUFFER_SIZE] = {0}; // triggered
+//SPCR0 = 0x00;
 /******/
 while (True)
 {

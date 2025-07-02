@@ -1,12 +1,9 @@
 /************************************************************************
 	KEYPAD
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 27112022
-Comment:
-	Stable
+Date:     27112022
 ************************************************************************/
 #ifndef _KEYPAD_H_
 	#define _KEYPAD_H_
@@ -15,8 +12,6 @@ Comment:
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#define KEYPADLINES 4
-#define KEYPADCOLUMNS 4
 // pin number
 #define KEYPADLINE_1 7
 #define KEYPADLINE_2 0
@@ -26,6 +21,7 @@ Comment:
 #define KEYPADDATA_2 4
 #define KEYPADDATA_3 5
 #define KEYPADDATA_4 6
+// def
 #define KEYPADSTRINGSIZE 6
 #define KEYPADENTERKEY 'D'
 
