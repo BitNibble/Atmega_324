@@ -97,11 +97,11 @@ void LCD0_inic(void)
 
 	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
-	LCD0_write(0x30, INST); // 0x30 4 bit, 2 line, 5x10, --, --
+	LCD0_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
 	_delay_us(37);
-	LCD0_write(0x28, INST); // 0x28 8 bit, 1 lin,e 5x10, --, --
+	LCD0_write(0x28, INST); // 0x28 4 bit, 2 line, 5x8, --, --
 	_delay_us(37);
-	LCD0_write(0x28, INST); // 0x28 8 bit, 1 line, 5x10, --, --
+	LCD0_write(0x28, INST); // 0x28 4 bit, 2 line, 5x8, --, --
 	_delay_us(37);
 	LCD0_write(0x0C, INST); // 0x0C Display ON, Cursor OFF, Blink ON
 	_delay_us(37);
