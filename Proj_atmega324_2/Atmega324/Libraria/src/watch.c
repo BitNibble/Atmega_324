@@ -105,7 +105,7 @@ void WATCH_set_hour(uint8_t hour){
 
 void WATCH_increment(void)
 {
-	if(wtime.seconds < w24_hour_seconds ) {
+	if(wtime.seconds < w24_hour_seconds){
 		wtime.seconds++;
 	}else {
 		wtime.seconds = 0;

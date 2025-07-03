@@ -8,15 +8,10 @@ Date:     30062025
 /*
 ** library
 */
-#include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <avr/interrupt.h>
-/***/
 #include "atmega324_timer.h"
 /*
 ** constant and macro
 */
-/**GLOBAL**/
 #define GLOBAL_INTERRUPT_ENABLE 7
 /*** Interrupt sources 0 ***/
 #define TIMER_COUNTER0A_COMPARE_MATCH_INTERRUPT TIMER0_COMPA_vect
@@ -43,9 +38,8 @@ static TIMER_COUNTER1 timer1 = {0};
 static uint8_t timer1_state;
 static TIMER_COUNTER2 timer2 = {0};
 static uint8_t timer2_state;
-/*
-** procedure and function header
-*/
+
+/**** Procedure and Function declaration ****/
 void TIMER_COUNTER0_compoutmodeA(uint8_t compoutmode);
 void TIMER_COUNTER0_compoutmodeB(uint8_t compoutmode);
 void TIMER_COUNTER0_compareA(uint8_t compare);
@@ -66,9 +60,8 @@ void TIMER_COUNTER2_compareA(uint8_t compare);
 void TIMER_COUNTER2_compareB(uint8_t compare);
 void TIMER_COUNTER2_start(uint16_t prescaler);
 void TIMER_COUNTER2_stop(void);
-/*
-** procedure and function
-*/
+
+/**** Handler ****/
 TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer0_state=0;
@@ -138,6 +131,7 @@ TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 
 TIMER_COUNTER0* tc0(void){ return &timer0; }
 
+/**** Procedure and Function definition ****/
 void TIMER_COUNTER0_start(uint16_t prescaler)
 {
 	uint8_t timer0_prescaler;
@@ -236,7 +230,7 @@ void TIMER_COUNTER0_stop(void)
 	tc0_reg()->tccr0b->var&=~((1<<CS02) | (1<<CS01) | (1<<CS00)); // No clock source. (Timer/Counter stopped)
 	timer0_state=0;
 }
-/*****************************************************************************************/
+/***** Handler *****/
 TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
@@ -345,6 +339,7 @@ TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 
 TIMER_COUNTER1* tc1(void){ return &timer1; }
 
+/**** Procedure and Function definition ****/
 void TIMER_COUNTER1_start(uint16_t prescaler)
 {
 	uint8_t timer1_prescaler;
@@ -440,14 +435,12 @@ void TIMER_COUNTER1_compareB(uint16_t compare)
 	tc1_reg()->ocr1b->var=compare;
 }
 void TIMER_COUNTER1_stop(void)
-/*
-	stops timer by setting prescaler to zero
-*/
 {
 	tc1_reg()->tccr1b->var&=~((1<<CS12) | (1<<CS11) | (1<<CS10)); // No clock source. (Timer/Counter stopped)
 	timer1_state=0;
 }
-/*****************************************************************************************/
+
+/**** Handler *****/
 TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
@@ -518,6 +511,7 @@ TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 
 TIMER_COUNTER2* tc2(void){ return &timer2; }
 
+/**** Procedure and Function definition ****/
 void TIMER_COUNTER2_start(uint16_t prescaler)
 {
 	uint8_t timer2_prescaler;
