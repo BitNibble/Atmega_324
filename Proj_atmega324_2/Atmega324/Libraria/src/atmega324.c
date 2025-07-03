@@ -132,7 +132,6 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void) {
 // Static instance
 static const Atmega324TimerCounter0_TypeDef tc0 = {
 	.tifr0  = (_TIFR0_Typedef*)  0x0035,
-	.gtccr  = (_GTCCR_TypeDef*)  0x0043,
 	.tccr0a = (_TCCR0A_TypeDef*) 0x0044,
 	.tccr0b = (_TCCR0B_TypeDef*) 0x0045,
 	.tcnt0  = (_uint8_t*)        0x0046,

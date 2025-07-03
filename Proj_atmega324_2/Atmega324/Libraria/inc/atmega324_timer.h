@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
-Date:     30062025
+Date:     03072025
 *************************************************************************/
 #ifndef ATMEGA324_TIMER_H_
 	#define ATMEGA324_TIMER_H_

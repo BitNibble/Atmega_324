@@ -220,7 +220,6 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void);
 // Timer/Counter, 8-bit (TC0)
 typedef struct {
 	_TIFR0_Typedef* tifr0; // 0x0035
-	_GTCCR_TypeDef* gtccr; // 0x0043
 	_TCCR0A_TypeDef* tccr0a; // 0x0044
 	_TCCR0B_TypeDef* tccr0b; // 0x0045
 	_uint8_t* tcnt0; // 0x0046
