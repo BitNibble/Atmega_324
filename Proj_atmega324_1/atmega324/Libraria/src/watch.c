@@ -14,9 +14,9 @@ Date:     03072025
 #define W24HOUR 24
 #define W12_HOUR_SECONDS 43200
 #define W24_HOUR_SECONDS 86400
+/*** File Variable ***/
 const uint32_t w12_hour_seconds = (W12_HOUR_SECONDS - 1);
 const uint32_t w24_hour_seconds = (W24_HOUR_SECONDS - 1);
-/*** File Variable ***/
 static WATCH_TIME wtime;
 static char WATCH_vector[9] = {0};
 static uint32_t WATCH_trigger[N_DELAY] = {0};
@@ -105,7 +105,7 @@ void WATCH_set_hour(uint8_t hour){
 
 void WATCH_increment(void)
 {
-	if(wtime.seconds < w24_hour_seconds ) {
+	if(wtime.seconds < w24_hour_seconds){
 		wtime.seconds++;
 	}else {
 		wtime.seconds = 0;

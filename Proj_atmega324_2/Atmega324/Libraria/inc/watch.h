@@ -10,8 +10,6 @@ Date:     03072025
 /*** Global library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
 /*** Global Variable ***/
 typedef struct {
 	uint8_t hour;
@@ -20,6 +18,7 @@ typedef struct {
 	volatile uint32_t seconds;
 } WATCH_TIME;
 
+/*** Handle ***/
 typedef struct {
 	void (*preset)(uint8_t hour, uint8_t minute, uint8_t second);
 	uint8_t (*start_delay)(uint8_t n_delay, uint32_t seconds);

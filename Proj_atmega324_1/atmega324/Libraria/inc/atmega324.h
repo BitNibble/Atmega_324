@@ -25,11 +25,7 @@ Date:     24/06/2025
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
-#if defined(__AVR_ATmega324A__)
-	#include "atmega324_registers.h"
-#else
-	#error "Not ATmega 324A"
-#endif
+#include "atmega324_registers.h"
 
 /*** Global Constant & Macro ***/
 #define TWO 2
@@ -217,10 +213,24 @@ typedef struct {
 
 Atmega324TimerCounter1_TypeDef* tc1_reg(void);
 
+// Timer/Counter, 16-bit (TC3)
+typedef struct {
+	_TIFR3_Typedef* tifr3; // 0x0036
+	_TIMSK3_TypeDef* timsk3; // 0x006F
+	_TCCR3A_TypeDef* tccr3a; // 0x0080
+	_TCCR3B_TypeDef* tccr3b; // 0x0081
+	_TCCR3C_TypeDef* tccr3c; // 0x0082
+	_uint16_t* tcnt3; // 0x0084 0x0085
+	_uint16_t* icr3; // 0x0086 0x0087
+	_uint16_t* ocr3a; // 0x0088 0x0089
+	_uint16_t* ocr3b; // 0x008A 0x008B
+} Atmega324TimerCounter3_TypeDef;
+
+Atmega324TimerCounter3_TypeDef* tc3_reg(void);
+
 // Timer/Counter, 8-bit (TC0)
 typedef struct {
 	_TIFR0_Typedef* tifr0; // 0x0035
-	_GTCCR_TypeDef* gtccr; // 0x0043
 	_TCCR0A_TypeDef* tccr0a; // 0x0044
 	_TCCR0B_TypeDef* tccr0b; // 0x0045
 	_uint8_t* tcnt0; // 0x0046

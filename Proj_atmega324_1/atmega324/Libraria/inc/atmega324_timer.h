@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
-Date:     30062025
+Date:     03072025
 *************************************************************************/
 #ifndef ATMEGA324_TIMER_H_
 	#define ATMEGA324_TIMER_H_
@@ -32,7 +32,7 @@ typedef struct {
 	void (*compareB)(uint16_t compare);
 	void (*start)(uint16_t prescaler);
 	void (*stop)(void);
-} TIMER_COUNTER1;
+} TIMER_COUNTER1, TIMER_COUNTER3;
 /**/
 typedef struct {
 	// V-table
@@ -50,6 +50,8 @@ TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER1* tc1(void);
 TIMER_COUNTER2 tc2_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER2* tc2(void);
+TIMER_COUNTER3 tc3_enable(uint8_t wavegenmode, uint8_t interrupt);
+TIMER_COUNTER3* tc3(void);
 
 #endif
 /***EOF***/

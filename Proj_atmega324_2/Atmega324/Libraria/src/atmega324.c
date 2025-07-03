@@ -130,6 +130,22 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void) {
 	return (Atmega324TimerCounter1_TypeDef*) &tc1;
 }
 // Static instance
+static const Atmega324TimerCounter3_TypeDef tc3 = {
+	.tifr3   = (_TIFR3_Typedef*)  NULL,
+	.timsk3  = (_TIMSK3_TypeDef*) NULL,
+	.tccr3a  = (_TCCR3A_TypeDef*) NULL,
+	.tccr3b  = (_TCCR3B_TypeDef*) NULL,
+	.tccr3c  = (_TCCR3C_TypeDef*) NULL,
+	.tcnt3   = (_uint16_t*)       NULL,
+	.icr3    = (_uint16_t*)       NULL,
+	.ocr3a   = (_uint16_t*)       NULL,
+	.ocr3b   = (_uint16_t*)       NULL
+};
+// Singleton accessor
+Atmega324TimerCounter3_TypeDef* tc3_reg(void) {
+	return (Atmega324TimerCounter3_TypeDef*) &tc3;
+}
+// Static instance
 static const Atmega324TimerCounter0_TypeDef tc0 = {
 	.tifr0  = (_TIFR0_Typedef*)  0x0035,
 	.tccr0a = (_TCCR0A_TypeDef*) 0x0044,
