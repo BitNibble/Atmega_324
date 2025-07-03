@@ -1,12 +1,9 @@
 /*************************************************************************
 	ZNPID
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License     
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License     
 Hardware: Atmega 128
-Date: 17022021_start
-Comment:
-
+Date:     17022021_start
 ************************************************************************/
 /***File Library***/
 #include "znpid.h"
@@ -18,7 +15,7 @@ Comment:
 /***File Variable***/
 double ZNPID_tmp;
 
-/***File Header***/
+/*** Procedure & Function declaration ***/
 void ZNPID_set_kc(znpidparameter* par, double kc);
 void ZNPID_set_ki(znpidparameter* par, double ki);
 void ZNPID_set_kd(znpidparameter* par, double kp);
@@ -30,7 +27,7 @@ double ZNPID_delta(double present_value, double past_value);
 double ZNPID_sum(double value_1, double value_2);
 double ZNPID_product(double value_1, double value_2);
 
-/***Procedure & Function***/
+/*** Handler ***/
 ZNPID ZNPIDenable(void)
 {
 	// LOCAL VARIABLES
@@ -56,6 +53,7 @@ ZNPID ZNPIDenable(void)
 	
 	return znpid;
 }
+/*** Procedure & Function definfition ***/
 void ZNPID_set_kc(znpidparameter* par, double kc)
 {
 	par->kc = kc;
@@ -120,8 +118,6 @@ double ZNPID_product(double value_1, double value_2)
 {
 	return (value_1 * value_2);
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

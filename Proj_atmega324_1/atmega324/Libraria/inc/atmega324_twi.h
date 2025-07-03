@@ -62,7 +62,7 @@ Update:   30062025
 // #define Dev24C02_ID 0xA2		// device address 24C02
 // #define LM73_ID 0x90			// LM73 address temperature sensor
 
-/*** Global Variable ***/
+/*** Handler ***/
 typedef struct {
 	// V-table
 	void (*start)(void);
@@ -73,7 +73,6 @@ typedef struct {
 	uint8_t (*status)(void);
 }TWI0;
 
-/*** Global Header ***/
 TWI0 twi_enable(uint8_t atmega_ID, uint8_t prescaler);
 TWI0* twi(void);
 

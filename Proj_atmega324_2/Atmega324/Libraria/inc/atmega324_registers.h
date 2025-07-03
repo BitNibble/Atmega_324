@@ -17,7 +17,7 @@ Date:     29/06/2025
 #include <stdint.h>
 #include <inttypes.h>
 
-/*** Base Types ***/
+/*** Base Typedef ***/
 typedef volatile union {
 	struct { 
 		uint8_t b0:1,b1:1,b2:1,b3:1,b4:1,b5:1,b6:1,b7:1; 

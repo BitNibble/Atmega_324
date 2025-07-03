@@ -25,13 +25,14 @@ Date:     27112022
 #define KEYPADSTRINGSIZE 6
 #define KEYPADENTERKEY 'D'
 
-/*** Global Variable ***/
+/*** Tyepedef ***/
 typedef struct {
 	char character;
 	char* print;
 	char* string;
 }keypadata;
 
+/*** Handler ***/
 struct keypad{
 	// Local Variables
 	// Function Pointers
@@ -42,7 +43,7 @@ struct keypad{
 };
 typedef struct keypad KEYPAD;
 
-/*** Global Header ***/
+/*** Global ***/
 KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif

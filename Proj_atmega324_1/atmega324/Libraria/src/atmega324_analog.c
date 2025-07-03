@@ -25,8 +25,10 @@ volatile int adc_sample;
 volatile int adc_tmp;
 volatile unsigned char adc_n_sample;
 
+/*** Procedure & Function declaration ***/
 int ANALOG_read(int selection);
 
+/*** Handler ***/
 ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 {
 	va_list list;
@@ -117,6 +119,8 @@ ANALOG adc_enable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	/******/
 	return analog;
 }
+
+/*** Procedure & Function definition ***/
 int ANALOG_read(int selection)
 {
 	uint8_t ADSC_FLAG;

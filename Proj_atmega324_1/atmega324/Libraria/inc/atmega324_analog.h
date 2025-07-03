@@ -15,6 +15,7 @@ Date:     30062025
 
 #define ADC_NUMBER_SAMPLE 2 // 0 to 4.
 
+/*** Handler ***/
 struct ANALOG{
 	// parameters
 	uint8_t VREFF;

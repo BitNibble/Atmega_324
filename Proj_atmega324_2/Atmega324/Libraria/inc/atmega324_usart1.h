@@ -33,7 +33,7 @@ Update:   26/06/2025
 #define UART_BUFFER_OVERFLOW	0x0200              /* receive ring buffer overflow */
 #define UART_NO_DATA			0x0100              /* no receive data available    */
 
-/*** Global Variable ***/
+/*** Handler ***/
 typedef struct {
 	// prototype pointers
 	UARTvar (*read)(void);

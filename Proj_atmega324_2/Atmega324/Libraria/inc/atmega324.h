@@ -297,13 +297,13 @@ typedef struct {
 
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void);
 
-/*** Atmega 128 Procedure and Function ***/
+/*** Atmega Procedure and Function declaration ***/
 uint16_t swapbyte(uint16_t num);
 uint16_t BAUDRATEnormal(uint32_t BAUD);
 uint16_t BAUDRATEdouble(uint32_t BAUD);
 uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 
-/*** Procedure and Function ToolSet ***/
+/*** Procedure and Function ToolSet declaration***/
 void set_reg(volatile uint8_t* reg, uint8_t hbits);
 void clear_reg(volatile uint8_t* reg, uint8_t hbits);
 uint8_t get_reg_block(uint8_t reg, uint8_t size_block, uint8_t bit_n);

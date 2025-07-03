@@ -1,24 +1,21 @@
 /******************************************************************************
 	BUFFER
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 26062025
-Comment:
-	Buffer
+Date:     26062025
 ******************************************************************************/
 /*** File Library ***/
 #include "buffer.h"
 #include <stdio.h>
 #include <string.h>
 
-/*** Function declaration ***/
+/*** Procedure & Function declaration ***/
 void BUFF_push(bufferparameter* par, BUFFvar data);
 BUFFvar* BUFF_raw(bufferparameter* par);
 void BUFF_flush(bufferparameter* par);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 {
 	// OBJECT STRUCT
@@ -34,7 +31,7 @@ BUFF buff_enable( uint8_t size_buff, BUFFvar* buff )
 	return ret; // return copy
 }
 
-/*** Function definition ***/
+/*** Procedure & Function definition ***/
 void BUFF_push( bufferparameter* par, BUFFvar data ){
 	BUFFvar* head; BUFFvar* next;
 	head = par->head;

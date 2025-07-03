@@ -1,10 +1,9 @@
 /*************************************************************************
 	LFSM
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: Atmega 128
-Date: 25102020
+Date:     25102020
 Comment:
 	page=1 is dedicated for global logic, if page>1 is for local logic.
 	purpose is for machine programming, and encoders. General purpose algorithm.
@@ -21,7 +20,7 @@ Comment:
 struct lfsmdata data, tmp1, tmp2;
 const uint16_t tmask = 0xFFFF;
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 uint8_t LFSMread(struct lfsm *r, uint8_t input);
 uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page);
 uint16_t LFSMquant(struct lfsm *r);
@@ -37,8 +36,7 @@ uint16_t LFSMlh(uint16_t xi, uint16_t xf);
 uint16_t LFSMhl(uint16_t xi, uint16_t xf);
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask);
 
-/*** Procedure & Function ***/
-// LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
+/*** Handler ***/
 LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom)
 {
 	// Local Variable
@@ -65,7 +63,8 @@ LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom)
 	r.setpage = LFSMsetpage;
 	return r;
 }
-// uint8_t LFSMread(struct lfsm *r, uint8_t input)
+
+/*** Procedure & Function definition ***/
 uint8_t LFSMread(struct lfsm *r, uint8_t input)
 {
 	uint16_t i1;
@@ -160,7 +159,6 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
 	}
 	return r->status;
 }
-// uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)
 uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)
 {
 	uint16_t i1;
@@ -222,7 +220,6 @@ uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, cons
 	}// End switch
 	return status;
 }
-// uint16_t LFSMquant(struct lfsm *r)
 uint16_t LFSMquant(struct lfsm *r)
 {
 	uint16_t i1;
@@ -237,7 +234,6 @@ uint16_t LFSMquant(struct lfsm *r)
 	}
 	return programmed;
 }
-// uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 {
 	uint16_t k, k1, k2, i1;
@@ -324,7 +320,6 @@ uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 	}
 	return status;
 }
-// uint8_t LFSMpremove(struct lfsm *r, uint8_t input)
 uint8_t LFSMpremove(struct lfsm *r, uint8_t input, uint8_t page)
 {
 	uint16_t k, k1, k2, i1;
@@ -373,7 +368,6 @@ uint8_t LFSMpremove(struct lfsm *r, uint8_t input, uint8_t page)
 	}
 	return status;
 }
-// uint8_t LFSMdeleteall(struct lfsm *r)
 uint8_t LFSMdeleteall(struct lfsm *r)
 {
 	uint16_t i1;
@@ -392,33 +386,27 @@ uint8_t LFSMdeleteall(struct lfsm *r)
 	r->status = 0;
 	return status;
 }
-// uint16_t LFSMgetoutput(struct lfsm *r)
 uint16_t LFSMgetoutput(struct lfsm *r)
 {
 	return r->output;
 }
-// uint8_t LFSMgetstatus(struct lfsm *r)
 uint8_t LFSMgetstatus(struct lfsm *r)
 {
 	return r->status;
 }
-// void LFSMsetoutput(struct lfsm *r, uint16_t output)
 void LFSMsetoutput(struct lfsm *r, uint16_t output)
 {
 	r->output = output;
 	r->status = 0;
 }
-// uint8_t LFSMgetpage(struct lfsm *r)
 uint8_t LFSMgetpage(struct lfsm *r)
 {
 	return r->page;
 }
-// void LFSMsetpage(struct lfsm *r, uint8_t page)
 void LFSMsetpage(struct lfsm *r, uint8_t page)
 {
 	r->page=page;
 }
-// uint16_t LFSMlh(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMlh(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -426,7 +414,6 @@ uint16_t LFSMlh(uint16_t xi, uint16_t xf)
 	i &= xf;
 	return i;
 }
-// uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -435,7 +422,6 @@ uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 	return i;
 }
 /**************************************************************************
-// uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh)
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh)
 {
 	feedback |= lh;
@@ -443,15 +429,12 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh)
 	return feedback;
 }
 **************************************************************************/
-// uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 {
 	feedback |= (lh & mask);
 	feedback &= ~(hl & mask);
 	return feedback;
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

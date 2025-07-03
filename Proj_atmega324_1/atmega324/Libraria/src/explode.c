@@ -1,13 +1,9 @@
 /********************************************************************
 	EXPLODE
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com> 
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com> 
+License:  GNU General Public License
 Hardware: all
-Date: 16032021
-Comment:
-	Pin Analysis
-	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
+Date:     16032021
 ********************************************************************/
 /*** File Library ***/
 #include"explode.h"
@@ -43,6 +39,7 @@ EXPLODE explode_enable( void )
 
 	return setup_explode;
 }
+
 /*** Procedure & Function Definition ***/
 // boot
 void EXPLODEupdate(explode_parameter* par, IO_var x)

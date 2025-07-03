@@ -1,12 +1,9 @@
 /************************************************************************
 	EXPLODE
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 16032021
-Comment:
-	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
+Date:     16032021
 ************************************************************************/
 #ifndef _EXPLODE_H_
 	#define _EXPLODE_H_
@@ -25,7 +22,7 @@ Comment:
 	#endif
 #endif
 
-/*** Global TypeDef ***/
+/*** TypeDef ***/
 typedef struct {
 	IO_var XI;
 	IO_var XF;
@@ -35,7 +32,7 @@ typedef struct {
 	IO_var HL;
 }explode_parameter;
 
-/*** EXPLODE ***/
+/*** Handler ***/
 typedef struct {
 	/***Variable***/
 	explode_parameter par;

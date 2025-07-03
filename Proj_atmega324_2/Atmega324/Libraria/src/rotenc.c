@@ -1,24 +1,17 @@
 /************************************************************************
 	ROTENC
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: Rotary encoder Potentiometer
-Date: 25102020
-Comment:
-	Stable
+Date:     25102020
 ************************************************************************/
 /*** File Library ***/
 #include "rotenc.h"
 
-/*** File Constant & Macro ***/
-
-/*** File Variable ***/
-
-/*** File Header ***/
+/*** Procedure and Funtion declaration ***/
 rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 ROTENC rotenc_enable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
@@ -34,6 +27,7 @@ ROTENC rotenc_enable( uint8_t ChnApin, uint8_t ChnBpin )
 	return rtnc;
 }
 
+/*** Procedure and Funtion definition ***/
 rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data)
 {
 	uint8_t hl;
@@ -49,8 +43,6 @@ rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data)
 	par->pchn = par->chn;
 	return *par;
 }
-
-/*** File Interrupt ***/
 
 /***EOF***/
 

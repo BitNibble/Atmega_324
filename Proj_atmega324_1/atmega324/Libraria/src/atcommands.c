@@ -1,12 +1,9 @@
 /*************************************************************************
 	ATCOMMANDS
-Author: Sergio Santos 
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: ALL
 Date: 24042023
-Comment:
-	Stable
 *************************************************************************/
 /*** File Library ***/
 #include "atcommands.h"
@@ -17,15 +14,10 @@ Comment:
 //#include <stdarg.h>
 //#include <math.h>
 
-/*** File Constant & Macro ***/
-
 /*** File Variable ***/
 char ATstr[72];
 
-
-/*** File Header ***/
-
-/*** Procedure & Function ***/
+/*** Procedure & Function definition ***/
 char* BT05ATcmd(uint16_t num){
 	switch(num)
 	{
@@ -616,8 +608,6 @@ char* ESP8266cmd(uint16_t num)
 	
 	return NULL;
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 

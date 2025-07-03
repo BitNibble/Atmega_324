@@ -14,13 +14,13 @@ Date:     31062025
 static RELOGIO_TIME ctime = {0};
 static char CLOCK_tmp[9] = {0};
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 void CLOCK_set(uint8_t hour, uint8_t minute, uint8_t second);
 void CLOCK_increment(void);
 void CLOCK_decrement(void);
 char* CLOCK_show(void);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 {
 	CLOCK clock;
@@ -32,6 +32,8 @@ CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 	clock.show = CLOCK_show;
 	return clock;
 }
+
+/*** Procedure & Function definition ***/
 void CLOCK_set(uint8_t hour, uint8_t minute, uint8_t second)
 {
 	(hour < 24) ? ctime.hour = hour : (void) hour;

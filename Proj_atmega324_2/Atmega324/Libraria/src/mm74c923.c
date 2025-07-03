@@ -1,12 +1,9 @@
 /*************************************************************************
 	MM74C923
-Author: Sergio Manuel Santos
-	<sergio.salazar.santos@gmail.com> 
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com> 
+License:  GNU General Public License
 Hardware: 74C923
 Date:
-Comment:
-	stable
 *************************************************************************/
 /*** File Library ***/
 #include "mm74c923.h"
@@ -17,16 +14,16 @@ Comment:
 #define MM74C923_KEY_BUFFER_SIZE 16
 
 /*** File Variable ***/
-FUNC func;
-EXPLODE vari;
+static FUNC func;
+static EXPLODE vari;
 
 volatile uint8_t *mm74c923_DDR;
 volatile uint8_t *mm74c923_PIN;
 volatile uint8_t *mm74c923_PORT;
-uint8_t mm74c923_tmp;
-uint8_t mm74c923_mem;
-uint8_t MM74C923_KEY_CODE_INDEX;
-char MM74C923_KEY_CODE[]={
+static uint8_t mm74c923_tmp;
+static uint8_t mm74c923_mem;
+static uint8_t MM74C923_KEY_CODE_INDEX;
+static const char MM74C923_KEY_CODE[]={
 	'A', 'B', 'C', 'E', 'G', 'H', 'I', 'J', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Y', 'Z',
 	'\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', 'L', '-', '+', 'F', '7', '8', '9', '#',
 	'4', '5', '6', 'U', '1', '2', '3', 'D', '0', '/', '.', '*', '\0'
@@ -36,14 +33,14 @@ char MM74C923_KEY_BUFFER[MM74C923_KEY_BUFFER_SIZE + 1];
 char MM74C923_KEY_BUFFER_EMPTY[] = "";
 char* MM74C923_pointer;
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 void MM74C923_activate(void);
 char MM74C923_getch(void);
 char* MM74C923_gets(void);
 char* MM74C923_data(void);
 void MM74C923_data_clear(void);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
@@ -70,6 +67,8 @@ MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile 
 	
 	return mm74c923;
 }
+
+/*** Procedure & Function definition ***/
 void MM74C923_activate(void){
 	vari.update(&vari.par, *mm74c923_PIN);
 }
@@ -121,8 +120,6 @@ void MM74C923_data_clear(void){
 	MM74C923_KEY_BUFFER_INDEX = 0;
 	MM74C923_KEY_BUFFER[MM74C923_KEY_BUFFER_INDEX] = '\0';
 }
-
-/*** File Interrupt ***/
 
 /***EOF***/
 

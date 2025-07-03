@@ -25,7 +25,7 @@ volatile uint8_t *lcd02pdata_PORT;
 static uint8_t DDR_DATA_MASK;
 uint8_t lcd02p_detect;
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 void LCD02P_inic(void);
 void LCD02P_write(char c, unsigned short D_I);
 char LCD02P_read(unsigned short D_I);
@@ -41,7 +41,7 @@ void lcd02p_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd02p_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 void LCD02P_reboot(void);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
 	
@@ -73,6 +73,7 @@ LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatil
 
 LCD02P* lcd02p(void){ return &setup_lcd02p; }
 
+/*** Procedure & Function definition ***/
 void LCD02P_inic(void)
 {
 	// LCD INIC
@@ -151,7 +152,6 @@ char LCD02P_read(unsigned short D_I)
 	return c;
 }
 void LCD02P_BF(void)
-// it has to read at minimum one equal and exit immediately if not equal, weird property.
 {
 	uint8_t i;
 	char inst = 0x80;

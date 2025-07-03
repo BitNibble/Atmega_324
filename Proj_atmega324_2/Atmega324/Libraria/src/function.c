@@ -1,12 +1,9 @@
 /*************************************************************************
 	FUNCTION
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com> 
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com> 
+License:  GNU General Public License
 Hardware: all
-Date: 31122023
-Comment:
-	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
+Date:     31122023
 *************************************************************************/
 /*** File Library ***/
 #include "function.h"
@@ -119,6 +116,7 @@ FUNC func_enable( void )
 	
 	return func;
 }
+
 /*** Procedure and Function definition ***/
 // mayia
 unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)

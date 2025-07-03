@@ -7,18 +7,22 @@ Date:     28/06/2025
 ************************************************************************/
 #include "atmega324.h"
 
+// Static instance with mapped register addresses
 static const _GPIOA_TypeDef gpioa  = {.pin = ((_uint8_t*) 0x0020), .ddr = ((_uint8_t*) 0x0021), .port = ((_uint8_t*) 0x0022) };
+// Singleton-style accessor
 _GPIOA_TypeDef* gpioa_reg(void) {  return (_GPIOA_TypeDef*) &gpioa; }
-	
+// Static instance with mapped register addresses
 static const _GPIOB_TypeDef gpiob  = {.pin = ((_uint8_t*) 0x0023), .ddr = ((_uint8_t*) 0x0024), .port = ((_uint8_t*) 0x0025) };
+// Singleton-style accessor
 _GPIOB_TypeDef* gpiob_reg(void) {  return (_GPIOB_TypeDef*) &gpiob; }
-	
+// Static instance with mapped register addresses
 static const _GPIOC_TypeDef gpioc  = {.pin = ((_uint8_t*) 0x0026), .ddr = ((_uint8_t*) 0x0027), .port = ((_uint8_t*) 0x0028) };
+// Singleton-style accessor
 _GPIOC_TypeDef* gpioc_reg(void) {  return (_GPIOC_TypeDef*) &gpioc; }
-	
+// Static instance with mapped register addresses
 static const _GPIOD_TypeDef gpiod  = {.pin = ((_uint8_t*) 0x0029), .ddr = ((_uint8_t*) 0x002A), .port = ((_uint8_t*) 0x002B) };
+// Singleton-style accessor
 _GPIOD_TypeDef* gpiod_reg(void) {  return (_GPIOD_TypeDef*) &gpiod; }
-
 // Static instance with mapped register addresses
 static const Atmega324ExternalInterrupts_TypeDef exint = {
 	.pcifr   = (_PCIFR_TypeDef*)   0x003B,
@@ -222,13 +226,13 @@ Atmega324WatchdogTimer_TypeDef* wdt_reg(void) {
 }
 /*******************************************************************************************************************************************/
 /*******************************************************************************************************************************************/
-/*** Atmega 128 Procedure and Function ***/
+/*** Atmega Procedure and Function definition ***/
 uint16_t SwapByte(uint16_t num){uint16_t tp; tp = (num << 8); return (num >> 8) | tp;}
 uint16_t BAUDRATEnormal(uint32_t BAUD){uint32_t baudrate = F_CPU/16; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 uint16_t BAUDRATEdouble(uint32_t BAUD){uint32_t baudrate = F_CPU/8; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 uint16_t BAUDRATEsynchronous(uint32_t BAUD){uint32_t baudrate = F_CPU/2; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 
-/*** Procedure and Function ToolSet ***/
+/*** Procedure and Function ToolSet definition ***/
 inline void set_reg(volatile uint8_t* reg, uint8_t hbits){
 	*reg |= hbits;
 }
@@ -284,4 +288,6 @@ void set_bit_block(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uin
 		*(reg + n ) |= (data << bit_n);
 	}
 }
+
+/*** EOF ***/
 

@@ -26,7 +26,7 @@ volatile uint8_t *lcd1_PIN;
 volatile uint8_t *lcd1_PORT;
 uint8_t lcd1_detect;
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 void LCD0_inic(void);
 void LCD0_write(char c, unsigned short D_I);
 char LCD0_read(unsigned short D_I);
@@ -54,7 +54,7 @@ void LCD1_reboot(void);
 void lcd_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 
-/***Procedure & Function***/
+/*** Handler ***/
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLES
@@ -89,6 +89,7 @@ LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 
 LCD0* lcd0(void){ return &setup_lcd0; }
 
+/*** Procedure & Function definition ***/
 void LCD0_inic(void)
 {
 	// LCD INIC
@@ -165,7 +166,6 @@ char LCD0_read(unsigned short D_I)
 	return c;
 }
 void LCD0_BF(void)
-// it has to read at minimum one equal and exit immediately if not equal, weird property.
 {
 	uint8_t i;
 	char inst = 0x80;
@@ -372,7 +372,7 @@ void LCD1_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
-	for(i=0; (0x80 & inst); i++){ // it has to read at minimum one equal and exit immediately if not equal, weird property.
+	for(i=0; (0x80 & inst); i++){
 		inst = LCD0_read(INST);
 		if(i > 10)
 			break;

@@ -1,13 +1,9 @@
 /************************************************************************
 	74HC595
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: 74HC595
 Date: 25/10/2020
-Update: 05/01/2024
-Comment:
-	tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RET
 ************************************************************************/
 #ifndef _74HC595_H_
 	#define _74HC595_H_
@@ -26,7 +22,7 @@ Comment:
 /*** File Library ***/
 #include <inttypes.h>
 
-/*** File TypeDef ***/
+/*** TypeDef ***/
 typedef struct{
 	uint8_t HC595_datapin;
 	uint8_t HC595_clkpin;
@@ -35,7 +31,7 @@ typedef struct{
 	volatile IO_var *hc595_PORT;
 }hc595_parameter;
 
-/*** 74HC595 TypeDef ***/
+/*** Handler ***/
 typedef struct
 {
 	hc595_parameter par;
@@ -49,7 +45,6 @@ typedef struct
 HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 
 #endif
-
 /***EOF***/
 
 /******

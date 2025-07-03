@@ -1,12 +1,9 @@
 /******************************************************************************
 	BUFFER
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 26062025
-Comment:
-	Circular Buffer
+Date:     26062025
 *******************************************************************************/
 #ifndef _BUFFER_H_
 	#define _BUFFER_H_
@@ -17,13 +14,14 @@ Comment:
 /*** Global Constant & Macro ***/
 #define BUFFvar char
 
-/*** Global Variable ***/
+/*** Typedef ***/
 typedef struct {
 	BUFFvar* orig;
 	BUFFvar* head;
 	BUFFvar* end;
 }bufferparameter;
 
+/*** Handler ***/
 struct buffer
 {
 	bufferparameter par;
@@ -34,7 +32,7 @@ struct buffer
 
 typedef struct buffer BUFF;
 
-/*** Global Header ***/
+/*** Global ***/
 BUFF buff_enable(uint8_t size_buff, BUFFvar* buff);
 
 #endif

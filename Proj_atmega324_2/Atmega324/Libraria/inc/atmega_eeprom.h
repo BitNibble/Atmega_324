@@ -11,6 +11,7 @@ Date:     30062025
 #include <avr/eeprom.h>
 #include "atmega324.h"
 
+/*** Handler ***/
 struct prm {
 	// V-table
 	uint8_t (*read_byte) ( const uint8_t * addr );

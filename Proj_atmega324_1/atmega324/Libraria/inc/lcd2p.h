@@ -29,7 +29,7 @@ Date:     02072025
 #define LCD02P_DB6 2 // 6
 #define LCD02P_DB7 3 // 7
 
-/*** Global Variable ***/
+/*** Handler ***/
 typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
@@ -44,7 +44,7 @@ typedef struct{
 	void (*reboot)(void);
 }LCD02P;
 
-/*** Global Function declaration ***/
+/*** Global ***/
 LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
 LCD02P* lcd02p(void);
 

@@ -12,7 +12,7 @@ Update:   30062025
 /*** File Variable ***/
 static TWI0 atmega324_twi;
 
-/*** File Header ***/
+/*** Procedure & Function declaration***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
 void TWI_start(void);
 void TWI_connect(uint8_t address, uint8_t rw);
@@ -23,8 +23,7 @@ void TWI_stop(void);
 uint8_t TWI_status(void);
 void TWI_wait_twint( uint16_t nticks );
 
-/*** Procedure & Function ***/
-// TWI TWIenable(uint8_t atmega_ID,  uint8_t prescaler)
+/*** Handler ***/
 TWI0 twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	// V-table
@@ -42,6 +41,7 @@ TWI0 twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 
 TWI0* twi(void){ return &atmega324_twi; }
 
+/*** Procedure & Function definition ***/
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)
 void TWI_init(uint8_t device_id, uint8_t prescaler)
 {
@@ -95,7 +95,6 @@ void TWI_start(void) // $08
 		break;
 	}
 }
-
 // void TWI_Connect(uint8_t address, uint8_t rw)
 void TWI_connect( uint8_t address, uint8_t rw )
 {
@@ -121,7 +120,6 @@ void TWI_connect( uint8_t address, uint8_t rw )
 		break;
 	}
 }
-
 // void TWI_Write(uint8_t var_twiData_u8)
 void TWI_master_write( uint8_t var_twiData_u8 )
 {
@@ -142,7 +140,6 @@ void TWI_master_write( uint8_t var_twiData_u8 )
 		break;
 	}
 }
-
 // uint8_t TWI_Read(uint8_t ack_nack)
 uint8_t TWI_master_read( uint8_t ack_nack )
 {
@@ -164,7 +161,6 @@ uint8_t TWI_master_read( uint8_t ack_nack )
 	cmd = twi_reg()->twdr->var;
 	return cmd;
 }
-
 // void TWI_Stop(void)
 void TWI_stop( void )
 {
@@ -173,14 +169,12 @@ void TWI_stop( void )
 	
 	_delay_us(100); // wait for a short time
 }
-
 // auxiliary
 uint8_t TWI_status( void )
 {
 	uint8_t cmd = twi_reg()->twsr->var & TW_NO_INFO;
 	return cmd;
 }
-
 void TWI_wait_twint( uint16_t nticks ) // hardware triggered
 {
 	unsigned int i; // wait for acknowledgment confirmation bit.

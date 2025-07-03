@@ -9,6 +9,7 @@ Date:     30062025
 
 static EEPROM eprom;
 
+/*** Handler ***/
 EEPROM eeprom_enable(void) {
 	// V-table
 	eprom.read_byte = eeprom_read_byte;

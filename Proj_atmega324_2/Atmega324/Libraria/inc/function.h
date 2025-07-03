@@ -1,13 +1,9 @@
 /************************************************************************
 	FUNCTION
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: all
-Date: 31122023
-Comment:
-	Very Stable
-	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
+Date:     31122023
 ************************************************************************/
 #ifndef _FUNCTION_H_
 	#define _FUNCTION_H_

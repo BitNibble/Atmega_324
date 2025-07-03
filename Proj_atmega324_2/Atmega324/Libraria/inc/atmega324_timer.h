@@ -14,6 +14,21 @@ Date:     03072025
 
 #include "atmega324.h"
 
+/*** Interrupt sources 0 ***/
+#define TIMER_COUNTER0A_COMPARE_MATCH_INTERRUPT TIMER0_COMPA_vect
+#define TIMER_COUNTER0B_COMPARE_MATCH_INTERRUPT TIMER0_COMPB_vect
+#define TIMER_COUNTER0_OVERFLOW_INTERRUPT TIMER0_OVF_vect
+/*** Interrupt sources 1 ***/
+#define TIMER_COUNTER1A_COMPARE_MATCH_INTERRUPT TIMER1_COMPA_vect
+#define TIMER_COUNTER1B_COMPARE_MATCH_INTERRUPT TIMER1_COMPB_vect
+#define TIMER_COUNTER1_CAPTURE_EVENT_INTERRUPT TIMER1_CAPT_vect
+#define TIMER_COUNTER1_OVERFLOW_INTERRUPT TIMER1_OVF_vect
+/*** Interrupt sources 2 ***/
+#define TIMER_COUNTER2A_COMPARE_MATCH_INTERRUPT TIMER2_COMPA_vect
+#define TIMER_COUNTER2B_COMPARE_MATCH_INTERRUPT TIMER2_COMPB_vect
+#define TIMER_COUNTER2_OVERFLOW_INTERRUPT TIMER2_OVF_vect
+
+/*** Handler ***/
 typedef struct {
 	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);
@@ -23,7 +38,7 @@ typedef struct {
 	void (*start)(uint16_t prescaler);
 	void (*stop)(void);
 } TIMER_COUNTER0;
-/**/
+/*** Handler ***/
 typedef struct {
 	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);
@@ -33,7 +48,7 @@ typedef struct {
 	void (*start)(uint16_t prescaler);
 	void (*stop)(void);
 } TIMER_COUNTER1, TIMER_COUNTER3;
-/**/
+/*** Handler ***/
 typedef struct {
 	// V-table
 	void (*compoutmodeA)(uint8_t compoutmode);

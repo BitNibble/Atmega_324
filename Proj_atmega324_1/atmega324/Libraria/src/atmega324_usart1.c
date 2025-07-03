@@ -22,7 +22,7 @@ static const uint16_t uart1_rx_buffer_size = (UART1_RX_BUFFER_SIZE - 1);
 static uint8_t UART1_LastRxError;
 static uint8_t uart1flag;
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 UARTvar uart1_read(void);
 UARTvar uart1_getch(void);
 UARTvar* uart1_gets(void);
@@ -41,7 +41,7 @@ uint8_t USART1ReadErrors(void);
 void USART1ClearErrors(void);
 void USART1DoubleTransmissionSpeed(void);
 
-/*** Procedure & Function ***/
+/*** Handler ***/
 USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	uart1flag = 1;
@@ -129,6 +129,7 @@ USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits,
 
 USART1* usart1(void){ return &atmega324_usart1; }
 
+/*** Procedure & Function definition ***/
 UARTvar uart1_read(void)
 {
 	UARTvar c;

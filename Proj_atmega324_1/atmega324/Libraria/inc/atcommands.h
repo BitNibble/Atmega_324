@@ -1,12 +1,9 @@
 /************************************************************************
 	ATCOMMANDS
-Author: Sergio Santos 
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: ALL
-Date: 24042023
-Comment:
-	Stable
+Date:     24042023
 ************************************************************************/
 #ifndef _ATCOMMANDS_H_
 	#define _ATCOMMANDS_H_
@@ -14,17 +11,12 @@ Comment:
 /*** Global Library ***/
 #include <inttypes.h>
 
-/*** Global Constant & Macro ***/
-
-/*** Global Variable ***/
-
-/*** Global Header ***/
+/*** Global Procedure and Function declaration ***/
 char* BT05ATcmd(uint16_t num);
 char* HC42ATcmd(uint16_t num);
 char* HC05ATcmd(uint16_t num);
 char* ESP8266cmd(uint16_t num);
 
 #endif
-
 /***EOF***/
 

@@ -41,7 +41,7 @@ static keypadata data;
 static char endstr[2] = "\0";
 // can not assign something outside a function
 
-/*** File Header ***/
+/*** Procedure & Function declaration ***/
 // getkey
 char KEYPAD_getkey(void);
 // read
@@ -84,6 +84,8 @@ KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint
 	// Going to use pull down method.
 	return keypad;
 }
+
+/*** Procedure & Function definition ***/
 char KEYPAD_getkey(void)
 {
 	uint8_t HL;

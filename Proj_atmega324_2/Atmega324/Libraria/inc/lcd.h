@@ -27,7 +27,7 @@ Date:     02072025
 #define DB6 6
 #define DB7 7
 
-/***Global Variable***/
+/*** Handler ***/
 typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
@@ -42,7 +42,7 @@ typedef struct{
 	void (*reboot)(void);
 }LCD0, LCD1;
 
-/*** Global Function declaration ***/
+/*** Global ***/
 LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 LCD0* lcd0(void);
 LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);

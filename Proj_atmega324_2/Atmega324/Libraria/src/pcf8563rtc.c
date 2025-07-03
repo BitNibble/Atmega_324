@@ -1,12 +1,9 @@
 /***************************************************************************************************
 	PCF8563RTC
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: PCF8563
-Date: 29112022
-Comment:
-	Stable
+Date:     29112022
  **************************************************************************************************/
 /*** File Library ***/
 #include "pcf8563rtc.h"
@@ -23,7 +20,7 @@ Comment:
 	#error "MCU Lib not available"
 #endif
 
-/*** File Header ***/
+/*** Procedure and Funtion declaration ***/
 void PCF8563RTC_Init(void);
 void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8);
 void PCF8563RTC_SetHour(uint8_t var_hour_u8);
@@ -41,7 +38,6 @@ uint8_t PCF8563RTC_bcd2dec(uint8_t num);
 uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 
 /*** Handler ***/
-// PCF8563RTC PCF8563RTCenable(uint8_t prescaler)
 PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 {
 	PCF8563RTC pcf;
@@ -52,7 +48,7 @@ PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 	#elif defined(__AVR_ATmega324A__)
 		i2c = twi_enable('A', prescaler);
 	#endif
-	// Vtable
+	// V-table
 	pcf.SetTime = PCF8563RTC_SetTime;
 	pcf.SetHour = PCF8563RTC_SetHour;
 	pcf.SetMinute = PCF8563RTC_SetMinute;
@@ -72,7 +68,7 @@ PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 	
 	return pcf;
 }
-// void PCF8563RTC_Init(uint8_t prescaler)
+/*** Procedure and Funtion definition ***/
 void PCF8563RTC_Init(void)
 {
 	i2c.start();									// Start I2C communication
@@ -81,7 +77,6 @@ void PCF8563RTC_Init(void)
 	i2c.master_write(0x00);							// Write 0x00 to Control register to disable SQW-Out
 	i2c.stop();										// Stop I2C communication after initializing PCF8563
 }
-// void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8)
 void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -92,7 +87,6 @@ void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec
 	i2c.master_write(var_hour_u8);			        // Write hour from RAM address 04H
 	i2c.stop();           							// Stop I2C communication after Setting the Time
 }
-// void PCF8563RTC_SetHour(uint8_t var_hour_u8)
 void PCF8563RTC_SetHour(uint8_t var_hour_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -101,7 +95,6 @@ void PCF8563RTC_SetHour(uint8_t var_hour_u8)
 	i2c.master_write(var_hour_u8);			        // Write hour from RAM address 04H
 	i2c.stop();           							// Stop I2C communication after Setting the Time
 }
-// void PCF8563RTC_SetMinute(uint8_t var_min_u8)
 void PCF8563RTC_SetMinute(uint8_t var_min_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -110,7 +103,6 @@ void PCF8563RTC_SetMinute(uint8_t var_min_u8)
 	i2c.master_write(var_min_u8);			        // Write min from RAM address 03H
 	i2c.stop();           							// Stop I2C communication after Setting the Time
 }
-// void PCF8563RTC_SetSecond(uint8_t var_sec_u8)
 void PCF8563RTC_SetSecond(uint8_t var_sec_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -119,7 +111,6 @@ void PCF8563RTC_SetSecond(uint8_t var_sec_u8)
 	i2c.master_write(var_sec_u8);			        // Write sec from RAM address 02H
 	i2c.stop();           							// Stop I2C communication after Setting the Time
 }
-// void PCF8563RTC_SetClkOut(uint8_t onoff, uint8_t freq)
 void PCF8563RTC_SetClkOut(uint8_t onoff, uint8_t freq)
 {
 	uint8_t word = 0;
@@ -131,7 +122,6 @@ void PCF8563RTC_SetClkOut(uint8_t onoff, uint8_t freq)
 	i2c.master_write(word);						// Write Clock from RAM address 0DH						
 	i2c.stop();           						// Stop I2C communication after Setting the Time
 }
-// void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_weekday_u8, uint8_t var_month_u8, uint8_t var_year_u8)
 void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_weekday_u8, uint8_t var_month_u8, uint8_t var_year_u8)
 {
 	i2c.start();								// Start I2C communication
@@ -143,7 +133,6 @@ void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_weekday_u8, uint8_t var_
 	i2c.master_write(var_year_u8);				// Write year on RAM address 08h
 	i2c.stop();									// Stop I2C communication after Setting the Date
 }
-// void PCF8563RTC_SetYear(uint8_t var_year_u8)
 void PCF8563RTC_SetYear(uint8_t var_year_u8)
 {
 	i2c.start();								// Start I2C communication
@@ -152,7 +141,6 @@ void PCF8563RTC_SetYear(uint8_t var_year_u8)
 	i2c.master_write(var_year_u8);			    // Write year on RAM address 08h
 	i2c.stop();									// Stop I2C communication after Setting the Date
 }
-// void PCF8563RTC_SetMonth(uint8_t var_month_u8)
 void PCF8563RTC_SetMonth(uint8_t var_month_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -161,7 +149,6 @@ void PCF8563RTC_SetMonth(uint8_t var_month_u8)
 	i2c.master_write(var_month_u8);					// Write month on RAM address 07H
 	i2c.stop();										// Stop I2C communication after Setting the Date
 }
-// void PCF8563RTC_SetWeekday(uint8_t var_weekday_u8)
 void PCF8563RTC_SetWeekday(uint8_t var_weekday_u8)
 {
 	i2c.start();									// Start I2C communication
@@ -170,7 +157,6 @@ void PCF8563RTC_SetWeekday(uint8_t var_weekday_u8)
 	i2c.master_write(var_weekday_u8);               // Write date on RAM address 06H
 	i2c.stop();										// Stop I2C communication after Setting the Date
 }
-// void PCF8563RTC_SetDay(uint8_t var_day_u8)
 void PCF8563RTC_SetDay(uint8_t var_day_u8)
 {
 	i2c.start();								// Start I2C communication
@@ -179,7 +165,6 @@ void PCF8563RTC_SetDay(uint8_t var_day_u8)
 	i2c.master_write(var_day_u8);			    // Write date on RAM address 05H
 	i2c.stop();									// Stop I2C communication after Setting the Date
 }
-// struct time PCF8563RTC_GetTime(void)
 struct time PCF8563RTC_GetTime(void)
 {
 	struct time result;
@@ -195,7 +180,6 @@ struct time PCF8563RTC_GetTime(void)
 	i2c.stop();												// Stop I2C communication after reading the Time
 	return result;
 }
-// struct date PCF8563RTC_GetDate(void)
 struct date PCF8563RTC_GetDate(void)
 {
 	struct date result;
@@ -222,8 +206,6 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin)
 {
 	return (((bin) / 10) << 4) + ((bin) % 10);
 }
-
-/***File Interrupt***/
 
 /***EOF***/
 
