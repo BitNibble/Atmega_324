@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     02072025             
+Date:     04072025             
 ************************************************************************/
 /*** File Library ***/
 #include "lcd2p.h"
@@ -15,7 +15,7 @@ Date:     02072025
 #define LCD02P_DATA 1
 
 /*** File Variable ***/
-static LCD02P setup_lcd02p;
+static LCD02P lcd02p_setup;
 volatile uint8_t *lcd02pcmd_DDR;
 volatile uint8_t *lcd02pcmd_PIN;
 volatile uint8_t *lcd02pcmd_PORT;
@@ -42,9 +42,8 @@ void lcd02p_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 void LCD02P_reboot(void);
 
 /*** Handler ***/
-LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
+void lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
-	
 	// import parameters
 	lcd02pcmd_DDR = cmdddr;
 	lcd02pcmd_PIN = cmdpin;
@@ -53,25 +52,23 @@ LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatil
 	lcd02pdata_PIN = datapin;
 	lcd02pdata_PORT = dataport;
 	DDR_DATA_MASK = (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
-	// Direccionar apontadores para PROTOTIPOS
-	setup_lcd02p.write = LCD02P_write;
-	setup_lcd02p.read = LCD02P_read;
-	setup_lcd02p.BF = LCD02P_BF;
-	setup_lcd02p.putch = LCD02P_putch;
-	setup_lcd02p.getch = LCD02P_getch;
-	setup_lcd02p.string = LCD02P_string; // RAW
-	setup_lcd02p.string_size = LCD02P_string_size; // RAW
-	setup_lcd02p.hspace = LCD02P_hspace;
-	setup_lcd02p.clear = LCD02P_clear;
-	setup_lcd02p.gotoxy = LCD02P_gotoxy;
-	setup_lcd02p.reboot = LCD02P_reboot;
+	// V-table
+	lcd02p_setup.write = LCD02P_write;
+	lcd02p_setup.read = LCD02P_read;
+	lcd02p_setup.BF = LCD02P_BF;
+	lcd02p_setup.putch = LCD02P_putch;
+	lcd02p_setup.getch = LCD02P_getch;
+	lcd02p_setup.string = LCD02P_string; // RAW
+	lcd02p_setup.string_size = LCD02P_string_size; // RAW
+	lcd02p_setup.hspace = LCD02P_hspace;
+	lcd02p_setup.clear = LCD02P_clear;
+	lcd02p_setup.gotoxy = LCD02P_gotoxy;
+	lcd02p_setup.reboot = LCD02P_reboot;
 	// LCD INIC
 	LCD02P_inic();
-	
-	return setup_lcd02p;
 }
 
-LCD02P* lcd02p(void){ return &setup_lcd02p; }
+LCD02P* lcd02p(void){ return &lcd02p_setup; }
 
 /*** Procedure & Function definition ***/
 void LCD02P_inic(void)

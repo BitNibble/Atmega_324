@@ -15,7 +15,7 @@ void HC595_shift_byte(hc595_parameter* par, uint8_t byte);
 void HC595_shift_out(hc595_parameter* par);
 hc595_parameter hc595_par_inic(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 
-/*** 74HC595 Auxiliar ***/
+/*** Handler Auxiliar ***/
 hc595_parameter hc595_par_inic(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
 {
 	hc595_parameter setup_hc595_par;
@@ -75,7 +75,8 @@ void HC595_shift_byte(hc595_parameter* par, uint8_t byte)
 {
 	uint8_t i;
 	for(i = 0; i < 8; i++)
-		HC595_shift_bit(par, byte & (1 << (7 - i)));
+		HC595_shift_bit(par, byte & (1 << (7 - i)));/***EOF***/
+
 	HC595_shift_out(par);
 }
 
@@ -85,5 +86,5 @@ void HC595_shift_out(hc595_parameter* par)
 	*par->hc595_PORT &= ~(1 << par->HC595_outpin); // Output disable
 }
 
-/***EOF***/
+/*** EOF ***/
 

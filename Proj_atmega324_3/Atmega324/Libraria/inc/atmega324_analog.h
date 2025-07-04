@@ -1,5 +1,5 @@
 /************************************************************************
-Title:    Interrupt ANALOG INPUT
+	Interrupt ANALOG INPUT
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Date:     30062025

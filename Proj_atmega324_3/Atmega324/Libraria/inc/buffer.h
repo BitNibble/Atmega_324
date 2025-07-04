@@ -19,23 +19,20 @@ typedef struct {
 	BUFFvar* orig;
 	BUFFvar* head;
 	BUFFvar* end;
-}bufferparameter;
+}buffer_parameter;
 
 /*** Handler ***/
 struct buffer
 {
-	bufferparameter par;
-	void (*push)(bufferparameter* par, BUFFvar data);
-	BUFFvar* (*raw)(bufferparameter* par);
-	void (*flush)(bufferparameter* par);
+	buffer_parameter par;
+	void (*push)(buffer_parameter* par, BUFFvar data);
+	BUFFvar* (*raw)(buffer_parameter* par);
+	void (*flush)(buffer_parameter* par);
 };
-
 typedef struct buffer BUFF;
 
-/*** Global ***/
 BUFF buff_enable(uint8_t size_buff, BUFFvar* buff);
 
 #endif
-
 /***EOF***/
 

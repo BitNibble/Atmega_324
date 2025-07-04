@@ -40,33 +40,33 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin);
 /*** Handler ***/
 PCF8563RTC pcf8563rtc_enable(uint8_t prescaler)
 {
-	PCF8563RTC pcf;
+	PCF8563RTC pcf_setup;
 	#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
 		i2c = TWI_enable('A', prescaler);
 	#elif defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 		i2c = TWI_enable('A', prescaler);
 	#elif defined(__AVR_ATmega324A__)
-		i2c = twi_enable('A', prescaler);
+		twi_enable('A', prescaler);
 	#endif
 	// V-table
-	pcf.SetTime = PCF8563RTC_SetTime;
-	pcf.SetHour = PCF8563RTC_SetHour;
-	pcf.SetMinute = PCF8563RTC_SetMinute;
-	pcf.SetSecond = PCF8563RTC_SetSecond;
-	pcf.SetClkOut = PCF8563RTC_SetClkOut;
-	pcf.SetDate = PCF8563RTC_SetDate;
-	pcf.SetDay = PCF8563RTC_SetDay;
-	pcf.SetWeekday = PCF8563RTC_SetWeekday;
-	pcf.SetMonth = PCF8563RTC_SetMonth;
-	pcf.SetYear = PCF8563RTC_SetYear;
-	pcf.GetTime = PCF8563RTC_GetTime;
-	pcf.GetDate = PCF8563RTC_GetDate;
-	pcf.bcd2dec = PCF8563RTC_bcd2dec;
-	pcf.bintobcd = PCF8563RTC_bintobcd;
+	pcf_setup.SetTime = PCF8563RTC_SetTime;
+	pcf_setup.SetHour = PCF8563RTC_SetHour;
+	pcf_setup.SetMinute = PCF8563RTC_SetMinute;
+	pcf_setup.SetSecond = PCF8563RTC_SetSecond;
+	pcf_setup.SetClkOut = PCF8563RTC_SetClkOut;
+	pcf_setup.SetDate = PCF8563RTC_SetDate;
+	pcf_setup.SetDay = PCF8563RTC_SetDay;
+	pcf_setup.SetWeekday = PCF8563RTC_SetWeekday;
+	pcf_setup.SetMonth = PCF8563RTC_SetMonth;
+	pcf_setup.SetYear = PCF8563RTC_SetYear;
+	pcf_setup.GetTime = PCF8563RTC_GetTime;
+	pcf_setup.GetDate = PCF8563RTC_GetDate;
+	pcf_setup.bcd2dec = PCF8563RTC_bcd2dec;
+	pcf_setup.bintobcd = PCF8563RTC_bintobcd;
 	
 	PCF8563RTC_Init();
 	
-	return pcf;
+	return pcf_setup;
 }
 /*** Procedure and Funtion definition ***/
 void PCF8563RTC_Init(void)
@@ -207,5 +207,5 @@ uint8_t PCF8563RTC_bintobcd(uint8_t bin)
 	return (((bin) / 10) << 4) + ((bin) % 10);
 }
 
-/***EOF***/
+/*** EOF ***/
 

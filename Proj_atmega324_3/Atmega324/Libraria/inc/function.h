@@ -24,7 +24,7 @@ Date:     31122023
 /*** Handler ***/
 typedef struct
 {
-	// PROTOTYPES VTABLE
+	// V-table
 	int (*stringlength)(const char string[]);
 	void (*reverse)(char s[]);
 	unsigned int (*mayia)(unsigned int xi, unsigned int xf, uint8_t nbits);
@@ -67,10 +67,9 @@ typedef struct
 	**************************************************/
 }FUNC;
 
-/*** Global Header ***/
-FUNC func_enable(void);
+void func_enable(void);
+FUNC* func(void);
 
 #endif
-
 /***EOF***/
 

@@ -1,9 +1,9 @@
 /*************************************************************************
-	ATMEGA 324 TIMER HANDLERS
+	ATMEGA 324 TIMER
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
-Date:     03072025
+Date:     04072025
 *************************************************************************/
 /*
 ** library
@@ -13,13 +13,13 @@ Date:     03072025
 /*
 ** variable
 */
-static TIMER_COUNTER0 timer0 = {0};
+static TIMER_COUNTER0 timer0_setup = {0};
 static uint8_t timer0_state;
-static TIMER_COUNTER1 timer1 = {0};
+static TIMER_COUNTER1 timer1_setup = {0};
 static uint8_t timer1_state;
-static TIMER_COUNTER2 timer2 = {0};
+static TIMER_COUNTER2 timer2_setup = {0};
 static uint8_t timer2_state;
-static TIMER_COUNTER3 timer3 = {0};
+static TIMER_COUNTER3 timer3_setup = {0};
 static uint8_t timer3_state;
 
 /**** Procedure and Function declaration ****/
@@ -52,7 +52,7 @@ void TIMER_COUNTER3_start(uint16_t prescaler);
 void TIMER_COUNTER3_stop(void);
 
 /**** Handler ****/
-TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
+void tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer0_state=0;
 	
@@ -118,17 +118,15 @@ TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 		default:
 			break;
 	}
-	timer0.compoutmodeA=TIMER_COUNTER0_compoutmodeA;
-	timer0.compoutmodeB=TIMER_COUNTER0_compoutmodeB;
-	timer0.compareA=TIMER_COUNTER0_compareA;
-	timer0.compareB=TIMER_COUNTER0_compareB;
-	timer0.start=TIMER_COUNTER0_start;
-	timer0.stop=TIMER_COUNTER0_stop;
-
-	return timer0;
+	timer0_setup.compoutmodeA=TIMER_COUNTER0_compoutmodeA;
+	timer0_setup.compoutmodeB=TIMER_COUNTER0_compoutmodeB;
+	timer0_setup.compareA=TIMER_COUNTER0_compareA;
+	timer0_setup.compareB=TIMER_COUNTER0_compareB;
+	timer0_setup.start=TIMER_COUNTER0_start;
+	timer0_setup.stop=TIMER_COUNTER0_stop;
 }
 
-TIMER_COUNTER0* tc0(void){ return &timer0; }
+TIMER_COUNTER0* tc0(void){ return &timer0_setup; }
 
 /**** Procedure and Function definition ****/
 void TIMER_COUNTER0_start(uint16_t prescaler)
@@ -275,7 +273,7 @@ void TIMER_COUNTER0_stop(void)
 }
 
 /***** Handler *****/
-TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
+void tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer1_state=0;
 	
@@ -394,17 +392,15 @@ TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 			break;
 	}
 	//
-	timer1.compoutmodeA=TIMER_COUNTER1_compoutmodeA;
-	timer1.compoutmodeB=TIMER_COUNTER1_compoutmodeB;
-	timer1.compareA=TIMER_COUNTER1_compareA;
-	timer1.compareB=TIMER_COUNTER1_compareB;
-	timer1.start=TIMER_COUNTER1_start;
-	timer1.stop=TIMER_COUNTER1_stop;
-
-	return timer1;
+	timer1_setup.compoutmodeA=TIMER_COUNTER1_compoutmodeA;
+	timer1_setup.compoutmodeB=TIMER_COUNTER1_compoutmodeB;
+	timer1_setup.compareA=TIMER_COUNTER1_compareA;
+	timer1_setup.compareB=TIMER_COUNTER1_compareB;
+	timer1_setup.start=TIMER_COUNTER1_start;
+	timer1_setup.stop=TIMER_COUNTER1_stop;
 }
 
-TIMER_COUNTER1* tc1(void){ return &timer1; }
+TIMER_COUNTER1* tc1(void){ return &timer1_setup; }
 
 /**** Procedure and Function definition ****/
 void TIMER_COUNTER1_start(uint16_t prescaler)
@@ -556,7 +552,7 @@ void TIMER_COUNTER1_stop(void)
 }
 
 /**** Handler *****/
-TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
+void tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 {
 	timer2_state=0;
 	
@@ -627,17 +623,15 @@ TIMER_COUNTER2 tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 		default:
 			break;
 	}
-	timer2.compoutmodeA=TIMER_COUNTER2_compoutmodeA;
-	timer2.compoutmodeB=TIMER_COUNTER2_compoutmodeB;
-	timer2.compareA=TIMER_COUNTER2_compareA;
-	timer2.compareB=TIMER_COUNTER2_compareB;
-	timer2.start=TIMER_COUNTER2_start;
-	timer2.stop=TIMER_COUNTER2_stop;
-
-	return timer2;
+	timer2_setup.compoutmodeA=TIMER_COUNTER2_compoutmodeA;
+	timer2_setup.compoutmodeB=TIMER_COUNTER2_compoutmodeB;
+	timer2_setup.compareA=TIMER_COUNTER2_compareA;
+	timer2_setup.compareB=TIMER_COUNTER2_compareB;
+	timer2_setup.start=TIMER_COUNTER2_start;
+	timer2_setup.stop=TIMER_COUNTER2_stop;
 }
 
-TIMER_COUNTER2* tc2(void){ return &timer2; }
+TIMER_COUNTER2* tc2(void){ return &timer2_setup; }
 
 /**** Procedure and Function definition ****/
 void TIMER_COUNTER2_start(uint16_t prescaler)
@@ -784,7 +778,7 @@ void TIMER_COUNTER2_stop(void)
 }
 
 /***** Handler *****/
-TIMER_COUNTER3 tc3_enable(uint8_t wavegenmode, uint8_t interrupt)
+void tc3_enable(uint8_t wavegenmode, uint8_t interrupt)
 {
 	timer3_state=0;
 	
@@ -903,17 +897,15 @@ TIMER_COUNTER3 tc3_enable(uint8_t wavegenmode, uint8_t interrupt)
 		break;
 	}
 	//
-	timer3.compoutmodeA=TIMER_COUNTER3_compoutmodeA;
-	timer3.compoutmodeB=TIMER_COUNTER3_compoutmodeB;
-	timer3.compareA=TIMER_COUNTER3_compareA;
-	timer3.compareB=TIMER_COUNTER3_compareB;
-	timer3.start=TIMER_COUNTER3_start;
-	timer3.stop=TIMER_COUNTER3_stop;
-
-	return timer3;
+	timer3_setup.compoutmodeA=TIMER_COUNTER3_compoutmodeA;
+	timer3_setup.compoutmodeB=TIMER_COUNTER3_compoutmodeB;
+	timer3_setup.compareA=TIMER_COUNTER3_compareA;
+	timer3_setup.compareB=TIMER_COUNTER3_compareB;
+	timer3_setup.start=TIMER_COUNTER3_start;
+	timer3_setup.stop=TIMER_COUNTER3_stop;
 }
 
-TIMER_COUNTER3* tc3(void){ return &timer3; }
+TIMER_COUNTER3* tc3(void){ return &timer3_setup; }
 
 /**** Procedure and Function definition ****/
 void TIMER_COUNTER3_start(uint16_t prescaler)
@@ -1064,5 +1056,5 @@ void TIMER_COUNTER3_stop(void)
 	timer3_state=0;
 }
 
-/***EOF***/
+/*** EOF ***/
 

@@ -27,7 +27,9 @@ Data Memory Usage 		:	506 bytes   24,7 % Full
 :- 
 - conluding it is better to have independent and global instances, that is module registers organized in volatile const struct with its pointers inicialized.
 - concluding also that since there is only one hardware object it must follow the singleton pattern to match it.
-
+- if case not hardware mapping related then a independent struct object which can spawn is to be used and in this case must always return an independent copy of itself.
+	that is if singleton patern return a pointer to a file static struct, and if multi return a copy of a local function struct_setup. Therefore to detect which, is to see 
+	what the funtion accessor returns. either void or a Typedef, if void is pointer related, if Typedef is its copy.
 
 
 

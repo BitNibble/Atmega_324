@@ -15,16 +15,16 @@ rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data);
 ROTENC rotenc_enable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
-	ROTENC rtnc;
+	ROTENC rtnc_setup;
 	// Initialize variables
-	rtnc.par.PinChnA = ChnApin;
-	rtnc.par.PinChnB = ChnBpin;
-	rtnc.par.pchn = rtnc.par.chn = (1 << ChnBpin) | (1 << ChnApin);
-	rtnc.par.num = 0;
-	// function pointers
-	rtnc.rte = RotEnc_rte;
+	rtnc_setup.par.PinChnA = ChnApin;
+	rtnc_setup.par.PinChnB = ChnBpin;
+	rtnc_setup.par.pchn = rtnc_setup.par.chn = (1 << ChnBpin) | (1 << ChnApin);
+	rtnc_setup.par.num = 0;
+	// V-table
+	rtnc_setup.rte = RotEnc_rte;
 	
-	return rtnc;
+	return rtnc_setup;
 }
 
 /*** Procedure and Funtion definition ***/
@@ -44,5 +44,5 @@ rotaryencoderparameter RotEnc_rte(rotaryencoderparameter* par, uint8_t data)
 	return *par;
 }
 
-/***EOF***/
+/*** EOF ***/
 

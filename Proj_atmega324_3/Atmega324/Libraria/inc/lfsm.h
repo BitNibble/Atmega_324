@@ -52,10 +52,8 @@ struct lfsm{
 };
 typedef struct lfsm LFSM;
 
-/*** Global Header ***/
 LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom);
 
 #endif
-
 /***EOF***/
 

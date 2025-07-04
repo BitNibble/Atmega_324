@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
-Date:     28/06/2025
+Date:     04/07/2025
 ************************************************************************/
 #include "atmega324.h"
 

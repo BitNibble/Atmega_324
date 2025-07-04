@@ -137,5 +137,5 @@ ISR(ANALOG_INTERRUPT)
 	}
 }
 
-/***EOF***/
+/*** EOF ***/
 

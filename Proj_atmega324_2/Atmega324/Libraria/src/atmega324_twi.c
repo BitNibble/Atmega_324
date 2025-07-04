@@ -10,7 +10,7 @@ Update:   30062025
 #include <util/delay.h>
 
 /*** File Variable ***/
-static TWI0 atmega324_twi;
+static TWI0 twi_setup;
 
 /*** Procedure & Function declaration***/
 void TWI_init(uint8_t device_id, uint8_t prescaler);
@@ -24,22 +24,20 @@ uint8_t TWI_status(void);
 void TWI_wait_twint( uint16_t nticks );
 
 /*** Handler ***/
-TWI0 twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
+void twi_enable(uint8_t atmega_ID,  uint8_t prescaler)
 {
 	// V-table
-	atmega324_twi.start = TWI_start;
-	atmega324_twi.connect = TWI_connect;
-	atmega324_twi.stop = TWI_stop;
-	atmega324_twi.master_write = TWI_master_write;
-	atmega324_twi.master_read = TWI_master_read;
-	atmega324_twi.status = TWI_status;
+	twi_setup.start = TWI_start;
+	twi_setup.connect = TWI_connect;
+	twi_setup.stop = TWI_stop;
+	twi_setup.master_write = TWI_master_write;
+	twi_setup.master_read = TWI_master_read;
+	twi_setup.status = TWI_status;
 	
 	TWI_init(atmega_ID, prescaler);
-	
-	return atmega324_twi;
 }
 
-TWI0* twi(void){ return &atmega324_twi; }
+TWI0* twi(void){ return &twi_setup; }
 
 /*** Procedure & Function definition ***/
 // void TWI_Init(uint8_t device_id, uint8_t prescaler)
@@ -184,5 +182,5 @@ void TWI_wait_twint( uint16_t nticks ) // hardware triggered
 	}
 }
 
-/***EOF***/
+/*** EOF ***/
 

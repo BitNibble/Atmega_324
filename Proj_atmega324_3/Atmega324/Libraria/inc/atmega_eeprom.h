@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: ATmega
-Date:     30062025
+Date:     04072025
 *************************************************************************/
 #ifndef _ATMEGA_EEPROM_H_
 	#define _ATMEGA_EEPROM_H_
@@ -32,7 +32,8 @@ struct prm {
 };
 typedef struct prm EEPROM;
 
-EEPROM eeprom_enable(void);
+void eeprom_enable(void);
+EEPROM* eeprom(void);
 
 #endif
 /***EOF***/

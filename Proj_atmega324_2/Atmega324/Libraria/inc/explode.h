@@ -43,7 +43,6 @@ typedef struct {
 EXPLODE explode_enable(void);
 
 #endif
-
 /***EOF***/
 
 /******

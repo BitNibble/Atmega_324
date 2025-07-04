@@ -16,6 +16,7 @@ Date:     27112022
 #define KEYPADCOLUMNS 4
 
 /*** File Variable ***/
+static KEYPAD keypad_setup;
 volatile uint8_t *keypad_DDR;
 volatile uint8_t *keypad_PIN;
 volatile uint8_t *keypad_PORT;
@@ -56,12 +57,10 @@ uint8_t KEYPADlh(uint8_t xi, uint8_t xf);
 uint8_t KEYPADhl(uint8_t xi, uint8_t xf);
 
 /*** Handler ***/
-KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
+void keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
 	// LOCAL VARIABLE
 	data.character = ' ';
-	// ALLOCAÇÂO MEMORIA PARA Estrutura
-	KEYPAD keypad;
 	// import parameters
 	keypad_DDR = ddr;
 	keypad_PIN = pin;
@@ -74,16 +73,17 @@ KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint
 	keypad_datai.line_3 = keypad_dataf.line_3 = (1 << KEYPADDATA_1) | (1 << KEYPADDATA_2) | (1 << KEYPADDATA_3) | (1 << KEYPADDATA_4);
 	keypad_datai.line_4 = keypad_dataf.line_4 = (1 << KEYPADDATA_1) | (1 << KEYPADDATA_2) | (1 << KEYPADDATA_3) | (1 << KEYPADDATA_4);
 	KEYPADSTRINGINDEX = 0;
-	// Vtable
-	keypad.getkey = KEYPAD_getkey;
-	keypad.read = KEYPAD_read;
-	keypad.data = KEYPAD_data;
-	keypad.flush = KEYPAD_flush;
+	// V-table
+	keypad_setup.getkey = KEYPAD_getkey;
+	keypad_setup.read = KEYPAD_read;
+	keypad_setup.data = KEYPAD_data;
+	keypad_setup.flush = KEYPAD_flush;
 	//
 	*keypad_PORT |= (1 << KEYPADLINE_1) | (1 << KEYPADLINE_2) | (1 << KEYPADLINE_3) | (1 << KEYPADLINE_4);
 	// Going to use pull down method.
-	return keypad;
 }
+
+KEYPAD* keypad(void){ return &keypad_setup; }
 
 /*** Procedure & Function definition ***/
 char KEYPAD_getkey(void)
@@ -244,5 +244,5 @@ uint8_t KEYPADhl(uint8_t xi, uint8_t xf)
 	return i;
 }
 
-/***EOF***/
+/*** EOF ***/
 

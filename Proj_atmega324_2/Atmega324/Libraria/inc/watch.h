@@ -26,12 +26,13 @@ typedef struct {
 	char* (*show)(void);
 } WATCH;
 
+void watch_enable(void);
+WATCH* watch(void);
+
 /*** Global Header ***/
-WATCH watch_enable(void);
 extern void WATCH_increment(void);
 extern void WATCH_decrement(void);
 
 #endif
-
 /***EOF***/
 

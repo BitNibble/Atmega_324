@@ -148,5 +148,5 @@ char* WATCH_show(void)
 	return WATCH_vector;
 }
 
-/***EOF***/
+/*** EOF ***/
 

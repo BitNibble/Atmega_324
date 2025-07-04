@@ -11,6 +11,7 @@ Date:     31062025
 /*** File Constant & Macro ***/
 
 /*** File Variable ***/
+static CLOCK clock_setup;
 static RELOGIO_TIME ctime = {0};
 static char CLOCK_tmp[9] = {0};
 
@@ -21,17 +22,19 @@ void CLOCK_decrement(void);
 char* CLOCK_show(void);
 
 /*** Handler ***/
-CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
+void clock_enable(uint8_t hour, uint8_t minute, uint8_t second)
 {
-	CLOCK clock;
+	
 	(hour < 24) ? ctime.hour = hour : (void) hour;  
 	(minute < 60) ? ctime.minute = minute : (void) minute;
 	(second < 60) ? ctime.second = second : (void) second;
-	clock.set = CLOCK_set;
-	clock.increment = CLOCK_increment;
-	clock.show = CLOCK_show;
-	return clock;
+	// V-Table
+	clock_setup.set = CLOCK_set;
+	clock_setup.increment = CLOCK_increment;
+	clock_setup.show = CLOCK_show;
 }
+
+CLOCK* clock(void){ return &clock_setup; }
 
 /*** Procedure & Function definition ***/
 void CLOCK_set(uint8_t hour, uint8_t minute, uint8_t second)
@@ -112,5 +115,5 @@ char* CLOCK_show(void)
 	return CLOCK_tmp;
 }
 
-/***EOF***/
+/*** EOF ***/
 

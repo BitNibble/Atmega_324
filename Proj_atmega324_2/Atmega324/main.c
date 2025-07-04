@@ -31,7 +31,6 @@ uint16_t N_off=10;
 uint16_t N_on=8000;
 volatile uint16_t counter=0;
 char* uartreceive = NULL; // capture
-WATCH watch;
 uint8_t increment = 0;
 //Prototype header
 void PORTINIT(void);
@@ -50,48 +49,29 @@ uint16_t tN_off;
 uint16_t tN_on;
 char input;
 char* value;
-//Initialize objects
-TIMER_COUNTER1 tim1 = tc1_enable(4,3);//4,0
-KEYPAD keypad = keypad_enable(&DDRB,&PINB,&PORTB);
-LCD0 lcd = lcd0_enable(&DDRC,&PINC,&PORTC);
-FUNC func = func_enable();
-EEPROM eeprom = eeprom_enable();
-WATCH watch = watch_enable();
-ANALOG an = adc_enable( 1, 16, 1, 0 );
+// Handlers
+tc1_enable(4,3);//4,0
+keypad_enable(&DDRB,&PINB,&PORTB);
+lcd0_enable(&DDRC,&PINC,&PORTC);
+func_enable();
+eeprom_enable();
+watch_enable();
+adc_enable( 1, 16, 1, 0 );
 usart0_enable(38400,8,1,NONE);
+
 /* Init Values */
-watch.preset(0,0,0);
-	
+watch()->preset(0,0,0);
 tc1_reg()->tcnt1->par.h.var = 55;
-	
 gpiod_reg()->port->par.b2 = 1;
 	
-tcompare=compare=eeprom.read_word((uint16_t*)0);
-prescaler=eeprom.read_word((uint16_t*)4);
-tN_off=N_off=eeprom.read_word((uint16_t*)8);
-tN_on=N_on=eeprom.read_word((uint16_t*)12);
-switch(prescaler) {
-	case 1:
-		steprescaler=1;
-		break;
-	case 8:
-		steprescaler=2;
-		break;
-	case 64:
-		steprescaler=3;
-		break;
-	case 256:
-		steprescaler=4;
-		break;
-	case 1024:
-		steprescaler=0;
-		break;
-	default:
-		break;
-}//end switch	
-tim1.compoutmodeA(1);
-tim1.compareA(compare);
-tim1.start(prescaler);
+tcompare=compare=eeprom()->read_word((uint16_t*)0);
+prescaler=eeprom()->read_word((uint16_t*)4);
+tN_off=N_off=eeprom()->read_word((uint16_t*)8);
+tN_on=N_on=eeprom()->read_word((uint16_t*)12);
+
+tc1()->compoutmodeA(1);
+tc1()->compareA(compare);
+tc1()->start(prescaler);
 	
 char uartmsg[UART0_RX_BUFFER_SIZE] = {0}; // One shot
 char uartmsgprint[UART0_RX_BUFFER_SIZE] = {0}; // triggered
@@ -99,27 +79,27 @@ char uartmsgprint[UART0_RX_BUFFER_SIZE] = {0}; // triggered
 /******/
 while (True)
 {
-	lcd.gotoxy(0,0);
+	lcd0()->gotoxy(0,0);
 	
-	input=keypad.getkey();
+	input=keypad()->getkey();
 		
 	uartreceive = usart0_messageprint( usart0(), uartmsg, uartmsgprint, "\r\n");
 		
 	lcd0()->string_size(uartmsgprint, 12);
 		
-	if ( snprintf(uartmsg, (UART0_RX_BUFFER_SIZE - 1), "an: %d", an.read(0)) > 0 ) {
+	if ( snprintf(uartmsg, (UART0_RX_BUFFER_SIZE - 1), "an: %d", adc()->read(0)) > 0 ) {
 		lcd0()->string_size(uartmsg, 8);
 	}
 		
-	lcd.gotoxy(1,12);
-	lcd.string_size( watch.show(), 8 );
+	lcd0()->gotoxy(1,12);
+	lcd0()->string_size( watch()->show(), 8 );
 		
-	if(watch.start_delay(0,20)) { gpiod_reg()->port->par.b2 ^= 1; }
+	if(watch()->start_delay(0,20)) { gpiod_reg()->port->par.b2 ^= 1; }
 		
 	if(input) {
-		lcd.gotoxy(1,0);
-		lcd.string_size("Key: ",5);
-		lcd.putch(input);
+		lcd0()->gotoxy(1,0);
+		lcd0()->string_size("Key: ",5);
+		lcd0()->putch(input);
 		//DEFAULT
 		if(input == 'D') {
 			tcompare=compare=2048;
@@ -127,10 +107,10 @@ while (True)
 			steprescaler=0;
 			tN_off=N_off=200;
 			tN_on=N_on=200;
-			tim1.stop();
-			tim1.compoutmodeA(1);
-			tim1.compareA(compare);
-			tim1.start(prescaler);
+			tc1()->stop();
+			tc1()->compoutmodeA(1);
+			tc1()->compareA(compare);
+			tc1()->start(prescaler);
 		}
 		//Adjust Impulses off and impulses on
 		//off decrement
@@ -188,7 +168,7 @@ while (True)
 				tcompare=compare=3;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='5') {
@@ -198,7 +178,7 @@ while (True)
 				tcompare=compare=3;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='6') {
@@ -208,7 +188,7 @@ while (True)
 				tcompare=compare=3;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='B') {
@@ -218,7 +198,7 @@ while (True)
 				tcompare=compare=3;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		//increment
@@ -229,7 +209,7 @@ while (True)
 				tcompare=compare=65535;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='2') {
@@ -239,7 +219,7 @@ while (True)
 				tcompare=compare=65535;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='3') {
@@ -249,7 +229,7 @@ while (True)
 				tcompare=compare=65535;
 			else
 				compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		if(input=='A') {
@@ -259,7 +239,7 @@ while (True)
 				tcompare=compare=65535;
 			else
 			compare=tcompare;
-			tim1.compareA(compare);
+			tc1()->compareA(compare);
 			//tim1.start(prescaler);
 		}
 		//Adjust prescaler 'C' toggles between possible selections
@@ -289,38 +269,38 @@ while (True)
 					steprescaler=4;
 					break;
 			}//endswitch
-			tim1.stop();
-			tim1.start(prescaler);
+			tc1()->stop();
+			tc1()->start(prescaler);
 		}//endif
 		//Parameters save eeprom
-		eeprom.update_word((uint16_t*)0,compare);
-		eeprom.update_word((uint16_t*)4,prescaler);
-		eeprom.update_word((uint16_t*)8,N_off);
-		eeprom.update_word((uint16_t*)12,N_on);
+		eeprom()->update_word((uint16_t*)0,compare);
+		eeprom()->update_word((uint16_t*)4,prescaler);
+		eeprom()->update_word((uint16_t*)8,N_off);
+		eeprom()->update_word((uint16_t*)12,N_on);
 	}//endif
 	/***DISPLAY***/
 	//Parameters
-	value = func.i32toa(compare);
-	lcd.gotoxy(2,0);
-	lcd.string_size(value,5);
-	lcd.BF();
-	lcd.hspace(1);
-	lcd.string("at");
-	lcd.hspace(1);
-	value = func.i32toa(prescaler);
-	lcd.string_size(value,5);
-	lcd.BF();
+	value = func()->i32toa(compare);
+	lcd0()->gotoxy(2,0);
+	lcd0()->string_size(value,5);
+	lcd0()->BF();
+	lcd0()->hspace(1);
+	lcd0()->string("at");
+	lcd0()->hspace(1);
+	value = func()->i32toa(prescaler);
+	lcd0()->string_size(value,5);
+	lcd0()->BF();
 	//Cycle
-	value = func.i32toa(N_on/2);
-	lcd.gotoxy(3,0);
-	lcd.string_size(value,5);
-	lcd.BF();
-	lcd.hspace(1);
-	lcd.string("and");
-	lcd.hspace(1);
-	value = func.i32toa(N_off/2);
-	lcd.string_size(value,5);
-	lcd.BF();
+	value = func()->i32toa(N_on/2);
+	lcd0()->gotoxy(3,0);
+	lcd0()->string_size(value,5);
+	lcd0()->BF();
+	lcd0()->hspace(1);
+	lcd0()->string("and");
+	lcd0()->hspace(1);
+	value = func()->i32toa(N_off/2);
+	lcd0()->string_size(value,5);
+	lcd0()->BF();
 	//Default
 		
 }}

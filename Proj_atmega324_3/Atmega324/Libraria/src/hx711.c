@@ -55,7 +55,7 @@ HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_
 	tSREG = STATUS_REGISTER;
 	STATUS_REGISTER &= ~(1<<GLOBAL_INTERRUPT_ENABLE);
 	//ALLOCAÇÂO MEMORIA PARA Estrutura
-	HX711 hx711;
+	HX711 hx711_setup;
 	//import parameters
 	hx711_DDR = ddr;
 	hx711_PIN = pin;
@@ -65,42 +65,42 @@ HX711 hx711_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_
 	//initialize variables
 	*hx711_DDR |= (ONE<<clkpin);
 	*hx711_PORT |= (ONE<<datapin);
-	hx711.readflag = ZERO;
-	hx711.trigger = ZERO;
-	hx711.amplify = ONE;
-	hx711.ampcount = ONE;
-	hx711.bitcount = HX711_ADC_bits;
-	hx711.buffer[0] = ZERO;
-	hx711.buffer[1] = ZERO;
-	hx711.buffer[2] = ZERO;
-	hx711.buffer[3] = ZERO;
-	hx711.bufferindex = HX711_VECT_SIZE-ONE;
-	hx711.raw_reading = ZERO;
-	hx711.sum = ZERO;
-	hx711.av_n = ZERO;
-	hx711.raw_mean = ZERO;
+	hx711_setup.readflag = ZERO;
+	hx711_setup.trigger = ZERO;
+	hx711_setup.amplify = ONE;
+	hx711_setup.ampcount = ONE;
+	hx711_setup.bitcount = HX711_ADC_bits;
+	hx711_setup.buffer[0] = ZERO;
+	hx711_setup.buffer[1] = ZERO;
+	hx711_setup.buffer[2] = ZERO;
+	hx711_setup.buffer[3] = ZERO;
+	hx711_setup.bufferindex = HX711_VECT_SIZE-ONE;
+	hx711_setup.raw_reading = ZERO;
+	hx711_setup.sum = ZERO;
+	hx711_setup.av_n = ZERO;
+	hx711_setup.raw_mean = ZERO;
 	// offset para mesa usada.
-	hx711.cal_data.offset_32 = HX711_Default_50Kg.offset_32; // to subtract B
-	hx711.cal_data.offset_64 = HX711_Default_50Kg.offset_64; // to subtract A 64
-	hx711.cal_data.offset_128 = HX711_Default_50Kg.offset_128; // to subtract A 128
+	hx711_setup.cal_data.offset_32 = HX711_Default_50Kg.offset_32; // to subtract B
+	hx711_setup.cal_data.offset_64 = HX711_Default_50Kg.offset_64; // to subtract A 64
+	hx711_setup.cal_data.offset_128 = HX711_Default_50Kg.offset_128; // to subtract A 128
 	// GAIN FACTOR
-	hx711.cal_data.divfactor_32 = HX711_Default_50Kg.divfactor_32; // to divide
-	hx711.cal_data.divfactor_64 = HX711_Default_50Kg.divfactor_64; // to divide
-	hx711.cal_data.divfactor_128 = HX711_Default_50Kg.divfactor_128; // to divide
-	hx711.cal_data.status = HX711_Default_50Kg.status;
+	hx711_setup.cal_data.divfactor_32 = HX711_Default_50Kg.divfactor_32; // to divide
+	hx711_setup.cal_data.divfactor_64 = HX711_Default_50Kg.divfactor_64; // to divide
+	hx711_setup.cal_data.divfactor_128 = HX711_Default_50Kg.divfactor_128; // to divide
+	hx711_setup.cal_data.status = HX711_Default_50Kg.status;
 	HX711_Default = &HX711_Default_50Kg;
-	// Direccionar apontadores para PROTOTIPOS
-	hx711.get_amplify=HX711_get_amplify;
-	hx711.read_bit=HX711_read_bit;
-	hx711.set_amplify=HX711_set_amplify;
-	hx711.query=HX711_query;
-	hx711.read_raw=HX711_read_raw;
-	hx711.raw_average=HX711_raw_average;
-	hx711.get_readflag=HX711_get_readflag;
-	hx711.get_cal=HX711_get_cal;
+	// V-table
+	hx711_setup.get_amplify=HX711_get_amplify;
+	hx711_setup.read_bit=HX711_read_bit;
+	hx711_setup.set_amplify=HX711_set_amplify;
+	hx711_setup.query=HX711_query;
+	hx711_setup.read_raw=HX711_read_raw;
+	hx711_setup.raw_average=HX711_raw_average;
+	hx711_setup.get_readflag=HX711_get_readflag;
+	hx711_setup.get_cal=HX711_get_cal;
 	STATUS_REGISTER = tSREG;
 	// returns a copy
-	return hx711;
+	return hx711_setup;
 }
 
 /*** Procedure & Function definition ***/
@@ -222,5 +222,5 @@ HX711_calibration* HX711_get_cal(HX711* self)
 	return &(self->cal_data);
 }
 
-/***EOF***/
+/*** EOF ***/
 

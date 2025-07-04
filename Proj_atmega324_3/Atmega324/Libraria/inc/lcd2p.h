@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     02072025
+Date:     04072025
 ************************************************************************/
 #ifndef _LCD2P_H_
 	#define _LCD2P_H_
@@ -44,11 +44,9 @@ typedef struct{
 	void (*reboot)(void);
 }LCD02P;
 
-/*** Global ***/
-LCD02P lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
+void lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport);
 LCD02P* lcd02p(void);
 
 #endif
-
 /*** EOF ***/
 

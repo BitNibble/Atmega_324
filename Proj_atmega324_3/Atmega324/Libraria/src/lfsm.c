@@ -42,26 +42,26 @@ LFSM lfsm_enable(EEPROM* eeprom, const uint16_t sizeeeprom)
 	// Local Variable
 	const uint8_t sizeblock = sizeof(struct lfsmdata);
 	// Create Object
-	LFSM r;
-	// Initialize variables
-	r.eprom = eeprom;
-	r.sizeeeprom = sizeeeprom;
-	r.sizeblock = sizeblock;
-	r.page = 0;
-	r.output = 0; // Output
-	// Function V table
-	r.read = LFSMread;
-	r.learn = LFSMlearn;
-	r.quant = LFSMquant;
-	r.remove = LFSMremove;
-	r.premove = LFSMpremove;
-	r.deleteall = LFSMdeleteall;
-	r.getoutput = LFSMgetoutput;
-	r.getstatus = LFSMgetstatus;
-	r.setoutput = LFSMsetoutput;
-	r.getpage = LFSMgetpage;
-	r.setpage = LFSMsetpage;
-	return r;
+	LFSM r_setup;
+	// Var
+	r_setup.eprom = eeprom;
+	r_setup.sizeeeprom = sizeeeprom;
+	r_setup.sizeblock = sizeblock;
+	r_setup.page = 0;
+	r_setup.output = 0; // Output
+	// V-table
+	r_setup.read = LFSMread;
+	r_setup.learn = LFSMlearn;
+	r_setup.quant = LFSMquant;
+	r_setup.remove = LFSMremove;
+	r_setup.premove = LFSMpremove;
+	r_setup.deleteall = LFSMdeleteall;
+	r_setup.getoutput = LFSMgetoutput;
+	r_setup.getstatus = LFSMgetstatus;
+	r_setup.setoutput = LFSMsetoutput;
+	r_setup.getpage = LFSMgetpage;
+	r_setup.setpage = LFSMsetpage;
+	return r_setup;
 }
 
 /*** Procedure & Function definition ***/
@@ -436,5 +436,5 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 	return feedback;
 }
 
-/***EOF***/
+/*** EOF ***/
 

@@ -3,7 +3,7 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     02072025
+Date:     04072025
 ************************************************************************/
 #ifndef _LCD_H_
 	#define _LCD_H_
@@ -42,13 +42,11 @@ typedef struct{
 	void (*reboot)(void);
 }LCD0, LCD1;
 
-/*** Global ***/
-LCD0 lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+void lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 LCD0* lcd0(void);
-LCD1 lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+void lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 LCD1* lcd1(void);
 
 #endif
-
 /***EOF***/
 

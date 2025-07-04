@@ -1,9 +1,9 @@
 /*************************************************************************
-	ATMEGA 324 TIMER HANDLERS 
+	ATMEGA 324 TIMER
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega 324 at 8Mhz
-Date:     03072025
+Date:     04072025
 *************************************************************************/
 #ifndef ATMEGA324_TIMER_H_
 	#define ATMEGA324_TIMER_H_
@@ -59,13 +59,13 @@ typedef struct {
 	void (*stop)(void);
 } TIMER_COUNTER2;
 
-TIMER_COUNTER0 tc0_enable(uint8_t wavegenmode, uint8_t interrupt);
+void tc0_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER0* tc0(void);
-TIMER_COUNTER1 tc1_enable(uint8_t wavegenmode, uint8_t interrupt);
+void tc1_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER1* tc1(void);
-TIMER_COUNTER2 tc2_enable(uint8_t wavegenmode, uint8_t interrupt);
+void tc2_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER2* tc2(void);
-TIMER_COUNTER3 tc3_enable(uint8_t wavegenmode, uint8_t interrupt);
+void tc3_enable(uint8_t wavegenmode, uint8_t interrupt);
 TIMER_COUNTER3* tc3(void);
 
 #endif

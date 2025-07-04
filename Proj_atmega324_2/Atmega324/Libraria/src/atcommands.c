@@ -7,12 +7,7 @@ Date: 24042023
 *************************************************************************/
 /*** File Library ***/
 #include "atcommands.h"
-//#include <util/delay.h>
-//#include <stdio.h>
-//#include <stdlib.h>
 #include <string.h>
-//#include <stdarg.h>
-//#include <math.h>
 
 /*** File Variable ***/
 char ATstr[72];
@@ -609,5 +604,5 @@ char* ESP8266cmd(uint16_t num)
 	return NULL;
 }
 
-/***EOF***/
+/*** EOF ***/
 

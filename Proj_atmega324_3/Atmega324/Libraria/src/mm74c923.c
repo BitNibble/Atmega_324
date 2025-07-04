@@ -14,7 +14,6 @@ Date:
 #define MM74C923_KEY_BUFFER_SIZE 16
 
 /*** File Variable ***/
-static FUNC func;
 static EXPLODE vari;
 
 volatile uint8_t *mm74c923_DDR;
@@ -45,9 +44,9 @@ MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile 
 {
 	// LOCAL VARIABLES
 	// ALLOCACAO MEMORIA Para Estrutura
-	func=func_enable();
+	func_enable();
 	vari = explode_enable();
-	MM74C923 mm74c923;
+	MM74C923 mm74c923_setup;
 	// import parameters
 	mm74c923_DDR = ddr;
 	mm74c923_PIN = pin;
@@ -59,13 +58,13 @@ MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile 
 	mm74c923_mem &= ~(1 << MM74C923_DATA_AVAILABLE);
 	MM74C923_pointer = MM74C923_KEY_BUFFER_EMPTY;
 	// Direccionar apontadores para PROTOTIPOS
-	mm74c923.activate = MM74C923_activate;
-	mm74c923.getch = MM74C923_getch;
-	mm74c923.gets = MM74C923_gets;
-	mm74c923.data = MM74C923_data;
-	mm74c923.data_clear = MM74C923_data_clear;
+	mm74c923_setup.activate = MM74C923_activate;
+	mm74c923_setup.getch = MM74C923_getch;
+	mm74c923_setup.gets = MM74C923_gets;
+	mm74c923_setup.data = MM74C923_data;
+	mm74c923_setup.data_clear = MM74C923_data_clear;
 	
-	return mm74c923;
+	return mm74c923_setup;
 }
 
 /*** Procedure & Function definition ***/
@@ -121,5 +120,5 @@ void MM74C923_data_clear(void){
 	MM74C923_KEY_BUFFER[MM74C923_KEY_BUFFER_INDEX] = '\0';
 }
 
-/***EOF***/
+/*** EOF ***/
 

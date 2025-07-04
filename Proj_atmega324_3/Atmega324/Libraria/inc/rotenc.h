@@ -1,20 +1,15 @@
 /************************************************************************
 	ROTENC
-Author: Sergio Santos
-	<sergio.salazar.santos@gmail.com>
-License: GNU General Public License
+Author:   <sergio.salazar.santos@gmail.com>
+License:  GNU General Public License
 Hardware: Rotary encoder Potentiometer
-Date: 25102020
-Comment:
-	Stable
+Date:     25102020
 ************************************************************************/
 #ifndef _ROTENC_H_
 	#define _ROTENC_H_
 
 /*** Global Library ***/
 #include <inttypes.h>
-
-/*** Global Constant & Macro ***/
 
 /*** Global Variable ***/
 typedef struct{
@@ -33,10 +28,8 @@ struct rotenc{
 };
 typedef struct rotenc ROTENC;
 
-/*** Global Header ***/
 ROTENC rotenc_enable(uint8_t ChnApin, uint8_t ChnBpin);
 
 #endif
-
 /***EOF***/
 

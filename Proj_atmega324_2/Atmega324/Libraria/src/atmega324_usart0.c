@@ -12,7 +12,7 @@ Update:   26/06/2025
 #include <string.h>
 
 /*** File Variable ***/
-static USART0 atmega324_usart0;
+static USART0 usart0_setup;
 
 static BUFF rx0buff;
 static UARTvar UART0_Rx;
@@ -42,20 +42,20 @@ void USART0ClearErrors(void);
 void USART0DoubleTransmissionSpeed(void);
 
 /*** Handler ***/
-USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
+void usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity )
 {
 	uart0flag = 1;
 	uint16_t ubrr = 0;
 	rx0buff = buff_enable( uart0_rx_buffer_size, UART0_RxBuf );
 	ubrr = BAUDRATEnormal(baud);
 	// V-table
-	atmega324_usart0.read = uart0_read;
-	atmega324_usart0.getch = uart0_getch;
-	atmega324_usart0.gets = uart0_gets;
-	atmega324_usart0.rxflush = uart0_rxflush;
-	atmega324_usart0.write = uart0_write;
-	atmega324_usart0.putch = uart0_putch;
-	atmega324_usart0.puts = uart0_puts;
+	usart0_setup.read = uart0_read;
+	usart0_setup.getch = uart0_getch;
+	usart0_setup.gets = uart0_gets;
+	usart0_setup.rxflush = uart0_rxflush;
+	usart0_setup.write = uart0_write;
+	usart0_setup.putch = uart0_putch;
+	usart0_setup.puts = uart0_puts;
 	// Set baud rate
 	if ( ubrr & 0x8000 ) {
    		USART0DoubleTransmissionSpeed(); // Enable 2x speed 
@@ -124,10 +124,9 @@ USART0 usart0_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits,
 		}
 	#endif
 	cpu_reg()->sreg->par.i = 1;
-	return atmega324_usart0;
 }
 
-USART0* usart0(void){ return &atmega324_usart0; }
+USART0* usart0(void){ return &usart0_setup; }
 
 /*** Procedure & Function definition ***/
 UARTvar uart0_read(void)
@@ -250,5 +249,5 @@ void USART0DoubleTransmissionSpeed(void)
 	set_reg_block(&UCSR0A,4,1,1);
 }
 
-/***EOF***/
+/*** EOF ***/
 
