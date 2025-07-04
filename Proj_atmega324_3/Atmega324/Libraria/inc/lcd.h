@@ -26,6 +26,16 @@ Date:     04072025
 #define DB5 5
 #define DB6 6
 #define DB7 7
+/***************/
+//#define RS 7
+//#define RW 6
+//#define EN 5
+//#define NC 4
+//#define DB4 3
+//#define DB5 2
+//#define DB6 1
+//#define DB7 0
+/***************/
 
 /*** Handler ***/
 typedef struct{

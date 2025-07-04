@@ -362,10 +362,10 @@ typedef volatile union {
 	uint8_t var;
 } _TCCR3C_TypeDef; // 0x92
 // Reserved 0x93
-// _TCNT1L TCNT1H 0x94 0x95 (_uint16_t)
-// _ICR1L ICR1H 0x96 0x97 (_uint16_t)
-// _OCR1AL OCR1AH 0x98 0x99 (_uint16_t)
-// _OCR1BL OCR1BH 0x9A 0x9B (_uint16_t)
+// _TCNT3L TCNT3H 0x94 0x95 (_uint16_t)
+// _ICR3L ICR3H 0x96 0x97 (_uint16_t)
+// _OCR3AL OCR3AH 0x98 0x99 (_uint16_t)
+// _OCR3BL OCR3BH 0x9A 0x9B (_uint16_t)
 // Reserved 0x9C
 // Reserved 0x9D
 // Reserved 0x9E

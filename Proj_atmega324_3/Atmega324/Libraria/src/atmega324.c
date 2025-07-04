@@ -51,7 +51,7 @@ Atmega324AnalogComparator_TypeDef* ac_reg(void) {
 }
 // Static instance with hardware bindings
 static const Atmega324AnalogToDigitalConverter_TypeDef adc = {
-	.adc     = (_uint16_t*) 0x0078,      // ADC Data register
+	.adc     = (_uint16_t*) 0x0078,
 	.adcsra  = (_ADCSRA_TypeDef*) 0x007A,
 	.adcsrb  = (_ADCSRB_TypeDef*) 0x007B,
 	.admux   = (_ADMUX_TypeDef*)  0x007C,
@@ -77,7 +77,7 @@ static const Atmega324CPURegister_TypeDef cpu = {
 	.smcr   = (_SMCR_TypeDef*)   0x0053,
 	.mcusr  = (_MCUSR_TypeDef*)  0x0054,
 	.mcucr  = (_MCUCR_TypeDef*)  0x0055,
-	.sp     = (_uint16_t*)    0x005D,  // Stack Pointer (SPH: 0x5D, SPL: 0x5E)
+	.sp     = (_uint16_t*)    0x005D,
 	.sreg   = (_SREG_TypeDef*)   0x005F,
 	.clkpr  = (_CLKPR_TypeDef*)  0x0061,
 	.prr0   = (_PRR_TypeDef*)    0x0064,
@@ -209,7 +209,7 @@ static const Atmega324Usart1_TypeDef usart1 = {
 	.ucsr1a = (_UCSR1A_TypeDef*) 0x00C8,
 	.ucsr1b = (_UCSR1B_TypeDef*) 0x00C9,
 	.ucsr1c = (_UCSR1C_TypeDef*) 0x00CA,
-	.ubrr1  = (_uint16_t*)       0x00CC,  // 16-bit pointer to UBRR1H/L
+	.ubrr1  = (_uint16_t*)       0x00CC,
 	.udr1   = (_uint8_t*)        0x00CE
 };
 // Singleton accessor
