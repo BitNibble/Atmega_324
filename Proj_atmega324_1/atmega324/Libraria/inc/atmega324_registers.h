@@ -18,33 +18,33 @@ Date:     04/07/2025
 #include <inttypes.h>
 
 /*** Base Typedef ***/
-typedef volatile union {
+typedef union {
 	struct { 
 		uint8_t b0:1,b1:1,b2:1,b3:1,b4:1,b5:1,b6:1,b7:1; 
 	} par;
 	uint8_t var;
-} _uint8_t;
+} U_byte;
 
-typedef volatile union {
+typedef union {
 	struct{
-		_uint8_t l, h;
+		U_byte l, h;
 	}par;
 	uint16_t var;
-} _uint16_t;
+} U_word;
 
 /*** REGISTERS ***/
-// _PINA 0x20 (_uint8_t)
-// _DDRA 0x21 (_uint8_t)
-// _PORTA 0x22 (_uint8_t)
-// _PINB 0x23 (_uint8_t)
-// _DDRB 0x24 (_uint8_t)
-// _PORTB 0x25 (_uint8_t)
-// _PINC 0x26 (_uint8_t)
-// _DDRC 0x27 (_uint8_t)
-// _PORTC 0x28 (_uint8_t)
-// _PIND 0x29 (_uint8_t)
-// _DDRD 0x2A (_uint8_t)
-// _PORTD 0x2B (_uint8_t)
+// _PINA 0x20 (U_byte)
+// _DDRA 0x21 (U_byte)
+// _PORTA 0x22 (U_byte)
+// _PINB 0x23 (U_byte)
+// _DDRB 0x24 (U_byte)
+// _PORTB 0x25 (U_byte)
+// _PINC 0x26 (U_byte)
+// _DDRC 0x27 (U_byte)
+// _PORTC 0x28 (U_byte)
+// _PIND 0x29 (U_byte)
+// _DDRD 0x2A (U_byte)
+// _PORTD 0x2B (U_byte)
 // Reserved 0x2C
 // Reserved 0x2D
 // Reserved 0x2E
@@ -98,15 +98,15 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _EIMSK_TypeDef; // 0x3D
-// _GPIOR0 0x3E (_uint8_t)
+// _GPIOR0 0x3E (U_byte)
 typedef volatile union {
 	struct{
 		uint8_t eere : 1, eepe : 1, eempe : 1, eerie : 1, eepm0 : 1, eepm1 : 1, fill0 : 2;
 	}par;
 	uint8_t var;
 } _EECR_TypeDef; // 0x3F
-// _EEDR 0x40 (_uint8_t)
-// _EEARL EEARH 0x41 0x42 (_uint16_t)
+// _EEDR 0x40 (U_byte)
+// _EEARL EEARH 0x41 0x42 (U_word)
 typedef volatile union {
 	struct{
 		uint8_t psr5sync : 1, psrasy : 1, fill0 : 5, tsm : 1;
@@ -125,12 +125,12 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TCCR0B_TypeDef; // 0x45
-// _TCNT0 0x46 (_uint8_t)
-// _OCR0A 0x47 (_uint8_t)
-// _OCR0B 0x48 (_uint8_t)
+// _TCNT0 0x46 (U_byte)
+// _OCR0A 0x47 (U_byte)
+// _OCR0B 0x48 (U_byte)
 // Reserved 0x49
-// _GPIOR1 0x4A (_uint8_t)
-// _GPIOR2 0x4B (_uint8_t)
+// _GPIOR1 0x4A (U_byte)
+// _GPIOR2 0x4B (U_byte)
 typedef volatile union {
 	struct{
 		uint8_t spr00 : 1, spr01 : 1, cpha0 : 1, cpol0 : 1, mstr0 : 1, dord0 : 1, spe0 : 1, spie0 : 1;
@@ -143,7 +143,7 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _SPSR_TypeDef; // 0x4D
-// _SPDR 0x4E (_uint8_t)
+// _SPDR 0x4E (U_byte)
 // Reserved 0x4F
 typedef volatile union {
 	struct{
@@ -151,7 +151,7 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _ACSR_TypeDef; // 0x50
-// _OCDR 0x51 (_uint8_t)
+// _OCDR 0x51 (U_byte)
 // Reserved 0x52
 typedef volatile union {
 	struct{
@@ -188,7 +188,7 @@ typedef volatile union {
 	uint8_t var;
 } _RAMPZ_TypeDef; // 0x5B
 // Reserved 0x5C
-// _SPL SPH 0x5D 0x5E (_uint16_t)
+// _SPL SPH 0x5D 0x5E (U_word)
 typedef volatile union {
 	struct{
 		uint8_t c : 1, z : 1, n : 1, v : 1, s : 1, h : 1, t : 1, i : 1;
@@ -216,7 +216,7 @@ typedef volatile union {
 	uint8_t var;
 } _PRR_TypeDef; // 0x64
 // Reserved 0x65
-// _OSCAL 0x66 (_uint8_t)
+// _OSCAL 0x66 (U_byte)
 // Reserved 0x67
 typedef volatile union {
 	struct{
@@ -284,7 +284,7 @@ typedef volatile union {
 // Reserved 0x75
 // Reserved 0x76
 // Reserved 0x77
-// _ADCL ADCH 0x78 0x79 (_uint16_t)
+// _ADCL ADCH 0x78 0x79 (U_word)
 typedef volatile union {
 	struct{
 		uint8_t adps0 : 1, adps1 : 1, adps2 : 1, adie : 1, adif : 1, adate : 1, adsc : 1, aden : 1;
@@ -335,10 +335,10 @@ typedef volatile union {
 	uint8_t var;
 } _TCCR1C_TypeDef; // 0x82
 // Reserved 0x83
-// _TCNT1L TCNT1H 0x84 0x85 (_uint16_t)
-// _ICR1L ICR1H 0x86 0x87 (_uint16_t)
-// _OCR1AL OCR1AH 0x88 0x89 (_uint16_t)
-// _OCR1BL OCR1BH 0x8A 0x8B (_uint16_t)
+// _TCNT1L TCNT1H 0x84 0x85 (U_word)
+// _ICR1L ICR1H 0x86 0x87 (U_word)
+// _OCR1AL OCR1AH 0x88 0x89 (U_word)
+// _OCR1BL OCR1BH 0x8A 0x8B (U_word)
 // Reserved 0x8C
 // Reserved 0x8D
 // Reserved 0x8E
@@ -362,10 +362,10 @@ typedef volatile union {
 	uint8_t var;
 } _TCCR3C_TypeDef; // 0x92
 // Reserved 0x93
-// _TCNT3L TCNT3H 0x94 0x95 (_uint16_t)
-// _ICR3L ICR3H 0x96 0x97 (_uint16_t)
-// _OCR3AL OCR3AH 0x98 0x99 (_uint16_t)
-// _OCR3BL OCR3BH 0x9A 0x9B (_uint16_t)
+// _TCNT3L TCNT3H 0x94 0x95 (U_word)
+// _ICR3L ICR3H 0x96 0x97 (U_word)
+// _OCR3AL OCR3AH 0x98 0x99 (U_word)
+// _OCR3BL OCR3BH 0x9A 0x9B (U_word)
 // Reserved 0x9C
 // Reserved 0x9D
 // Reserved 0x9E
@@ -398,9 +398,9 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TCCR2B_TypeDef; // 0xB1
-// _TCNT2 0xB2 (_uint8_t)
-// _OCR2A 0xB3 (_uint8_t)
-// _OCR2B 0xB4 (_uint8_t)
+// _TCNT2 0xB2 (U_byte)
+// _OCR2A 0xB3 (U_byte)
+// _OCR2B 0xB4 (U_byte)
 // Reserved 0xB5
 typedef volatile union {
 	struct{
@@ -409,7 +409,7 @@ typedef volatile union {
 	uint8_t var;
 } _ASSR_TypeDef; // 0xB6
 // Reserved 0xB7
-// _TWBR 0xB8 (_uint8_t)
+// _TWBR 0xB8 (U_byte)
 typedef volatile union {
 	struct{
 		uint8_t twps : 2, fill0 : 1, tws3 : 1, tws4 : 1, tws5 : 1, tws6 : 1, tws7 : 1;
@@ -422,7 +422,7 @@ typedef volatile union {
 	}par;
 	uint8_t var;
 } _TWAR_TypeDef; // 0xBA
-// _TWDR 0xBB (_uint8_t)
+// _TWDR 0xBB (U_byte)
 typedef volatile union {
 	struct{
 		uint8_t twie : 1, fill0 : 1, twen : 1, twwc : 1, twsto : 1, twsta : 1, twea : 1, twint : 1;
@@ -456,8 +456,8 @@ typedef volatile union {
 	uint8_t var;
 } _UCSR0C_TypeDef; // 0xC2
 // Reserved 0xC3
-// _UBRR0L UBRR0H 0xC4 0xC5 (_uint16_t)
-// _UDR0 0xC6 (_uint8_t)
+// _UBRR0L UBRR0H 0xC4 0xC5 (U_word)
+// _UDR0 0xC6 (U_byte)
 // Reserved 0xC7
 typedef volatile union {
 	struct{
@@ -478,8 +478,8 @@ typedef volatile union {
 	uint8_t var;
 } _UCSR1C_TypeDef; // 0xCA
 // Reserved 0xCB
-// _UBRR1L UBRR1H 0xCC 0xCD (_uint16_t)
-// _UDR1 0xCE (_uint8_t)
+// _UBRR1L UBRR1H 0xCC 0xCD (U_word)
+// _UDR1 0xCE (U_byte)
 // Reserved 0xCF
 // Reserved 0xD0
 // Reserved 0xD1

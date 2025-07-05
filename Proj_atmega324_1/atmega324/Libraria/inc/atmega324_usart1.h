@@ -45,10 +45,10 @@ typedef struct {
 	void (*puts)(UARTvar* s);
 }USART1;
 
-/*** Global ***/
-USART1 usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
+void usart1_enable( uint32_t baud, unsigned int FDbits, unsigned int Stopbits, unsigned int Parity );
 USART1* usart1(void);
 
+/*** Global Header ***/
 char* usart1_messageprint(USART1* uart, char* oneshot, char* msg, const char* endl);
 
 #endif

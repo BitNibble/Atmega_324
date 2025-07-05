@@ -1,10 +1,10 @@
-/************************************************************************
+/***********************************************************************
 	ATMEGA 324
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: Atmega324 by ETT ET-BASE
-Date:     24/06/2025
-************************************************************************/
+Date:     04/07/2025
+***********************************************************************/
 #ifndef _ATMEGA324_H_
 	#define _ATMEGA324_H_
 
@@ -13,12 +13,14 @@ Date:     24/06/2025
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
 #endif
 
+/*** Working Frequency ***/
 #ifndef F_CPU
 	#define F_CPU 16000000UL
 #endif
 
 /*** Global Library ***/
 #include <avr/io.h>
+#include <avr/boot.h>
 #include <avr/fuse.h>
 #include <avr/eeprom.h>
 #include <avr/pgmspace.h>
@@ -45,35 +47,35 @@ Date:     24/06/2025
 /*** INSTANCE ***/
 // GPWR
 typedef struct {
-	_uint8_t r0; // 0x0000
-	_uint8_t r1; // 0x0001
-	_uint8_t r2; // 0x0002
-	_uint8_t r3; // 0x0003
-	_uint8_t r4; // 0x0004
-	_uint8_t r5; // 0x0005
-	_uint8_t r6; // 0x0006
-	_uint8_t r7; // 0x0007
-	_uint8_t r8; // 0x0008
-	_uint8_t r9; // 0x0009
-	_uint8_t r10; // 0x000A
-	_uint8_t r11; // 0x000B
-	_uint8_t r12; // 0x000C
-	_uint8_t r13; // 0x000D
-	_uint8_t r14; // 0x000E
-	_uint8_t r15; // 0x000F
-	_uint8_t r16; // 0x0010
-	_uint8_t r17; // 0x0011
-	_uint8_t r18; // 0x0012
-	_uint8_t r19; // 0x0013
-	_uint8_t r20; // 0x0014
-	_uint8_t r21; // 0x0015
-	_uint8_t r22; // 0x0016
-	_uint8_t r23; // 0x0017
-	_uint8_t r24; // 0x0018
-	_uint8_t r25; // 0x0019
-	_uint16_t x; // 0x001A 0x001B
-	_uint16_t y; // 0x001C 0x001D
-	_uint16_t z; // 0x001E 0x001F
+	volatile U_byte r0; // 0x0000
+	volatile U_byte r1; // 0x0001
+	volatile U_byte r2; // 0x0002
+	volatile U_byte r3; // 0x0003
+	volatile U_byte r4; // 0x0004
+	volatile U_byte r5; // 0x0005
+	volatile U_byte r6; // 0x0006
+	volatile U_byte r7; // 0x0007
+	volatile U_byte r8; // 0x0008
+	volatile U_byte r9; // 0x0009
+	volatile U_byte r10; // 0x000A
+	volatile U_byte r11; // 0x000B
+	volatile U_byte r12; // 0x000C
+	volatile U_byte r13; // 0x000D
+	volatile U_byte r14; // 0x000E
+	volatile U_byte r15; // 0x000F
+	volatile U_byte r16; // 0x0010
+	volatile U_byte r17; // 0x0011
+	volatile U_byte r18; // 0x0012
+	volatile U_byte r19; // 0x0013
+	volatile U_byte r20; // 0x0014
+	volatile U_byte r21; // 0x0015
+	volatile U_byte r22; // 0x0016
+	volatile U_byte r23; // 0x0017
+	volatile U_byte r24; // 0x0018
+	volatile U_byte r25; // 0x0019
+	volatile U_word x; // 0x001A 0x001B
+	volatile U_word y; // 0x001C 0x001D
+	volatile U_word z; // 0x001E 0x001F
 } _GPW_TypeDef;
 
 // Analog Comparator (AC)
@@ -87,7 +89,7 @@ Atmega324AnalogComparator_TypeDef* ac_reg(void);
 
 // Analog to Digital Converter (ADC)
 typedef struct {
-	_uint16_t* adc; // 0x0078 0x0079
+	volatile U_word* adc; // 0x0078 0x0079
 	_ADCSRA_TypeDef* adcsra; // 0x007A
 	_ADCSRB_TypeDef* adcsrb; // 0c007B
 	_ADMUX_TypeDef* admux; // 0x007C
@@ -105,17 +107,17 @@ Atmega324BootLoader_TypeDef* boot_reg(void);
 
 // CPU Register (CPU)
 typedef struct {
-	_uint8_t* gpior0; // 0x003E
-	_uint8_t* gpior1; // 0x004A
-	_uint8_t* gpior2; // 0x004B
+	volatile U_byte* gpior0; // 0x003E
+	volatile U_byte* gpior1; // 0x004A
+	volatile U_byte* gpior2; // 0x004B
 	_SMCR_TypeDef* smcr; // 0x0053
 	_MCUSR_TypeDef* mcusr; // 0x0054
 	_MCUCR_TypeDef* mcucr; // 0x0055
-	_uint16_t* sp; // 0x005D 0x005E
+	volatile U_word* sp; // 0x005D 0x005E
 	_SREG_TypeDef* sreg; // 0x005F
 	_CLKPR_TypeDef* clkpr; // 0x0061
 	_PRR_TypeDef* prr0; // 0x0064
-	_uint8_t* osccal; // 0x0066
+	volatile U_byte* osccal; // 0x0066
 } Atmega324CPURegister_TypeDef;
 
 Atmega324CPURegister_TypeDef* cpu_reg(void);
@@ -123,8 +125,8 @@ Atmega324CPURegister_TypeDef* cpu_reg(void);
 // EEPROM (EEPROM)
 typedef struct {
 	_EECR_TypeDef* eecr; // 0x003F
-	_uint8_t* eedr; // 0x0040
-	_uint16_t* eear; // 0x0041 0x0042
+	volatile U_byte* eedr; // 0x0040
+	volatile U_word* eear; // 0x0041 0x0042
 } Atmega324Eeprom_TypeDef;
 
 Atmega324Eeprom_TypeDef* eeprom_reg(void);
@@ -146,43 +148,43 @@ Atmega324ExternalInterrupts_TypeDef* exint_reg(void);
 
 // I/O Port (PORTA)
 typedef struct {
-	_uint8_t* pin; // 0x0020
-	_uint8_t* ddr; // 0x0021
-	_uint8_t* port; // 0x0022
+	volatile U_byte* pin; // 0x0020
+	volatile U_byte* ddr; // 0x0021
+	volatile U_byte* port; // 0x0022
 } _GPIOA_TypeDef;
 
 _GPIOA_TypeDef* gpioa_reg(void);
 
 // I/O Port (PORTB)
 typedef struct {
-	_uint8_t* pin; // 0x0023
-	_uint8_t* ddr; // 0x0024
-	_uint8_t* port; // 0x0025
+	volatile U_byte* pin; // 0x0023
+	volatile U_byte* ddr; // 0x0024
+	volatile U_byte* port; // 0x0025
 } _GPIOB_TypeDef;
 
 _GPIOB_TypeDef* gpiob_reg(void);
 
 // I/O Port (PORTC)
 typedef struct {
-	_uint8_t* pin; // 0x0026
-	_uint8_t* ddr; // 0x0027
-	_uint8_t* port; // 0x0028
+	volatile U_byte* pin; // 0x0026
+	volatile U_byte* ddr; // 0x0027
+	volatile U_byte* port; // 0x0028
 } _GPIOC_TypeDef;
 
 _GPIOC_TypeDef* gpioc_reg(void);
 
 // I/O Port (PORTD)
 typedef struct {
-	_uint8_t* pin; // 0x0029
-	_uint8_t* ddr; // 0x002A
-	_uint8_t* port; // 0x002B
+	volatile U_byte* pin; // 0x0029
+	volatile U_byte* ddr; // 0x002A
+	volatile U_byte* port; // 0x002B
 } _GPIOD_TypeDef;
 
 _GPIOD_TypeDef* gpiod_reg(void);
 
 // JTAG Interface (JTAG)
 typedef struct {
-	_uint8_t* ocdr; // 0x0051
+	volatile U_byte* ocdr; // 0x0051
 	_MCUSR_TypeDef* mcusr; // 0x0054
 	_MCUCR_TypeDef* mcucr; // 0x0055
 } Atmega324JtagInterface_TypeDef;
@@ -193,7 +195,7 @@ Atmega324JtagInterface_TypeDef* jtag_reg(void);
 typedef struct {
 	_SPCR_TypeDef* spcr0; // 0x004C
 	_SPSR_TypeDef* spsr0; // 0x004D
-	_uint8_t* spdr0; // 0x004E
+	volatile U_byte* spdr0; // 0x004E
 } Atmega324SerialPeripherialInterface_TypeDef;
 
 Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void);
@@ -205,10 +207,10 @@ typedef struct {
 	_TCCR1A_TypeDef* tccr1a; // 0x0080
 	_TCCR1B_TypeDef* tccr1b; // 0x0081
 	_TCCR1C_TypeDef* tccr1c; // 0x0082
-	_uint16_t* tcnt1; // 0x0084 0x0085
-	_uint16_t* icr1; // 0x0086 0x0087
-	_uint16_t* ocr1a; // 0x0088 0x0089
-	_uint16_t* ocr1b; // 0x008A 0x008B
+	volatile U_word* tcnt1; // 0x0084 0x0085
+	volatile U_word* icr1; // 0x0086 0x0087
+	volatile U_word* ocr1a; // 0x0088 0x0089
+	volatile U_word* ocr1b; // 0x008A 0x008B
 } Atmega324TimerCounter1_TypeDef;
 
 Atmega324TimerCounter1_TypeDef* tc1_reg(void);
@@ -220,10 +222,10 @@ typedef struct {
 	_TCCR3A_TypeDef* tccr3a; // 0x0080
 	_TCCR3B_TypeDef* tccr3b; // 0x0081
 	_TCCR3C_TypeDef* tccr3c; // 0x0082
-	_uint16_t* tcnt3; // 0x0084 0x0085
-	_uint16_t* icr3; // 0x0086 0x0087
-	_uint16_t* ocr3a; // 0x0088 0x0089
-	_uint16_t* ocr3b; // 0x008A 0x008B
+	volatile U_word* tcnt3; // 0x0084 0x0085
+	volatile U_word* icr3; // 0x0086 0x0087
+	volatile U_word* ocr3a; // 0x0088 0x0089
+	volatile U_word* ocr3b; // 0x008A 0x008B
 } Atmega324TimerCounter3_TypeDef;
 
 Atmega324TimerCounter3_TypeDef* tc3_reg(void);
@@ -233,9 +235,9 @@ typedef struct {
 	_TIFR0_Typedef* tifr0; // 0x0035
 	_TCCR0A_TypeDef* tccr0a; // 0x0044
 	_TCCR0B_TypeDef* tccr0b; // 0x0045
-	_uint8_t* tcnt0; // 0x0046
-	_uint8_t* ocr0a; // 0x0047
-	_uint8_t* ocr0b; // 0x0048
+	volatile U_byte* tcnt0; // 0x0046
+	volatile U_byte* ocr0a; // 0x0047
+	volatile U_byte* ocr0b; // 0x0048
 	_TIMSK0_TypeDef* timsk0; // 0x006E	
 } Atmega324TimerCounter0_TypeDef;
 
@@ -248,9 +250,9 @@ typedef struct {
 	_TIMSK2_TypeDef* timsk2; // 0x0070
 	_TCCR2A_TypeDef* tccr2a; // 0x00B0
 	_TCCR2B_TypeDef* tccr2b; // 0x00B1
-	_uint8_t* tcnt2; // 0x00B2
-	_uint8_t* ocr2a; // 0x00B3
-	_uint8_t* ocr2b; // 0x00B4
+	volatile U_byte* tcnt2; // 0x00B2
+	volatile U_byte* ocr2a; // 0x00B3
+	volatile U_byte* ocr2b; // 0x00B4
 	_ASSR_TypeDef* assr; // 0x00B6
 } Atmega324TimerCounter2_TypeDef;
 
@@ -258,10 +260,10 @@ Atmega324TimerCounter2_TypeDef* tc2_reg(void);
 
 // Two Wire Serial Interface (TWI)
 typedef struct {
-	_uint8_t* twbr; // 0x00B8
+	volatile U_byte* twbr; // 0x00B8
 	_TWSR_TypeDef* twsr; // 0x00B9
 	_TWAR_TypeDef* twar; // 0x00BA
-	_uint8_t* twdr; // 0x00BB
+	volatile U_byte* twdr; // 0x00BB
 	_TWCR_TypeDef* twcr; // 0x00BC
 	_TWAMR_TypeDef* twamr; // 0x00BD
 } Atmega324TwoWireSerialInterface_TypeDef;
@@ -273,8 +275,8 @@ typedef struct {
 	_UCSR0A_TypeDef* ucsr0a; // 0x00C0
 	_UCSR0B_TypeDef* ucsr0b; // 0x00C1
 	_UCSR0C_TypeDef* ucsr0c; // 0x00C2
-	_uint16_t* ubrr0; // 0x00C4–0x00C5 (UBRR0H: 0x00C4, UBRR0L: 0x00C5)
-	_uint8_t* udr0; // 0x00C6
+	volatile U_word* ubrr0; // 0x00C4–0x00C5 (UBRR0H: 0x00C4, UBRR0L: 0x00C5)
+	volatile U_byte* udr0; // 0x00C6
 } Atmega324Usart0_TypeDef;
 
 Atmega324Usart0_TypeDef* usart0_reg(void);
@@ -284,8 +286,8 @@ typedef struct {
 	_UCSR1A_TypeDef* ucsr1a; // 0x00C8
 	_UCSR1B_TypeDef* ucsr1b; // 0x00C9
 	_UCSR1C_TypeDef* ucsr1c; // 0x00CA
-	_uint16_t* ubrr1; // 0x00CC–0x00CD (UBRR1H: 0x00CC, UBRR1L: 0x00CD)
-	_uint8_t* udr1; // 0x00CE
+	volatile U_word* ubrr1; // 0x00CC–0x00CD (UBRR1H: 0x00CC, UBRR1L: 0x00CD)
+	volatile U_byte* udr1; // 0x00CE
 } Atmega324Usart1_TypeDef;
 
 Atmega324Usart1_TypeDef* usart1_reg(void);

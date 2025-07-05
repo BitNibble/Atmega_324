@@ -15,9 +15,10 @@ Date:     03072025
 #define W12_HOUR_SECONDS 43200
 #define W24_HOUR_SECONDS 86400
 /*** File Variable ***/
+static WATCH watch_setup;
+static WATCH_TIME wtime;
 const uint32_t w12_hour_seconds = (W12_HOUR_SECONDS - 1);
 const uint32_t w24_hour_seconds = (W24_HOUR_SECONDS - 1);
-static WATCH_TIME wtime;
 static char WATCH_vector[9] = {0};
 static uint32_t WATCH_trigger[N_DELAY] = {0};
 static uint8_t WATCH_delay_flag[N_DELAY] = {0};
@@ -32,20 +33,20 @@ void WATCH_result(void);
 char* WATCH_show(void);
 
 /*** Handler ***/
-WATCH watch_enable(void)
+void watch_enable(void)
 {
 	wtime.hour = 0;
 	wtime.minute = 0;
 	wtime.second = 0;
 	wtime.seconds = 0;
 	
-	WATCH watch;
-	watch.preset = WATCH_preset;
-	watch.start_delay = WATCH_start_delay;
-	watch.increment = WATCH_increment;
-	watch.show = WATCH_show;
-	return watch;
+	watch_setup.preset = WATCH_preset;
+	watch_setup.start_delay = WATCH_start_delay;
+	watch_setup.increment = WATCH_increment;
+	watch_setup.show = WATCH_show;
 }
+
+WATCH* watch(void){ return &watch_setup;}
 
 /*** Procedure and Function definition ***/
 uint8_t WATCH_start_delay(uint8_t delay_n, uint32_t seconds){
@@ -82,7 +83,7 @@ void WATCH_preset(uint8_t hour, uint8_t minute, uint8_t second)
 		wtime.minute = 0;
 		
 	if( second < 60 )
-		;
+		wtime.second = second;
 	else
 		wtime.second = 0;
 	wtime.seconds = (uint32_t) (hour * 3600. + minute * 60. + second);
@@ -147,5 +148,5 @@ char* WATCH_show(void)
 	return WATCH_vector;
 }
 
-/***EOF***/
+/*** EOF ***/
 

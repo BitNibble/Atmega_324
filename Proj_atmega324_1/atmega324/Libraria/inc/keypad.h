@@ -43,10 +43,9 @@ struct keypad{
 };
 typedef struct keypad KEYPAD;
 
-/*** Global ***/
-KEYPAD keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+void keypad_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
+KEYPAD* keypad(void);
 
 #endif
-
 /***EOF***/
 

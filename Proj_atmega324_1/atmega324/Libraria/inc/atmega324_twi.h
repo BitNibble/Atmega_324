@@ -73,7 +73,7 @@ typedef struct {
 	uint8_t (*status)(void);
 }TWI0;
 
-TWI0 twi_enable(uint8_t atmega_ID, uint8_t prescaler);
+void twi_enable(uint8_t atmega_ID, uint8_t prescaler);
 TWI0* twi(void);
 
 #endif

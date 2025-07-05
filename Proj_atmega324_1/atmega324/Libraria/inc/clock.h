@@ -29,10 +29,9 @@ struct clck{
 };
 typedef struct clck CLOCK;
 
-/*** Global ***/
-CLOCK clock_enable(uint8_t hour, uint8_t minute, uint8_t second);
+void clock_enable(uint8_t hour, uint8_t minute, uint8_t second);
+CLOCK* clock(void);
 
 #endif
-
 /***EOF***/
 

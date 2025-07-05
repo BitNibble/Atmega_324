@@ -34,10 +34,8 @@ struct mm74c923{
 };
 typedef struct mm74c923 MM74C923;
 
-/*** Global Header ***/
 MM74C923 mm74c923_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);
 
 #endif
-
 /***EOF***/
 
