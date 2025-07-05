@@ -7,6 +7,9 @@ Date:     04/07/2025
 ************************************************************************/
 #include "atmega324.h"
 
+/*****************************/
+/**** MAIN HARDWARE LAYER ****/
+/*****************************/
 // Static instance with mapped register addresses
 static const _GPIOA_TypeDef gpioa  = {.pin = ((U_byte*) 0x0020), .ddr = ((U_byte*) 0x0021), .port = ((U_byte*) 0x0022) };
 // Singleton-style accessor

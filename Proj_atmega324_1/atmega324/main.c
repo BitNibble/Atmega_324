@@ -52,10 +52,10 @@ int main(void)
 		keypadinput=keypad()->data();
 		n=PIND;
 		/******/
-		if(keypadinput.character){
-			lcd0()->gotoxy(0,8);
-			lcd0()->putch(keypadinput.character);
-		}
+		//if(keypadinput.character){
+			//lcd0()->gotoxy(0,8);
+			//lcd0()->putch(keypadinput.character);
+		//}
 		lcd0()->gotoxy(0,16);
 		string = func()->ui16toa(n);
 		lcd0()->string_size(string,4);
