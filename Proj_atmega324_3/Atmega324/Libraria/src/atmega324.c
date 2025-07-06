@@ -11,32 +11,32 @@ Date:     04/07/2025
 /**** MAIN HARDWARE LAYER ****/
 /*****************************/
 // Static instance with mapped register addresses
-static const _GPIOA_TypeDef gpioa  = {.pin = ((U_byte*) 0x0020), .ddr = ((U_byte*) 0x0021), .port = ((U_byte*) 0x0022) };
+static const GPIOA_TypeDef gpioa  = {.pin = ((U_byte*) 0x0020), .ddr = ((U_byte*) 0x0021), .port = ((U_byte*) 0x0022) };
 // Singleton-style accessor
-_GPIOA_TypeDef* gpioa_reg(void) {  return (_GPIOA_TypeDef*) &gpioa; }
+GPIOA_TypeDef* gpioa_reg(void) {  return (GPIOA_TypeDef*) &gpioa; }
 // Static instance with mapped register addresses
-static const _GPIOB_TypeDef gpiob  = {.pin = ((U_byte*) 0x0023), .ddr = ((U_byte*) 0x0024), .port = ((U_byte*) 0x0025) };
+static const GPIOB_TypeDef gpiob  = {.pin = ((U_byte*) 0x0023), .ddr = ((U_byte*) 0x0024), .port = ((U_byte*) 0x0025) };
 // Singleton-style accessor
-_GPIOB_TypeDef* gpiob_reg(void) {  return (_GPIOB_TypeDef*) &gpiob; }
+GPIOB_TypeDef* gpiob_reg(void) {  return (GPIOB_TypeDef*) &gpiob; }
 // Static instance with mapped register addresses
-static const _GPIOC_TypeDef gpioc  = {.pin = ((U_byte*) 0x0026), .ddr = ((U_byte*) 0x0027), .port = ((U_byte*) 0x0028) };
+static const GPIOC_TypeDef gpioc  = {.pin = ((U_byte*) 0x0026), .ddr = ((U_byte*) 0x0027), .port = ((U_byte*) 0x0028) };
 // Singleton-style accessor
-_GPIOC_TypeDef* gpioc_reg(void) {  return (_GPIOC_TypeDef*) &gpioc; }
+GPIOC_TypeDef* gpioc_reg(void) {  return (GPIOC_TypeDef*) &gpioc; }
 // Static instance with mapped register addresses
-static const _GPIOD_TypeDef gpiod  = {.pin = ((U_byte*) 0x0029), .ddr = ((U_byte*) 0x002A), .port = ((U_byte*) 0x002B) };
+static const GPIOD_TypeDef gpiod  = {.pin = ((U_byte*) 0x0029), .ddr = ((U_byte*) 0x002A), .port = ((U_byte*) 0x002B) };
 // Singleton-style accessor
-_GPIOD_TypeDef* gpiod_reg(void) {  return (_GPIOD_TypeDef*) &gpiod; }
+GPIOD_TypeDef* gpiod_reg(void) {  return (GPIOD_TypeDef*) &gpiod; }
 // Static instance with mapped register addresses
 static const Atmega324ExternalInterrupts_TypeDef exint = {
-	.pcifr   = (_PCIFR_TypeDef*)   0x003B,
-	.eifr    = (_EIFR_TypeDef*)    0x003C,
-	.eimsk   = (_EIMSK_TypeDef*)   0x003D,
-	.pcicr   = (_PCICR_TypeDef*)   0x0068,
-	.eicra   = (_EICRA_TypeDef*)   0x0069,
-	.pcmsk0  = (_PCMSK0_TypeDef*)  0x006B,
-	.pcmsk1  = (_PCMSK1_TypeDef*)  0x006C,
-	.pcmsk2  = (_PCMSK2_TypeDef*)  0x006D,
-	.pcmsk3  = (_PCMSK3_TypeDef*)  0x0073
+	.pcifr   = (PCIFR_TypeDef*)   0x003B,
+	.eifr    = (EIFR_TypeDef*)    0x003C,
+	.eimsk   = (EIMSK_TypeDef*)   0x003D,
+	.pcicr   = (PCICR_TypeDef*)   0x0068,
+	.eicra   = (EICRA_TypeDef*)   0x0069,
+	.pcmsk0  = (PCMSK0_TypeDef*)  0x006B,
+	.pcmsk1  = (PCMSK1_TypeDef*)  0x006C,
+	.pcmsk2  = (PCMSK2_TypeDef*)  0x006D,
+	.pcmsk3  = (PCMSK3_TypeDef*)  0x0073
 };
 // Singleton-style accessor
 Atmega324ExternalInterrupts_TypeDef* exint_reg(void) {
@@ -44,9 +44,9 @@ Atmega324ExternalInterrupts_TypeDef* exint_reg(void) {
 }
 // Static instance with hardware register mappings
 static const Atmega324AnalogComparator_TypeDef ac = {
-	.acsr   = (_ACSR_TypeDef*)  0x0050,
-	.adcsrb = (_ADCSRB_TypeDef*) 0x007B,
-	.didr1  = (_DIDR1_TypeDef*) 0x007F
+	.acsr   = (ACSR_TypeDef*)  0x0050,
+	.adcsrb = (ADCSRB_TypeDef*) 0x007B,
+	.didr1  = (DIDR1_TypeDef*) 0x007F
 };
 // Singleton accessor
 Atmega324AnalogComparator_TypeDef* ac_reg(void) {
@@ -55,10 +55,10 @@ Atmega324AnalogComparator_TypeDef* ac_reg(void) {
 // Static instance with hardware bindings
 static const Atmega324AnalogToDigitalConverter_TypeDef adc = {
 	.adc     = (U_word*) 0x0078,
-	.adcsra  = (_ADCSRA_TypeDef*) 0x007A,
-	.adcsrb  = (_ADCSRB_TypeDef*) 0x007B,
-	.admux   = (_ADMUX_TypeDef*)  0x007C,
-	.didr0   = (_DIDR0_TypeDef*)  0x007E
+	.adcsra  = (ADCSRA_TypeDef*) 0x007A,
+	.adcsrb  = (ADCSRB_TypeDef*) 0x007B,
+	.admux   = (ADMUX_TypeDef*)  0x007C,
+	.didr0   = (DIDR0_TypeDef*)  0x007E
 };
 // Singleton accessor
 Atmega324AnalogToDigitalConverter_TypeDef* adc_reg(void) {
@@ -66,7 +66,7 @@ Atmega324AnalogToDigitalConverter_TypeDef* adc_reg(void) {
 }
 // Static instance with hardware mapping
 static const Atmega324BootLoader_TypeDef boot = {
-	.spmcsr = (_SPMCSR_TypeDef*) 0x0057
+	.spmcsr = (SPMCSR_TypeDef*) 0x0057
 };
 // Singleton accessor
 Atmega324BootLoader_TypeDef* boot_reg(void) {
@@ -77,13 +77,13 @@ static const Atmega324CPURegister_TypeDef cpu = {
 	.gpior0 = (U_byte*)     0x003E,
 	.gpior1 = (U_byte*)     0x004A,
 	.gpior2 = (U_byte*)     0x004B,
-	.smcr   = (_SMCR_TypeDef*)   0x0053,
-	.mcusr  = (_MCUSR_TypeDef*)  0x0054,
-	.mcucr  = (_MCUCR_TypeDef*)  0x0055,
+	.smcr   = (SMCR_TypeDef*)   0x0053,
+	.mcusr  = (MCUSR_TypeDef*)  0x0054,
+	.mcucr  = (MCUCR_TypeDef*)  0x0055,
 	.sp     = (U_word*)    0x005D,
-	.sreg   = (_SREG_TypeDef*)   0x005F,
-	.clkpr  = (_CLKPR_TypeDef*)  0x0061,
-	.prr0   = (_PRR_TypeDef*)    0x0064,
+	.sreg   = (SREG_TypeDef*)   0x005F,
+	.clkpr  = (CLKPR_TypeDef*)  0x0061,
+	.prr0   = (PRR_TypeDef*)    0x0064,
 	.osccal = (U_byte*)     0x0066
 };
 // Singleton accessor
@@ -92,7 +92,7 @@ Atmega324CPURegister_TypeDef* cpu_reg(void) {
 }
 // Static instance
 static const Atmega324Eeprom_TypeDef eeprom = {
-	.eecr = (_EECR_TypeDef*)  0x003F,
+	.eecr = (EECR_TypeDef*)  0x003F,
 	.eedr = (U_byte*)       0x0040,
 	.eear = (U_word*)      0x0041
 };
@@ -103,8 +103,8 @@ Atmega324Eeprom_TypeDef* eeprom_reg(void) {
 // Static instance
 static const Atmega324JtagInterface_TypeDef jtag = {
 	.ocdr  = (U_byte*)       0x0051,
-	.mcusr = (_MCUSR_TypeDef*) 0x0054,
-	.mcucr = (_MCUCR_TypeDef*) 0x0055
+	.mcusr = (MCUSR_TypeDef*) 0x0054,
+	.mcucr = (MCUCR_TypeDef*) 0x0055
 };
 // Singleton accessor
 Atmega324JtagInterface_TypeDef* jtag_reg(void) {
@@ -112,8 +112,8 @@ Atmega324JtagInterface_TypeDef* jtag_reg(void) {
 }
 // Static instance
 static const Atmega324SerialPeripherialInterface_TypeDef spi = {
-	.spcr0 = (_SPCR_TypeDef*) 0x004C,
-	.spsr0 = (_SPSR_TypeDef*) 0x004D,
+	.spcr0 = (SPCR_TypeDef*) 0x004C,
+	.spsr0 = (SPSR_TypeDef*) 0x004D,
 	.spdr0 = (U_byte*)      0x004E
 };
 // Singleton accessor
@@ -122,11 +122,11 @@ Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void) {
 }
 // Static instance
 static const Atmega324TimerCounter1_TypeDef tc1 = {
-	.tifr1   = (_TIFR1_Typedef*)  0x0036,
-	.timsk1  = (_TIMSK1_TypeDef*) 0x006F,
-	.tccr1a  = (_TCCR1A_TypeDef*) 0x0080,
-	.tccr1b  = (_TCCR1B_TypeDef*) 0x0081,
-	.tccr1c  = (_TCCR1C_TypeDef*) 0x0082,
+	.tifr1   = (TIFR1_Typedef*)  0x0036,
+	.timsk1  = (TIMSK1_TypeDef*) 0x006F,
+	.tccr1a  = (TCCR1A_TypeDef*) 0x0080,
+	.tccr1b  = (TCCR1B_TypeDef*) 0x0081,
+	.tccr1c  = (TCCR1C_TypeDef*) 0x0082,
 	.tcnt1   = (U_word*)       0x0084,
 	.icr1    = (U_word*)       0x0086,
 	.ocr1a   = (U_word*)       0x0088,
@@ -138,11 +138,11 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void) {
 }
 // Static instance
 static const Atmega324TimerCounter3_TypeDef tc3 = {
-	.tifr3   = (_TIFR3_Typedef*)  0x0038,
-	.timsk3  = (_TIMSK3_TypeDef*) 0x0071,
-	.tccr3a  = (_TCCR3A_TypeDef*) 0x0090,
-	.tccr3b  = (_TCCR3B_TypeDef*) 0x0091,
-	.tccr3c  = (_TCCR3C_TypeDef*) 0x0092,
+	.tifr3   = (TIFR3_Typedef*)  0x0038,
+	.timsk3  = (TIMSK3_TypeDef*) 0x0071,
+	.tccr3a  = (TCCR3A_TypeDef*) 0x0090,
+	.tccr3b  = (TCCR3B_TypeDef*) 0x0091,
+	.tccr3c  = (TCCR3C_TypeDef*) 0x0092,
 	.tcnt3   = (U_word*)       0x0094,
 	.icr3    = (U_word*)       0x0096,
 	.ocr3a   = (U_word*)       0x0098,
@@ -154,13 +154,13 @@ Atmega324TimerCounter3_TypeDef* tc3_reg(void) {
 }
 // Static instance
 static const Atmega324TimerCounter0_TypeDef tc0 = {
-	.tifr0  = (_TIFR0_Typedef*)  0x0035,
-	.tccr0a = (_TCCR0A_TypeDef*) 0x0044,
-	.tccr0b = (_TCCR0B_TypeDef*) 0x0045,
+	.tifr0  = (TIFR0_Typedef*)  0x0035,
+	.tccr0a = (TCCR0A_TypeDef*) 0x0044,
+	.tccr0b = (TCCR0B_TypeDef*) 0x0045,
 	.tcnt0  = (U_byte*)        0x0046,
 	.ocr0a  = (U_byte*)        0x0047,
 	.ocr0b  = (U_byte*)        0x0048,
-	.timsk0 = (_TIMSK0_TypeDef*) 0x006E
+	.timsk0 = (TIMSK0_TypeDef*) 0x006E
 };
 // Singleton accessor
 Atmega324TimerCounter0_TypeDef* tc0_reg(void) {
@@ -168,15 +168,15 @@ Atmega324TimerCounter0_TypeDef* tc0_reg(void) {
 }
 // Static instance
 static const Atmega324TimerCounter2_TypeDef tc2 = {
-	.tifr2  = (_TIFR2_Typedef*)  0x0037,
-	.gtccr  = (_GTCCR_TypeDef*)  0x0043,
-	.timsk2 = (_TIMSK2_TypeDef*) 0x0070,
-	.tccr2a = (_TCCR2A_TypeDef*) 0x00B0,
-	.tccr2b = (_TCCR2B_TypeDef*) 0x00B1,
+	.tifr2  = (TIFR2_Typedef*)  0x0037,
+	.gtccr  = (GTCCR_TypeDef*)  0x0043,
+	.timsk2 = (TIMSK2_TypeDef*) 0x0070,
+	.tccr2a = (TCCR2A_TypeDef*) 0x00B0,
+	.tccr2b = (TCCR2B_TypeDef*) 0x00B1,
 	.tcnt2  = (U_byte*)        0x00B2,
 	.ocr2a  = (U_byte*)        0x00B3,
 	.ocr2b  = (U_byte*)        0x00B4,
-	.assr   = (_ASSR_TypeDef*)   0x00B6
+	.assr   = (ASSR_TypeDef*)   0x00B6
 };
 // Singleton accessor
 Atmega324TimerCounter2_TypeDef* tc2_reg(void) {
@@ -185,11 +185,11 @@ Atmega324TimerCounter2_TypeDef* tc2_reg(void) {
 // Static instance
 static const Atmega324TwoWireSerialInterface_TypeDef twi = {
 	.twbr  = (U_byte*)        0x00B8,
-	.twsr  = (_TWSR_TypeDef*)   0x00B9,
-	.twar  = (_TWAR_TypeDef*)   0x00BA,
+	.twsr  = (TWSR_TypeDef*)   0x00B9,
+	.twar  = (TWAR_TypeDef*)   0x00BA,
 	.twdr  = (U_byte*)        0x00BB,
-	.twcr  = (_TWCR_TypeDef*)   0x00BC,
-	.twamr = (_TWAMR_TypeDef*)  0x00BD
+	.twcr  = (TWCR_TypeDef*)   0x00BC,
+	.twamr = (TWAMR_TypeDef*)  0x00BD
 };
 // Singleton accessor
 Atmega324TwoWireSerialInterface_TypeDef* twi_reg(void) {
@@ -197,9 +197,9 @@ Atmega324TwoWireSerialInterface_TypeDef* twi_reg(void) {
 }
 // Static instance
 static const Atmega324Usart0_TypeDef usart0 = {
-	.ucsr0a = (_UCSR0A_TypeDef*) 0x00C0,
-	.ucsr0b = (_UCSR0B_TypeDef*) 0x00C1,
-	.ucsr0c = (_UCSR0C_TypeDef*) 0x00C2,
+	.ucsr0a = (UCSR0A_TypeDef*) 0x00C0,
+	.ucsr0b = (UCSR0B_TypeDef*) 0x00C1,
+	.ucsr0c = (UCSR0C_TypeDef*) 0x00C2,
 	.ubrr0  = (U_word*)       0x00C4,
 	.udr0   = (U_byte*)   0x00C6
 };
@@ -209,9 +209,9 @@ Atmega324Usart0_TypeDef* usart0_reg(void) {
 }
 // Static instance with register mappings
 static const Atmega324Usart1_TypeDef usart1 = {
-	.ucsr1a = (_UCSR1A_TypeDef*) 0x00C8,
-	.ucsr1b = (_UCSR1B_TypeDef*) 0x00C9,
-	.ucsr1c = (_UCSR1C_TypeDef*) 0x00CA,
+	.ucsr1a = (UCSR1A_TypeDef*) 0x00C8,
+	.ucsr1b = (UCSR1B_TypeDef*) 0x00C9,
+	.ucsr1c = (UCSR1C_TypeDef*) 0x00CA,
 	.ubrr1  = (U_word*)       0x00CC,
 	.udr1   = (U_byte*)        0x00CE
 };
@@ -221,7 +221,7 @@ Atmega324Usart1_TypeDef* usart1_reg(void) {
 }
 // Static instance with register mappings
 static const Atmega324WatchdogTimer_TypeDef wdt = {
-	.wdtcsr = (_WDTCSR_TypeDef*) 0x0060
+	.wdtcsr = (WDTCSR_TypeDef*) 0x0060
 };
 // Singleton accessor
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void) {

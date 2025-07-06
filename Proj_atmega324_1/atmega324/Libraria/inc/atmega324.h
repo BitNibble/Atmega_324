@@ -78,13 +78,13 @@ typedef volatile struct {
 	uint16_t x; // 0x001A 0x001B
 	uint16_t y; // 0x001C 0x001D
 	uint16_t z; // 0x001E 0x001F
-} _GPW_TypeDef;
+} GPW_TypeDef;
 
 // Analog Comparator (AC)
 typedef volatile struct {
-	_ACSR_TypeDef* acsr; // 0x0050
-	_ADCSRB_TypeDef* adcsrb; // 0x007B
-	_DIDR1_TypeDef* didr1; // 0x007F
+	ACSR_TypeDef* acsr; // 0x0050
+	ADCSRB_TypeDef* adcsrb; // 0x007B
+	DIDR1_TypeDef* didr1; // 0x007F
 } Atmega324AnalogComparator_TypeDef;
 
 Atmega324AnalogComparator_TypeDef* ac_reg(void);
@@ -92,17 +92,17 @@ Atmega324AnalogComparator_TypeDef* ac_reg(void);
 // Analog to Digital Converter (ADC)
 typedef volatile struct {
 	U_word* adc; // 0x0078 0x0079
-	_ADCSRA_TypeDef* adcsra; // 0x007A
-	_ADCSRB_TypeDef* adcsrb; // 0c007B
-	_ADMUX_TypeDef* admux; // 0x007C
-	_DIDR0_TypeDef* didr0; // 0x007E
+	ADCSRA_TypeDef* adcsra; // 0x007A
+	ADCSRB_TypeDef* adcsrb; // 0c007B
+	ADMUX_TypeDef* admux; // 0x007C
+	DIDR0_TypeDef* didr0; // 0x007E
 } Atmega324AnalogToDigitalConverter_TypeDef;
 
 Atmega324AnalogToDigitalConverter_TypeDef* adc_reg(void);
 
 // Boot loader (BOOT_LOAD)
 typedef volatile struct {
-	_SPMCSR_TypeDef* spmcsr; // 0x0057
+	SPMCSR_TypeDef* spmcsr; // 0x0057
 } Atmega324BootLoader_TypeDef;
 
 Atmega324BootLoader_TypeDef* boot_reg(void);
@@ -112,13 +112,13 @@ typedef volatile struct {
 	U_byte* gpior0; // 0x003E
 	U_byte* gpior1; // 0x004A
 	U_byte* gpior2; // 0x004B
-	_SMCR_TypeDef* smcr; // 0x0053
-	_MCUSR_TypeDef* mcusr; // 0x0054
-	_MCUCR_TypeDef* mcucr; // 0x0055
+	SMCR_TypeDef* smcr; // 0x0053
+	MCUSR_TypeDef* mcusr; // 0x0054
+	MCUCR_TypeDef* mcucr; // 0x0055
 	U_word* sp; // 0x005D 0x005E
-	_SREG_TypeDef* sreg; // 0x005F
-	_CLKPR_TypeDef* clkpr; // 0x0061
-	_PRR_TypeDef* prr0; // 0x0064
+	SREG_TypeDef* sreg; // 0x005F
+	CLKPR_TypeDef* clkpr; // 0x0061
+	PRR_TypeDef* prr0; // 0x0064
 	U_byte* osccal; // 0x0066
 } Atmega324CPURegister_TypeDef;
 
@@ -126,7 +126,7 @@ Atmega324CPURegister_TypeDef* cpu_reg(void);
 
 // EEPROM (EEPROM)
 typedef volatile struct {
-	_EECR_TypeDef* eecr; // 0x003F
+	EECR_TypeDef* eecr; // 0x003F
 	U_byte* eedr; // 0x0040
 	U_word* eear; // 0x0041 0x0042
 } Atmega324Eeprom_TypeDef;
@@ -135,15 +135,15 @@ Atmega324Eeprom_TypeDef* eeprom_reg(void);
 
 // External Interrupts (EXINT)
 typedef volatile struct {
-	_PCIFR_TypeDef* pcifr; // 0x003B
-	_EIFR_TypeDef* eifr; // 0x003C
-	_EIMSK_TypeDef* eimsk; // 0x003D
-	_PCICR_TypeDef* pcicr; // 0x0068
-	_EICRA_TypeDef* eicra; // 0x0069
-	_PCMSK0_TypeDef* pcmsk0; // 0x006B
-	_PCMSK1_TypeDef* pcmsk1; // 0x006C
-	_PCMSK2_TypeDef* pcmsk2; // 0x006D
-	_PCMSK3_TypeDef* pcmsk3; // 0x0073
+	PCIFR_TypeDef* pcifr; // 0x003B
+	EIFR_TypeDef* eifr; // 0x003C
+	EIMSK_TypeDef* eimsk; // 0x003D
+	PCICR_TypeDef* pcicr; // 0x0068
+	EICRA_TypeDef* eicra; // 0x0069
+	PCMSK0_TypeDef* pcmsk0; // 0x006B
+	PCMSK1_TypeDef* pcmsk1; // 0x006C
+	PCMSK2_TypeDef* pcmsk2; // 0x006D
+	PCMSK3_TypeDef* pcmsk3; // 0x0073
 } Atmega324ExternalInterrupts_TypeDef;
 
 Atmega324ExternalInterrupts_TypeDef* exint_reg(void);
@@ -153,50 +153,50 @@ typedef volatile struct {
 	U_byte* pin; // 0x0020
 	U_byte* ddr; // 0x0021
 	U_byte* port; // 0x0022
-} _GPIOA_TypeDef;
+} GPIOA_TypeDef;
 
-_GPIOA_TypeDef* gpioa_reg(void);
+GPIOA_TypeDef* gpioa_reg(void);
 
 // I/O Port (PORTB)
 typedef volatile struct {
 	U_byte* pin; // 0x0023
 	U_byte* ddr; // 0x0024
 	U_byte* port; // 0x0025
-} _GPIOB_TypeDef;
+} GPIOB_TypeDef;
 
-_GPIOB_TypeDef* gpiob_reg(void);
+GPIOB_TypeDef* gpiob_reg(void);
 
 // I/O Port (PORTC)
 typedef volatile struct {
 	U_byte* pin; // 0x0026
 	U_byte* ddr; // 0x0027
 	U_byte* port; // 0x0028
-} _GPIOC_TypeDef;
+} GPIOC_TypeDef;
 
-_GPIOC_TypeDef* gpioc_reg(void);
+GPIOC_TypeDef* gpioc_reg(void);
 
 // I/O Port (PORTD)
 typedef volatile struct {
 	U_byte* pin; // 0x0029
 	U_byte* ddr; // 0x002A
 	U_byte* port; // 0x002B
-} _GPIOD_TypeDef;
+} GPIOD_TypeDef;
 
-_GPIOD_TypeDef* gpiod_reg(void);
+GPIOD_TypeDef* gpiod_reg(void);
 
 // JTAG Interface (JTAG)
 typedef volatile struct {
 	U_byte* ocdr; // 0x0051
-	_MCUSR_TypeDef* mcusr; // 0x0054
-	_MCUCR_TypeDef* mcucr; // 0x0055
+	MCUSR_TypeDef* mcusr; // 0x0054
+	MCUCR_TypeDef* mcucr; // 0x0055
 } Atmega324JtagInterface_TypeDef;
 
 Atmega324JtagInterface_TypeDef* jtag_reg(void);
 
 // Serial Peripheral Interface (SPI)
 typedef volatile struct {
-	_SPCR_TypeDef* spcr0; // 0x004C
-	_SPSR_TypeDef* spsr0; // 0x004D
+	SPCR_TypeDef* spcr0; // 0x004C
+	SPSR_TypeDef* spsr0; // 0x004D
 	U_byte* spdr0; // 0x004E
 } Atmega324SerialPeripherialInterface_TypeDef;
 
@@ -204,11 +204,11 @@ Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void);
 
 // Timer/Counter, 16-bit (TC1)
 typedef volatile struct {
-	_TIFR1_Typedef* tifr1; // 0x0036
-	_TIMSK1_TypeDef* timsk1; // 0x006F
-	_TCCR1A_TypeDef* tccr1a; // 0x0080
-	_TCCR1B_TypeDef* tccr1b; // 0x0081
-	_TCCR1C_TypeDef* tccr1c; // 0x0082
+	TIFR1_Typedef* tifr1; // 0x0036
+	TIMSK1_TypeDef* timsk1; // 0x006F
+	TCCR1A_TypeDef* tccr1a; // 0x0080
+	TCCR1B_TypeDef* tccr1b; // 0x0081
+	TCCR1C_TypeDef* tccr1c; // 0x0082
 	U_word* tcnt1; // 0x0084 0x0085
 	U_word* icr1; // 0x0086 0x0087
 	U_word* ocr1a; // 0x0088 0x0089
@@ -219,11 +219,11 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void);
 
 // Timer/Counter, 16-bit (TC3)
 typedef volatile struct {
-	_TIFR3_Typedef* tifr3; // 0x0036
-	_TIMSK3_TypeDef* timsk3; // 0x006F
-	_TCCR3A_TypeDef* tccr3a; // 0x0080
-	_TCCR3B_TypeDef* tccr3b; // 0x0081
-	_TCCR3C_TypeDef* tccr3c; // 0x0082
+	TIFR3_Typedef* tifr3; // 0x0036
+	TIMSK3_TypeDef* timsk3; // 0x006F
+	TCCR3A_TypeDef* tccr3a; // 0x0080
+	TCCR3B_TypeDef* tccr3b; // 0x0081
+	TCCR3C_TypeDef* tccr3c; // 0x0082
 	U_word* tcnt3; // 0x0084 0x0085
 	U_word* icr3; // 0x0086 0x0087
 	U_word* ocr3a; // 0x0088 0x0089
@@ -234,28 +234,28 @@ Atmega324TimerCounter3_TypeDef* tc3_reg(void);
 
 // Timer/Counter, 8-bit (TC0)
 typedef volatile struct {
-	_TIFR0_Typedef* tifr0; // 0x0035
-	_TCCR0A_TypeDef* tccr0a; // 0x0044
-	_TCCR0B_TypeDef* tccr0b; // 0x0045
+	TIFR0_Typedef* tifr0; // 0x0035
+	TCCR0A_TypeDef* tccr0a; // 0x0044
+	TCCR0B_TypeDef* tccr0b; // 0x0045
 	U_byte* tcnt0; // 0x0046
 	U_byte* ocr0a; // 0x0047
 	U_byte* ocr0b; // 0x0048
-	_TIMSK0_TypeDef* timsk0; // 0x006E	
+	TIMSK0_TypeDef* timsk0; // 0x006E	
 } Atmega324TimerCounter0_TypeDef;
 
 Atmega324TimerCounter0_TypeDef* tc0_reg(void);
 
 // Timer/Counter, 8-bit Async (TC2)
 typedef volatile struct {
-	_TIFR2_Typedef* tifr2; // 0x0037
-	_GTCCR_TypeDef* gtccr; // 0x0043
-	_TIMSK2_TypeDef* timsk2; // 0x0070
-	_TCCR2A_TypeDef* tccr2a; // 0x00B0
-	_TCCR2B_TypeDef* tccr2b; // 0x00B1
+	TIFR2_Typedef* tifr2; // 0x0037
+	GTCCR_TypeDef* gtccr; // 0x0043
+	TIMSK2_TypeDef* timsk2; // 0x0070
+	TCCR2A_TypeDef* tccr2a; // 0x00B0
+	TCCR2B_TypeDef* tccr2b; // 0x00B1
 	U_byte* tcnt2; // 0x00B2
 	U_byte* ocr2a; // 0x00B3
 	U_byte* ocr2b; // 0x00B4
-	_ASSR_TypeDef* assr; // 0x00B6
+	ASSR_TypeDef* assr; // 0x00B6
 } Atmega324TimerCounter2_TypeDef;
 
 Atmega324TimerCounter2_TypeDef* tc2_reg(void);
@@ -263,20 +263,20 @@ Atmega324TimerCounter2_TypeDef* tc2_reg(void);
 // Two Wire Serial Interface (TWI)
 typedef volatile struct {
 	U_byte* twbr; // 0x00B8
-	_TWSR_TypeDef* twsr; // 0x00B9
-	_TWAR_TypeDef* twar; // 0x00BA
+	TWSR_TypeDef* twsr; // 0x00B9
+	TWAR_TypeDef* twar; // 0x00BA
 	U_byte* twdr; // 0x00BB
-	_TWCR_TypeDef* twcr; // 0x00BC
-	_TWAMR_TypeDef* twamr; // 0x00BD
+	TWCR_TypeDef* twcr; // 0x00BC
+	TWAMR_TypeDef* twamr; // 0x00BD
 } Atmega324TwoWireSerialInterface_TypeDef;
 
 Atmega324TwoWireSerialInterface_TypeDef* twi_reg(void);
 
 // USART (USART0)
 typedef volatile struct {
-	_UCSR0A_TypeDef* ucsr0a; // 0x00C0
-	_UCSR0B_TypeDef* ucsr0b; // 0x00C1
-	_UCSR0C_TypeDef* ucsr0c; // 0x00C2
+	UCSR0A_TypeDef* ucsr0a; // 0x00C0
+	UCSR0B_TypeDef* ucsr0b; // 0x00C1
+	UCSR0C_TypeDef* ucsr0c; // 0x00C2
 	U_word* ubrr0; // 0x00C4–0x00C5 (UBRR0H: 0x00C4, UBRR0L: 0x00C5)
 	U_byte* udr0; // 0x00C6
 } Atmega324Usart0_TypeDef;
@@ -285,9 +285,9 @@ Atmega324Usart0_TypeDef* usart0_reg(void);
 
 // USART (USART1)
 typedef volatile struct {
-	_UCSR1A_TypeDef* ucsr1a; // 0x00C8
-	_UCSR1B_TypeDef* ucsr1b; // 0x00C9
-	_UCSR1C_TypeDef* ucsr1c; // 0x00CA
+	UCSR1A_TypeDef* ucsr1a; // 0x00C8
+	UCSR1B_TypeDef* ucsr1b; // 0x00C9
+	UCSR1C_TypeDef* ucsr1c; // 0x00CA
 	U_word* ubrr1; // 0x00CC–0x00CD (UBRR1H: 0x00CC, UBRR1L: 0x00CD)
 	U_byte* udr1; // 0x00CE
 } Atmega324Usart1_TypeDef;
@@ -296,7 +296,7 @@ Atmega324Usart1_TypeDef* usart1_reg(void);
 
 // Watchdog Timer (WDT)
 typedef volatile struct {
-	_WDTCSR_TypeDef* wdtcsr; // 0x0060
+	WDTCSR_TypeDef* wdtcsr; // 0x0060
 } Atmega324WatchdogTimer_TypeDef;
 
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void);
