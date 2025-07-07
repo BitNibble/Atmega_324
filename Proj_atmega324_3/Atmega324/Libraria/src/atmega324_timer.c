@@ -10,18 +10,6 @@ Date:     04072025
 */
 #include "atmega324_timer.h"
 
-/*
-** variable
-*/
-static TIMER_COUNTER0 timer0_setup = {0};
-static uint8_t timer0_state;
-static TIMER_COUNTER1 timer1_setup = {0};
-static uint8_t timer1_state;
-static TIMER_COUNTER2 timer2_setup = {0};
-static uint8_t timer2_state;
-static TIMER_COUNTER3 timer3_setup = {0};
-static uint8_t timer3_state;
-
 /**** Procedure and Function declaration ****/
 void TIMER_COUNTER0_compoutmodeA(uint8_t compoutmode);
 void TIMER_COUNTER0_compoutmodeB(uint8_t compoutmode);
@@ -50,6 +38,43 @@ void TIMER_COUNTER3_compareA(uint16_t compare);
 void TIMER_COUNTER3_compareB(uint16_t compare);
 void TIMER_COUNTER3_start(uint16_t prescaler);
 void TIMER_COUNTER3_stop(void);
+
+static TIMER_COUNTER0 timer0_setup = {
+	.compoutmodeA=TIMER_COUNTER0_compoutmodeA,
+	.compoutmodeB=TIMER_COUNTER0_compoutmodeB,
+	.compareA=TIMER_COUNTER0_compareA,
+	.compareB=TIMER_COUNTER0_compareB,
+	.start=TIMER_COUNTER0_start,
+	.stop=TIMER_COUNTER0_stop
+};
+static uint8_t timer0_state;
+static TIMER_COUNTER1 timer1_setup = {
+	.compoutmodeA=TIMER_COUNTER1_compoutmodeA,
+	.compoutmodeB=TIMER_COUNTER1_compoutmodeB,
+	.compareA=TIMER_COUNTER1_compareA,
+	.compareB=TIMER_COUNTER1_compareB,
+	.start=TIMER_COUNTER1_start,
+	.stop=TIMER_COUNTER1_stop
+};
+static uint8_t timer1_state;
+static TIMER_COUNTER2 timer2_setup = {
+	.compoutmodeA=TIMER_COUNTER2_compoutmodeA,
+	.compoutmodeB=TIMER_COUNTER2_compoutmodeB,
+	.compareA=TIMER_COUNTER2_compareA,
+	.compareB=TIMER_COUNTER2_compareB,
+	.start=TIMER_COUNTER2_start,
+	.stop=TIMER_COUNTER2_stop
+};
+static uint8_t timer2_state;
+static TIMER_COUNTER3 timer3_setup = {
+	.compoutmodeA=TIMER_COUNTER3_compoutmodeA,
+	.compoutmodeB=TIMER_COUNTER3_compoutmodeB,
+	.compareA=TIMER_COUNTER3_compareA,
+	.compareB=TIMER_COUNTER3_compareB,
+	.start=TIMER_COUNTER3_start,
+	.stop=TIMER_COUNTER3_stop
+};
+static uint8_t timer3_state;
 
 /**** Handler ****/
 void tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
@@ -118,12 +143,6 @@ void tc0_enable(uint8_t wavegenmode, uint8_t interrupt)
 		default:
 			break;
 	}
-	timer0_setup.compoutmodeA=TIMER_COUNTER0_compoutmodeA;
-	timer0_setup.compoutmodeB=TIMER_COUNTER0_compoutmodeB;
-	timer0_setup.compareA=TIMER_COUNTER0_compareA;
-	timer0_setup.compareB=TIMER_COUNTER0_compareB;
-	timer0_setup.start=TIMER_COUNTER0_start;
-	timer0_setup.stop=TIMER_COUNTER0_stop;
 }
 
 TIMER_COUNTER0* tc0(void){ return &timer0_setup; }
@@ -391,13 +410,6 @@ void tc1_enable(uint8_t wavegenmode, uint8_t interrupt)
 		default:
 			break;
 	}
-	//
-	timer1_setup.compoutmodeA=TIMER_COUNTER1_compoutmodeA;
-	timer1_setup.compoutmodeB=TIMER_COUNTER1_compoutmodeB;
-	timer1_setup.compareA=TIMER_COUNTER1_compareA;
-	timer1_setup.compareB=TIMER_COUNTER1_compareB;
-	timer1_setup.start=TIMER_COUNTER1_start;
-	timer1_setup.stop=TIMER_COUNTER1_stop;
 }
 
 TIMER_COUNTER1* tc1(void){ return &timer1_setup; }
@@ -623,12 +635,6 @@ void tc2_enable(unsigned char wavegenmode, unsigned char interrupt)
 		default:
 			break;
 	}
-	timer2_setup.compoutmodeA=TIMER_COUNTER2_compoutmodeA;
-	timer2_setup.compoutmodeB=TIMER_COUNTER2_compoutmodeB;
-	timer2_setup.compareA=TIMER_COUNTER2_compareA;
-	timer2_setup.compareB=TIMER_COUNTER2_compareB;
-	timer2_setup.start=TIMER_COUNTER2_start;
-	timer2_setup.stop=TIMER_COUNTER2_stop;
 }
 
 TIMER_COUNTER2* tc2(void){ return &timer2_setup; }
@@ -896,13 +902,6 @@ void tc3_enable(uint8_t wavegenmode, uint8_t interrupt)
 		default:
 		break;
 	}
-	//
-	timer3_setup.compoutmodeA=TIMER_COUNTER3_compoutmodeA;
-	timer3_setup.compoutmodeB=TIMER_COUNTER3_compoutmodeB;
-	timer3_setup.compareA=TIMER_COUNTER3_compareA;
-	timer3_setup.compareB=TIMER_COUNTER3_compareB;
-	timer3_setup.start=TIMER_COUNTER3_start;
-	timer3_setup.stop=TIMER_COUNTER3_stop;
 }
 
 TIMER_COUNTER3* tc3(void){ return &timer3_setup; }

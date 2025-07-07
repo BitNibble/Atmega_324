@@ -3,12 +3,13 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: 74HC595
-Date: 25/10/2020
+Date:     25/10/2020
 ************************************************************************/
 #ifndef _74HC595_H_
 	#define _74HC595_H_
 	
 /*** Global Constant & Macro ***/
+//#define STM32F4
 #if defined (STM32F4)
 	#ifndef IO_var
 		#define IO_var uint32_t
@@ -22,7 +23,7 @@ Date: 25/10/2020
 /*** File Library ***/
 #include <inttypes.h>
 
-/*** TypeDef ***/
+/*** File TypeDef ***/
 typedef struct{
 	uint8_t HC595_datapin;
 	uint8_t HC595_clkpin;
@@ -31,12 +32,12 @@ typedef struct{
 	volatile IO_var *hc595_PORT;
 }hc595_parameter;
 
-/*** Handler ***/
+/*** 74HC595 TypeDef ***/
 typedef struct
 {
 	hc595_parameter par;
 	/******/
-	void (*bit)(hc595_parameter* par, uint8_t bool);
+	void (*bit)(hc595_parameter* par, uint8_t state);
 	void (*ibyte)(hc595_parameter* par, uint8_t byte);
 	void (*byte)(hc595_parameter* par, uint8_t byte);
 	void (*out)(hc595_parameter* par);
@@ -45,6 +46,7 @@ typedef struct
 HC595 hc595_enable(volatile IO_var *ddr, volatile IO_var *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 
 #endif
+
 /***EOF***/
 
 /******
