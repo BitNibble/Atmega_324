@@ -4,6 +4,8 @@ Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
 Date:     16032021
+Comment:
+	Tested Atemga128 16Mhz and Atmega328 8Mhz and STM32F446RE
 ************************************************************************/
 #ifndef _EXPLODE_H_
 	#define _EXPLODE_H_
@@ -12,17 +14,14 @@ Date:     16032021
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
-#if defined (STM32F446xx)
-	#ifndef IO_var
-		#define IO_var uint32_t
-	#endif
+//#define STM32F4
+#if defined (STM32F4)
+	#define IO_var uint32_t
 #else
-	#ifndef IO_var
-		#define IO_var uint8_t
-	#endif
+	#define IO_var uint8_t
 #endif
 
-/*** TypeDef ***/
+/*** Global TypeDef ***/
 typedef struct {
 	IO_var XI;
 	IO_var XF;
@@ -34,16 +33,16 @@ typedef struct {
 
 /*** Handler ***/
 typedef struct {
-	/***Variable***/
 	explode_parameter par;
-	// PROTOTYPES VTABLE
+	// V-table
 	void (*update)(explode_parameter* par, IO_var x);
 }EXPLODE;
 
 EXPLODE explode_enable(void);
 
 #endif
-/***EOF***/
+
+/*** EOF ***/
 
 /******
 1º Sequence
