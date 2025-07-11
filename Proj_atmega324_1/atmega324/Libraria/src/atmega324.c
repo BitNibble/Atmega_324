@@ -227,15 +227,15 @@ static const Atmega324WatchdogTimer_TypeDef wdt = {
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void) {
 	return (Atmega324WatchdogTimer_TypeDef*) &wdt;
 }
-/*******************************************************************************************************************************************/
-/*******************************************************************************************************************************************/
-/*** Atmega Procedure and Function definition ***/
+
+/*********************************************************************/
+/*********** Atmega 128 Procedure and Function definition ************/
+/*********************************************************************/
 uint16_t SwapByte(uint16_t num){uint16_t tp; tp = (num << 8); return (num >> 8) | tp;}
 uint16_t BAUDRATEnormal(uint32_t BAUD){uint32_t baudrate = F_CPU/16; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 uint16_t BAUDRATEdouble(uint32_t BAUD){uint32_t baudrate = F_CPU/8; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 uint16_t BAUDRATEsynchronous(uint32_t BAUD){uint32_t baudrate = F_CPU/2; baudrate /= BAUD; baudrate -= 1; return (uint16_t) baudrate;}
 
-/*** Procedure and Function ToolSet definition ***/
 inline void set_reg(volatile uint8_t* reg, uint8_t hbits){
 	*reg |= hbits;
 }

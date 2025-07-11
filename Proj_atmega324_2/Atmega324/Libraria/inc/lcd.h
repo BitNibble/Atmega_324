@@ -14,6 +14,7 @@ Date:     04072025
 #endif
 
 /*** Global Library ***/
+#include <stdint.h>
 #include <inttypes.h>
 
 /*** Global Constant & Macro ***/
@@ -41,7 +42,7 @@ Date:     04072025
 typedef struct{
 	void (*write)(char c, unsigned short D_I);
 	char (*read)(unsigned short D_I);
-	void (*BF)(void);
+	uint8_t (*BF)(void);
 	void (*putch)(char c);
 	char (*getch)(void);
 	void (*string)(const char *s); // RAW
@@ -50,6 +51,7 @@ typedef struct{
 	void (*clear)(void);
 	void (*gotoxy)(unsigned int y, unsigned int x);
 	void (*reboot)(void);
+	int (*printf)(const char *fmt, ...);
 }LCD0, LCD1;
 
 void lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port);

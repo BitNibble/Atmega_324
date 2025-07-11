@@ -33,7 +33,9 @@ typedef union {
 	uint16_t var;
 } U_word;
 
-/*** REGISTERS ***/
+/*****************************/
+/****      REGISTERS      ****/
+/*****************************/
 // PINA 0x20 (U_byte)
 // DDRA 0x21 (U_byte)
 // PORTA 0x22 (U_byte)
@@ -532,5 +534,5 @@ typedef union {
 // Reserved 0xFF
 
 #endif
-/***EOF***/
+/*** EOF ***/
 

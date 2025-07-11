@@ -8,15 +8,18 @@ Date:     04072025
 /*** File Library***/
 #include "lcd.h"
 #include <util/delay.h>
+#include <stdio.h>
 
 /***************/
 // CMD RS
 #define INST 0
 #define DATA 1
+#define LCD_LINE0_START 0x00
+#define LCD_LINE1_START 0x14
+#define LCD_LINE2_START 0x54
+#define LCD_LINE3_START 0x40
 
 /***File Variable ***/
-static LCD0 lcd0_setup;
-static LCD1 lcd1_setup;
 volatile uint8_t *lcd0_DDR;
 volatile uint8_t *lcd0_PIN;
 volatile uint8_t *lcd0_PORT;
@@ -26,11 +29,16 @@ volatile uint8_t *lcd1_PIN;
 volatile uint8_t *lcd1_PORT;
 uint8_t lcd1_detect;
 
+typedef struct {
+	uint8_t row;
+	uint8_t col;
+} LCDx_Pos;
+
 /*** Procedure & Function declaration ***/
 void LCD0_inic(void);
 void LCD0_write(char c, unsigned short D_I);
 char LCD0_read(unsigned short D_I);
-void LCD0_BF(void);
+uint8_t LCD0_BF(void);
 void LCD0_putch(char c);
 char LCD0_getch(void);
 void LCD0_string(const char* s); // RAW
@@ -42,7 +50,7 @@ void LCD0_reboot(void);
 void LCD1_inic(void);
 void LCD1_write(char c, unsigned short D_I);
 char LCD1_read(unsigned short D_I);
-void LCD1_BF(void);
+uint8_t LCD1_BF(void);
 void LCD1_putch(char c);
 char LCD1_getch(void);
 void LCD1_string(const char* s); // RAW
@@ -53,6 +61,43 @@ void LCD1_gotoxy(unsigned int y, unsigned int x);
 void LCD1_reboot(void);
 void lcd_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd_clear_reg(volatile uint8_t* reg, uint8_t hbits);
+
+static FILE lcd0_stdout;
+static FILE lcd1_stdout;
+
+static int lcd0_putchar(char c, FILE *stream);
+static int lcd1_putchar(char c, FILE *stream);
+
+static LCD0 lcd0_setup = {
+	// V-table
+	.write = LCD0_write,
+	.read = LCD0_read,
+	.BF = LCD0_BF,
+	.putch = LCD0_putch,
+	.getch = LCD0_getch,
+	.string = LCD0_string, // RAW
+	.string_size = LCD0_string_size, // RAW
+	.hspace = LCD0_hspace,
+	.clear = LCD0_clear,
+	.gotoxy = LCD0_gotoxy,
+	.reboot = LCD0_reboot,
+	.printf = printf
+};
+static LCD1 lcd1_setup = {
+	// V-table
+	.write = LCD1_write,
+	.read = LCD1_read,
+	.BF = LCD1_BF,
+	.putch = LCD1_putch,
+	.getch = LCD1_getch,
+	.string = LCD1_string, // RAW
+	.string_size = LCD1_string_size, // RAW
+	.hspace = LCD1_hspace,
+	.clear = LCD1_clear,
+	.gotoxy = LCD1_gotoxy,
+	.reboot = LCD1_reboot,
+	.printf  = printf
+};
 
 /*** Handler ***/
 void lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
@@ -65,20 +110,11 @@ void lcd0_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 	*lcd0_DDR = 0x00;
 	*lcd0_PORT = 0xFF;
 	lcd0_detect = *lcd0_PIN & (1 << NC);
-	// V-table
-	lcd0_setup.write = LCD0_write;
-	lcd0_setup.read = LCD0_read;
-	lcd0_setup.BF = LCD0_BF;
-	lcd0_setup.putch = LCD0_putch;
-	lcd0_setup.getch = LCD0_getch;
-	lcd0_setup.string = LCD0_string; // RAW
-	lcd0_setup.string_size = LCD0_string_size; // RAW
-	lcd0_setup.hspace = LCD0_hspace;
-	lcd0_setup.clear = LCD0_clear;
-	lcd0_setup.gotoxy = LCD0_gotoxy;
-	lcd0_setup.reboot = LCD0_reboot;
 	// LCD INIC
 	LCD0_inic();
+	
+	lcd0_stdout = (FILE) FDEV_SETUP_STREAM(lcd0_putchar, NULL, _FDEV_SETUP_WRITE);
+	stdout = &lcd0_stdout;  // Redirect printf to the LCD
 }
 
 LCD0* lcd0(void){ return &lcd0_setup; }
@@ -93,20 +129,24 @@ void LCD0_inic(void)
 	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
 	LCD0_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
-	_delay_us(37);
+	_delay_ms(5);
+	LCD0_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD0_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD0_write(0x20, INST); // 0x28 4 bit, 1 line, 5x8, --, --
+	_delay_us(150);
 	LCD0_write(0x28, INST); // 0x28 4 bit, 2 line, 5x8, --, --
-	_delay_us(37);
-	LCD0_write(0x28, INST); // 0x28 4 bit, 2 line, 5x8, --, --
-	_delay_us(37);
+	_delay_us(50);
 	LCD0_write(0x0C, INST); // 0x0C Display ON, Cursor OFF, Blink ON
-	_delay_us(37);
+	_delay_us(50);
 	LCD0_write(0x01, INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD0_write(0x04, INST); // 0x04 Cursor dir, Display shift
-	LCD0_BF();
-
+	LCD0_write(0x06, INST); // 0x04 Cursor dir, Display shift
+	_delay_us(50);
 	LCD0_clear();
 	LCD0_gotoxy(0,0);
+	LCD0_BF();
 }
 void LCD0_write(char c, unsigned short D_I)
 {
@@ -131,6 +171,7 @@ void LCD0_write(char c, unsigned short D_I)
 	if(c & 0x02) *lcd0_PORT |= 1 << DB5; else *lcd0_PORT &= ~(1 << DB5);
 	if(c & 0x01) *lcd0_PORT |= 1 << DB4; else *lcd0_PORT &= ~(1 << DB4);
 	lcd_clear_reg(lcd0_PORT, (1 << EN));
+	for (uint16_t i = 0; i < 180; i++); // value above 140 for 16Mhz
 }
 char LCD0_read(unsigned short D_I)
 {
@@ -156,10 +197,10 @@ char LCD0_read(unsigned short D_I)
 	if(*lcd0_PIN & (1 << DB5)) c |= 1 << 1; else c &= ~(1 << 1);
 	if(*lcd0_PIN & (1 << DB4)) c |= 1 << 0; else c &= ~(1 << 0);
 	lcd_clear_reg(lcd0_PORT, (1 << EN));
-	
+	for (uint16_t i = 0; i < 180; i++); // value above 140 for 16Mhz
 	return c;
 }
-void LCD0_BF(void)
+uint8_t LCD0_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
@@ -168,18 +209,17 @@ void LCD0_BF(void)
 		if(i > 10)
 			break;
 	}
+	return (inst & 0x7F);
 }
 char LCD0_getch(void)
 {
 	char c;
 	c = LCD0_read(DATA);
-	LCD0_BF();
 	return c;
 }
 void LCD0_putch(char c)
 {
 	LCD0_write(c, DATA);
-	LCD0_BF();
 }
 void LCD0_string(const char* s)
 {
@@ -221,19 +261,15 @@ void LCD0_gotoxy(unsigned int y, unsigned int x)
 	switch(y){
 		case 0:
 			LCD0_write((0x80 + x), INST);
-			LCD0_BF();
 		break;
 		case 1:
 			LCD0_write((0xC0 + x), INST);
-			LCD0_BF();
 		break;
 		case 2:
-			LCD0_write((0x94 + x), INST); // 0x94
-			LCD0_BF();
+			LCD0_write((0x94 + x), INST);
 		break;
 		case 3:
-			LCD0_write((0xD4 + x), INST); // 0xD4
-			LCD0_BF();
+			LCD0_write((0xD4 + x), INST);
 		break;
 		default:
 		break;
@@ -251,6 +287,27 @@ void LCD0_reboot(void)
 		LCD0_inic();
 	lcd0_detect = tmp;
 }
+// Custom character output function
+int lcd0_putchar(char c, FILE *stream) {
+	(void) stream;
+	
+	LCD0_putch(c);
+	uint8_t pos = LCD0_BF();
+	
+	if (pos == LCD_LINE0_START) {
+		LCD0_gotoxy(0, 0);
+	}
+	else if (pos == LCD_LINE1_START) {
+		LCD0_gotoxy(1, 0);
+	}
+	else if (pos == LCD_LINE2_START) {
+		LCD0_gotoxy(2, 0);
+	}
+	else if (pos == LCD_LINE3_START) {
+		LCD0_gotoxy(3, 0);
+	}
+	return 0;
+}
 
 // LCD 1
 void lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
@@ -263,20 +320,11 @@ void lcd1_enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t 
 	*lcd1_DDR = 0x00;
 	*lcd1_PORT = 0xFF;
 	lcd1_detect = *lcd1_PIN & (1 << NC);
-	// V-table
-	lcd1_setup.write = LCD1_write;
-	lcd1_setup.read = LCD1_read;
-	lcd1_setup.BF = LCD1_BF;
-	lcd1_setup.putch = LCD1_putch;
-	lcd1_setup.getch = LCD1_getch;
-	lcd1_setup.string = LCD1_string; // RAW
-	lcd1_setup.string_size = LCD1_string_size; // RAW
-	lcd1_setup.hspace = LCD1_hspace;
-	lcd1_setup.clear = LCD1_clear;
-	lcd1_setup.gotoxy = LCD1_gotoxy;
-	lcd1_setup.reboot = LCD1_reboot;
 	// LCD INIC
 	LCD1_inic();
+	
+	lcd1_stdout = (FILE) FDEV_SETUP_STREAM(lcd1_putchar, NULL, _FDEV_SETUP_WRITE);
+	stdout = &lcd1_stdout;  // Redirect printf to the LCD
 }
 
 LCD1* lcd1(void){ return &lcd1_setup; }
@@ -289,21 +337,25 @@ void LCD1_inic(void)
 
 	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
-	LCD1_write(0x30, INST); // 0x30 function set
-	_delay_us(37);
-	LCD1_write(0x28, INST); // 0x28 function set
-	_delay_us(37);
-	LCD1_write(0x28, INST); // 0x28 function set
-	_delay_us(37);
-	LCD1_write(0x0C, INST); // 0x0C Display ON/OFF control
-	_delay_us(37);
+	LCD1_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_ms(5);
+	LCD1_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD1_write(0x30, INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD1_write(0x20, INST); // 0x28 4 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD1_write(0x28, INST); // 0x28 4 bit, 2 line, 5x8, --, --
+	_delay_us(50);
+	LCD1_write(0x0C, INST); // 0x0C Display ON, Cursor OFF, Blink ON
+	_delay_us(50);
 	LCD1_write(0x01, INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD1_write(0x04, INST); // 0x05 Entry mode set
-	LCD1_BF();
-
+	LCD1_write(0x06, INST); // 0x04 Cursor dir, Display shift
+	_delay_us(50);
 	LCD1_clear();
 	LCD1_gotoxy(0,0);
+	LCD1_BF();
 }
 void LCD1_write(char c, unsigned short D_I)
 {
@@ -328,6 +380,7 @@ void LCD1_write(char c, unsigned short D_I)
 	if(c & 0x02) *lcd1_PORT |= 1 << DB5; else *lcd1_PORT &= ~(1 << DB5);
 	if(c & 0x01) *lcd1_PORT |= 1 << DB4; else *lcd1_PORT &= ~(1 << DB4);
 	lcd_clear_reg(lcd1_PORT, (1 << EN));
+	for (uint16_t i = 0; i < 300; i++); // value above 140 for 16Mhz
 }
 char LCD1_read(unsigned short D_I)
 {
@@ -353,30 +406,29 @@ char LCD1_read(unsigned short D_I)
 	if(*lcd1_PIN & (1 << DB5)) c |= 1 << 1; else c &= ~(1 << 1);
 	if(*lcd1_PIN & (1 << DB4)) c |= 1 << 0; else c &= ~(1 << 0);
 	lcd_clear_reg(lcd1_PORT, (1 << EN));
-	
+	for (uint16_t i = 0; i < 300; i++); // value above 140 for 16Mhz
 	return c;
 }
-void LCD1_BF(void)
+uint8_t LCD1_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
 	for(i=0; (0x80 & inst); i++){
-		inst = LCD0_read(INST);
+		inst = LCD1_read(INST);
 		if(i > 10)
 			break;
 	}
+	return (inst & 0x7F);
 }
 char LCD1_getch(void)
 {
 	char c;
 	c = LCD1_read(DATA);
-	LCD1_BF();
 	return c;
 }
 void LCD1_putch(char c)
 {
 	LCD1_write(c, DATA);
-	LCD1_BF();
 }
 void LCD1_string(const char* s)
 {
@@ -418,19 +470,15 @@ void LCD1_gotoxy(unsigned int y, unsigned int x)
 	switch(y){
 		case 0:
 			LCD1_write((0x80 + x), INST);
-			LCD1_BF();
 		break;
 		case 1:
 			LCD1_write((0xC0 + x), INST);
-			LCD1_BF();
 		break;
 		case 2:
-			LCD1_write((0x94 + x), INST); // 0x94
-			LCD1_BF();
+			LCD1_write((0x94 + x), INST);
 		break;
 		case 3:
-			LCD1_write((0xD4 + x), INST); // 0xD4
-			LCD1_BF();
+			LCD1_write((0xD4 + x), INST);
 		break;
 		default:
 		break;
@@ -447,6 +495,27 @@ void LCD1_reboot(void)
 	if(i)
 		LCD1_inic();
 	lcd1_detect = tmp;
+}
+// Custom character output function
+int lcd1_putchar(char c, FILE *stream) {
+	(void) stream;
+	
+	LCD1_putch(c);
+	uint8_t pos = LCD1_BF();
+	
+	if (pos == LCD_LINE0_START) {
+		LCD1_gotoxy(0, 0);
+	}
+	else if (pos == LCD_LINE1_START) {
+		LCD1_gotoxy(1, 0);
+	}
+	else if (pos == LCD_LINE2_START) {
+		LCD1_gotoxy(2, 0);
+	}
+	else if (pos == LCD_LINE3_START) {
+		LCD1_gotoxy(3, 0);
+	}
+	return 0;
 }
 void lcd_set_reg(volatile uint8_t* reg, uint8_t hbits){
 	*reg |= hbits;
