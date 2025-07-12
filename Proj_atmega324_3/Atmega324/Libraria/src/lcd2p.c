@@ -3,19 +3,23 @@
 Author:   <sergio.salazar.santos@gmail.com>
 License:  GNU General Public License
 Hardware: all
-Date:     04072025             
+Date:     12072025
 ************************************************************************/
 /*** File Library ***/
 #include "lcd2p.h"
 #include <util/delay.h>
+#include <stdio.h>
 
 /*** File Constant & Macro ***/
 // CMD RS
 #define LCD02P_INST 0
 #define LCD02P_DATA 1
+#define LCD02P_LINE0_START 0x00
+#define LCD02P_LINE1_START 0x14
+#define LCD02P_LINE2_START 0x54
+#define LCD02P_LINE3_START 0x40
 
 /*** File Variable ***/
-static LCD02P lcd02p_setup;
 volatile uint8_t *lcd02pcmd_DDR;
 volatile uint8_t *lcd02pcmd_PIN;
 volatile uint8_t *lcd02pcmd_PORT;
@@ -25,11 +29,16 @@ volatile uint8_t *lcd02pdata_PORT;
 static uint8_t DDR_DATA_MASK;
 uint8_t lcd02p_detect;
 
+typedef struct {
+	uint8_t row;
+	uint8_t col;
+} LCDx_Pos;
+
 /*** Procedure & Function declaration ***/
 void LCD02P_inic(void);
 void LCD02P_write(char c, unsigned short D_I);
 char LCD02P_read(unsigned short D_I);
-void LCD02P_BF(void);
+uint8_t LCD02P_BF(void);
 void LCD02P_putch(char c);
 char LCD02P_getch(void);
 void LCD02P_string(const char* s); // RAW
@@ -41,6 +50,26 @@ void lcd02p_set_reg(volatile uint8_t* reg, uint8_t hbits);
 void lcd02p_clear_reg(volatile uint8_t* reg, uint8_t hbits);
 void LCD02P_reboot(void);
 
+static FILE lcd02p_stdout;
+
+static int lcd02p_putchar(char c, FILE *stream);
+
+static LCD02P setup_lcd02p = {
+	// V-table
+	.write = LCD02P_write,
+	.read = LCD02P_read,
+	.BF = LCD02P_BF,
+	.putch = LCD02P_putch,
+	.getch = LCD02P_getch,
+	.string = LCD02P_string, // RAW
+	.string_size = LCD02P_string_size, // RAW
+	.hspace = LCD02P_hspace,
+	.clear = LCD02P_clear,
+	.gotoxy = LCD02P_gotoxy,
+	.reboot = LCD02P_reboot,	
+	.printf = printf
+};
+
 /*** Handler ***/
 void lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile uint8_t *cmdport, volatile uint8_t *dataddr, volatile uint8_t *datapin, volatile uint8_t *dataport)
 {
@@ -51,24 +80,15 @@ void lcd02p_enable(volatile uint8_t *cmdddr, volatile uint8_t *cmdpin, volatile 
 	lcd02pdata_DDR = dataddr;
 	lcd02pdata_PIN = datapin;
 	lcd02pdata_PORT = dataport;
-	DDR_DATA_MASK = (1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7);
-	// V-table
-	lcd02p_setup.write = LCD02P_write;
-	lcd02p_setup.read = LCD02P_read;
-	lcd02p_setup.BF = LCD02P_BF;
-	lcd02p_setup.putch = LCD02P_putch;
-	lcd02p_setup.getch = LCD02P_getch;
-	lcd02p_setup.string = LCD02P_string; // RAW
-	lcd02p_setup.string_size = LCD02P_string_size; // RAW
-	lcd02p_setup.hspace = LCD02P_hspace;
-	lcd02p_setup.clear = LCD02P_clear;
-	lcd02p_setup.gotoxy = LCD02P_gotoxy;
-	lcd02p_setup.reboot = LCD02P_reboot;
+	DDR_DATA_MASK = ((1 << LCD02P_DB4) | (1 << LCD02P_DB5) | (1 << LCD02P_DB6) | (1 << LCD02P_DB7));
 	// LCD INIC
 	LCD02P_inic();
+	
+	lcd02p_stdout = (FILE) FDEV_SETUP_STREAM(lcd02p_putchar, NULL, _FDEV_SETUP_WRITE);
+	stdout = &lcd02p_stdout;  // Redirect printf to the LCD
 }
 
-LCD02P* lcd02p(void){ return &lcd02p_setup; }
+LCD02P* lcd02p(void){ return &setup_lcd02p; }
 
 /*** Procedure & Function definition ***/
 void LCD02P_inic(void)
@@ -83,20 +103,24 @@ void LCD02P_inic(void)
 	// INICIALIZACAO LCD datasheet
 	_delay_ms(40); // using clock at 16Mhz
 	LCD02P_write(0x30, LCD02P_INST); // 0x30 8 bit, 1 line, 5x8, --, --
-	_delay_us(37);
+	_delay_ms(5);
+	LCD02P_write(0x30, LCD02P_INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD02P_write(0x30, LCD02P_INST); // 0x30 8 bit, 1 line, 5x8, --, --
+	_delay_us(150);
+	LCD02P_write(0x20, LCD02P_INST); // 0x28 4 bit, 1 line, 5x8, --, --
+	_delay_us(150);
 	LCD02P_write(0x28, LCD02P_INST); // 0x28 4 bit, 2 line, 5x8, --, --
-	_delay_us(37);
-	LCD02P_write(0x28, LCD02P_INST); // 0x28 4 bit, 2 line, 5x8, --, --
-	_delay_us(37);
+	_delay_us(50);
 	LCD02P_write(0x0C, LCD02P_INST); // 0x0C Display ON, Cursor OFF, Blink ON
-	_delay_us(37);
+	_delay_us(50);
 	LCD02P_write(0x01, LCD02P_INST); // 0x01 Display clear
 	_delay_ms(2);
-	LCD02P_write(0x04, LCD02P_INST); // 0x04 Cursor dir, Display shift
-	LCD02P_BF();
-
+	LCD02P_write(0x06, LCD02P_INST); // 0x04 Cursor dir, Display shift
+	_delay_us(50);
 	LCD02P_clear();
 	LCD02P_gotoxy(0,0);
+	LCD02P_BF();
 }
 void LCD02P_write(char c, unsigned short D_I)
 {
@@ -120,6 +144,7 @@ void LCD02P_write(char c, unsigned short D_I)
 	if(c & 0x02) *lcd02pdata_PORT |= 1 << LCD02P_DB5; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB5);
 	if(c & 0x01) *lcd02pdata_PORT |= 1 << LCD02P_DB4; else *lcd02pdata_PORT &= ~(1 << LCD02P_DB4);
 	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
+	for (uint16_t i = 0; i < 180; i++); // value above 140 for 16Mhz
 }
 char LCD02P_read(unsigned short D_I)
 {
@@ -145,30 +170,29 @@ char LCD02P_read(unsigned short D_I)
 	if(*lcd02pdata_PIN & (1 << LCD02P_DB5)) c |= 1 << 1; else c &= ~(1 << 1);
 	if(*lcd02pdata_PIN & (1 << LCD02P_DB4)) c |= 1 << 0; else c &= ~(1 << 0);
 	lcd02p_clear_reg(lcd02pcmd_PORT, (1 << LCD02P_EN));
-	
+	for (uint16_t i = 0; i < 180; i++); // value above 140 for 16Mhz
 	return c;
 }
-void LCD02P_BF(void)
+uint8_t LCD02P_BF(void)
 {
 	uint8_t i;
 	char inst = 0x80;
 	for(i=0; 0x80 & inst; i++){
 		inst = LCD02P_read(LCD02P_INST);
-		if(i > 1)
+		if(i > 10)
 			break;
 	}
+	return (inst & 0x7F);
 }
 char LCD02P_getch(void)
 {
 	char c;
 	c = LCD02P_read(LCD02P_DATA);
-	LCD02P_BF();
 	return c;
 }
 void LCD02P_putch(char c)
 {
 	LCD02P_write(c, LCD02P_DATA);
-	LCD02P_BF();
 }
 void LCD02P_string(const char* s)
 {
@@ -210,19 +234,15 @@ void LCD02P_gotoxy(unsigned int y, unsigned int x)
 	switch(y){
 		case 0:
 			LCD02P_write((0x80 + x), LCD02P_INST);
-			LCD02P_BF();
 			break;
 		case 1:
 			LCD02P_write((0xC0 + x), LCD02P_INST);
-			LCD02P_BF();
 			break;
 		case 2:
-			LCD02P_write((0x94 + x), LCD02P_INST); // 0x94
-			LCD02P_BF();
+			LCD02P_write((0x94 + x), LCD02P_INST);
 			break;
 		case 3:
-			LCD02P_write((0xD4 + x), LCD02P_INST); // 0xD4
-			LCD02P_BF();
+			LCD02P_write((0xD4 + x), LCD02P_INST);
 			break;
 		default:
 			break;
@@ -245,6 +265,27 @@ void LCD02P_reboot(void)
 	if(i)
 		LCD02P_inic();
 	lcd02p_detect = tmp;
+}
+// Custom character output function
+int lcd02p_putchar(char c, FILE *stream) {
+	(void) stream;
+	
+	LCD02P_putch(c);
+	uint8_t pos = LCD02P_BF();
+	
+	if (pos == LCD02P_LINE0_START) {
+		LCD02P_gotoxy(0, 0);
+	}
+	else if (pos == LCD02P_LINE1_START) {
+		LCD02P_gotoxy(1, 0);
+	}
+	else if (pos == LCD02P_LINE2_START) {
+		LCD02P_gotoxy(2, 0);
+	}
+	else if (pos == LCD02P_LINE3_START) {
+		LCD02P_gotoxy(3, 0);
+	}
+	return 0;
 }
 
 /*** EOF ***/
