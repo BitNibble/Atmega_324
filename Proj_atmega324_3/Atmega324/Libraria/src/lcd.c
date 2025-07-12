@@ -373,7 +373,6 @@ void LCD1_write(char c, unsigned short D_I)
 	if(D_I) lcd_set_reg(lcd1_PORT, (1 << RS));  else lcd_clear_reg(lcd1_PORT, (1 << RS));
 	
 	lcd_set_reg(lcd1_PORT, (1 << EN));
-	if(D_I) *lcd1_PORT |= (1 << RS); else *lcd1_PORT &= ~(1 << RS);
 	if(c & 0x08) *lcd1_PORT |= 1 << DB7; else *lcd1_PORT &= ~(1 << DB7);
 	if(c & 0x04) *lcd1_PORT |= 1 << DB6; else *lcd1_PORT &= ~(1 << DB6);
 	if(c & 0x02) *lcd1_PORT |= 1 << DB5; else *lcd1_PORT &= ~(1 << DB5);
