@@ -18,7 +18,7 @@ Date:     12072025
 #include <inttypes.h>
 
 /*** Constant & Macro ***/
-#define LCD_WIRING_3
+#define LCD_WIRING_2
 #if defined(LCD_WIRING_1)
 	
 #elif defined(LCD_WIRING_2)
