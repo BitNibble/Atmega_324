@@ -10,6 +10,8 @@ Date:     04/07/2025
 /*****************************/
 /**** MAIN HARDWARE LAYER ****/
 /*****************************/
+// Indirect Address Register
+static const GPIAR_TypeDef gpiar  = {.X = ((U_word*) 0x001A), .Y = ((U_word*) 0x001C), .Z = ((U_word*) 0x001E) };
 // Static instance with mapped register addresses
 static const GPIOA_TypeDef gpioa  = {.pin = ((U_byte*) 0x0020), .ddr = ((U_byte*) 0x0021), .port = ((U_byte*) 0x0022) };
 // Singleton-style accessor

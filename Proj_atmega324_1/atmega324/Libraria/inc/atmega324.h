@@ -47,38 +47,12 @@ Date:     04/07/2025
 /*****************************/
 /**** MAIN HARDWARE LAYER ****/
 /*****************************/
-// GPWR
+// GPIAR
 typedef volatile struct {
-	uint8_t r0; // 0x0000
-	uint8_t r1; // 0x0001
-	uint8_t r2; // 0x0002
-	uint8_t r3; // 0x0003
-	uint8_t r4; // 0x0004
-	uint8_t r5; // 0x0005
-	uint8_t r6; // 0x0006
-	uint8_t r7; // 0x0007
-	uint8_t r8; // 0x0008
-	uint8_t r9; // 0x0009
-	uint8_t r10; // 0x000A
-	uint8_t r11; // 0x000B
-	uint8_t r12; // 0x000C
-	uint8_t r13; // 0x000D
-	uint8_t r14; // 0x000E
-	uint8_t r15; // 0x000F
-	uint8_t r16; // 0x0010
-	uint8_t r17; // 0x0011
-	uint8_t r18; // 0x0012
-	uint8_t r19; // 0x0013
-	uint8_t r20; // 0x0014
-	uint8_t r21; // 0x0015
-	uint8_t r22; // 0x0016
-	uint8_t r23; // 0x0017
-	uint8_t r24; // 0x0018
-	uint8_t r25; // 0x0019
-	uint16_t x; // 0x001A 0x001B
-	uint16_t y; // 0x001C 0x001D
-	uint16_t z; // 0x001E 0x001F
-} GPW_TypeDef;
+	U_word* X; // 0x001A 0x001B
+	U_word* Y; // 0x001C 0x001D
+	U_word* Z; // 0x001E 0x001F
+} GPIAR_TypeDef;
 
 // Analog Comparator (AC)
 typedef volatile struct {
