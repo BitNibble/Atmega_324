@@ -18,7 +18,7 @@ Date:     04/07/2025
 	#define F_CPU 16000000UL
 #endif
 
-/*** Global Library ***/
+/*** Library ***/
 #include <avr/io.h>
 #include <avr/boot.h>
 #include <avr/fuse.h>
@@ -27,11 +27,15 @@ Date:     04/07/2025
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
+#include <util/atomic.h>
 #include <util/delay.h>
 
 #include "atmega324_registers.h"
+#include <avr/sfr_defs.h>
 
-/*** Global Constant & Macro ***/
+/*** Constant & Macro ***/
+#define ZERO 0
+#define ONE 1
 #define TWO 2
 #define NIBBLE_BITS 4
 #define BYTE_BITS 8
@@ -49,38 +53,12 @@ Date:     04/07/2025
 /*****************************/
 /**** MAIN HARDWARE LAYER ****/
 /*****************************/
-// GPWR
+// GPIAR
 typedef volatile struct {
-	uint8_t r0; // 0x0000
-	uint8_t r1; // 0x0001
-	uint8_t r2; // 0x0002
-	uint8_t r3; // 0x0003
-	uint8_t r4; // 0x0004
-	uint8_t r5; // 0x0005
-	uint8_t r6; // 0x0006
-	uint8_t r7; // 0x0007
-	uint8_t r8; // 0x0008
-	uint8_t r9; // 0x0009
-	uint8_t r10; // 0x000A
-	uint8_t r11; // 0x000B
-	uint8_t r12; // 0x000C
-	uint8_t r13; // 0x000D
-	uint8_t r14; // 0x000E
-	uint8_t r15; // 0x000F
-	uint8_t r16; // 0x0010
-	uint8_t r17; // 0x0011
-	uint8_t r18; // 0x0012
-	uint8_t r19; // 0x0013
-	uint8_t r20; // 0x0014
-	uint8_t r21; // 0x0015
-	uint8_t r22; // 0x0016
-	uint8_t r23; // 0x0017
-	uint8_t r24; // 0x0018
-	uint8_t r25; // 0x0019
-	uint16_t x; // 0x001A 0x001B
-	uint16_t y; // 0x001C 0x001D
-	uint16_t z; // 0x001E 0x001F
-} GPW_TypeDef;
+	U_word* X; // 0x001A 0x001B
+	U_word* Y; // 0x001C 0x001D
+	U_word* Z; // 0x001E 0x001F
+} GPIAR_TypeDef;
 
 // Analog Comparator (AC)
 typedef volatile struct {
@@ -206,7 +184,7 @@ Atmega324SerialPeripherialInterface_TypeDef* spi_reg(void);
 
 // Timer/Counter, 16-bit (TC1)
 typedef volatile struct {
-	TIFR1_Typedef* tifr1; // 0x0036
+	TIFR1_TypeDef* tifr1; // 0x0036
 	TIMSK1_TypeDef* timsk1; // 0x006F
 	TCCR1A_TypeDef* tccr1a; // 0x0080
 	TCCR1B_TypeDef* tccr1b; // 0x0081
@@ -221,7 +199,7 @@ Atmega324TimerCounter1_TypeDef* tc1_reg(void);
 
 // Timer/Counter, 16-bit (TC3)
 typedef volatile struct {
-	TIFR3_Typedef* tifr3; // 0x0036
+	TIFR3_TypeDef* tifr3; // 0x0036
 	TIMSK3_TypeDef* timsk3; // 0x006F
 	TCCR3A_TypeDef* tccr3a; // 0x0080
 	TCCR3B_TypeDef* tccr3b; // 0x0081
@@ -236,7 +214,8 @@ Atmega324TimerCounter3_TypeDef* tc3_reg(void);
 
 // Timer/Counter, 8-bit (TC0)
 typedef volatile struct {
-	TIFR0_Typedef* tifr0; // 0x0035
+	TIFR0_TypeDef* tifr0; // 0x0035
+	GTCCR_TypeDef* gtccr; // 0x0043
 	TCCR0A_TypeDef* tccr0a; // 0x0044
 	TCCR0B_TypeDef* tccr0b; // 0x0045
 	U_byte* tcnt0; // 0x0046
@@ -249,7 +228,7 @@ Atmega324TimerCounter0_TypeDef* tc0_reg(void);
 
 // Timer/Counter, 8-bit Async (TC2)
 typedef volatile struct {
-	TIFR2_Typedef* tifr2; // 0x0037
+	TIFR2_TypeDef* tifr2; // 0x0037
 	GTCCR_TypeDef* gtccr; // 0x0043
 	TIMSK2_TypeDef* timsk2; // 0x0070
 	TCCR2A_TypeDef* tccr2a; // 0x00B0
@@ -302,6 +281,56 @@ typedef volatile struct {
 } Atmega324WatchdogTimer_TypeDef;
 
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void);
+
+/*******************************************************************/
+/********************** MAIN HARDWARE LAYER ************************/
+/*******************************************************************/
+typedef struct {
+	// Indirect Address Register
+	GPIAR_TypeDef* const gpiar;
+	// Analog Comparator (AC)
+	Atmega324AnalogComparator_TypeDef* const ac;
+	// Analog to Digital Converter (ADC)
+	Atmega324AnalogToDigitalConverter_TypeDef* const adc;
+	// Boot loader (BOOT_LOAD)
+	Atmega324BootLoader_TypeDef* const bootload;
+	// CPU Register (CPU)
+	Atmega324CPURegister_TypeDef* const cpu;
+	// EEPROM (EEPROM)
+	Atmega324Eeprom_TypeDef* const eeprom;
+	// External Interrupts (EXINT)
+	Atmega324ExternalInterrupts_TypeDef* const exint;
+	// I/O Port (PORTA)
+	GPIOA_TypeDef* const gpioa;
+	// I/O Port (PORTB)
+	GPIOB_TypeDef* const gpiob;
+	// I/O Port (PORTC)
+	GPIOC_TypeDef* const gpioc;
+	// I/O Port (PORTD)
+	GPIOD_TypeDef* const gpiod;
+	// JTAG Interface (JTAG)
+	Atmega324JtagInterface_TypeDef* const jtag;
+	// Serial Peripheral Interface (SPI)
+	Atmega324SerialPeripherialInterface_TypeDef* const spi;
+	// Timer/Counter, 16-bit (TC1)
+	Atmega324TimerCounter1_TypeDef* const tc1;
+	// Timer/Counter, 16-bit (TC3)
+	Atmega324TimerCounter3_TypeDef* const tc3;
+	// Timer/Counter, 8-bit (TC2)
+	Atmega324TimerCounter2_TypeDef* const tc2;
+	// Timer/Counter, 8-bit A sync (TC0)
+	Atmega324TimerCounter0_TypeDef* const tc0;
+	// Two Wire Serial Interface (TWI)
+	Atmega324TwoWireSerialInterface_TypeDef* const twi;
+	// USART (USART0)
+	Atmega324Usart0_TypeDef* const usart0;
+	// USART (USART1)
+	Atmega324Usart1_TypeDef* const usart1;
+	// Watchdog Timer (WDT)
+	Atmega324WatchdogTimer_TypeDef* const wdt;
+} dev_atmega324;
+
+dev_atmega324* dev(void);
 
 /*********************************************************************/
 /*************** Procedure and Function declaration ******************/

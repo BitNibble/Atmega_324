@@ -7,19 +7,23 @@ Date:     25/10/2020
 ************************************************************************/
 #ifndef _74HC595_H_
 	#define _74HC595_H_
+
+/*** Library ***/
+#include <inttypes.h>
 	
-/*** Global Constant & Macro ***/
+/*** Constant & Macro ***/
 //#define STM32F4
 #if defined (STM32F4)
-	#define IO_var uint32_t
+	#ifndef IO_var
+		#define IO_var uint32_t
+	#endif
 #else
-	#define IO_var uint8_t
+	#ifndef IO_var
+		#define IO_var uint8_t
+	#endif
 #endif
 
-/*** File Library ***/
-#include <inttypes.h>
-
-/*** File TypeDef ***/
+/*** Parameter ***/
 typedef struct{
 	uint8_t HC595_datapin;
 	uint8_t HC595_clkpin;
@@ -32,6 +36,7 @@ typedef struct{
 typedef struct
 {
 	hc595_parameter par;
+	
 	// V-table
 	void (*bit)(hc595_parameter* par, uint8_t state);
 	void (*ibyte)(hc595_parameter* par, uint8_t byte);
