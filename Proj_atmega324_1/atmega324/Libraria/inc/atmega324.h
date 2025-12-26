@@ -22,14 +22,20 @@ Date:     04/07/2025
 #include <avr/io.h>
 #include <avr/boot.h>
 #include <avr/fuse.h>
+#include <avr/wdt.h>
 #include <avr/eeprom.h>
 #include <avr/pgmspace.h>
+#include <avr/sleep.h>
 #include <avr/interrupt.h>
+#include <util/atomic.h>
 #include <util/delay.h>
 
 #include "atmega324_registers.h"
+#include <avr/sfr_defs.h>
 
 /*** Constant & Macro ***/
+#define ZERO 0
+#define ONE 1
 #define TWO 2
 #define NIBBLE_BITS 4
 #define BYTE_BITS 8
