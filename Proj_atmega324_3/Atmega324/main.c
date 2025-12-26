@@ -69,13 +69,13 @@ while (1)
 
 /*** Procedure and Function definition ***/
 void PORTINIT(void){
-	gpiob_reg()->ddr->var = 1;
-	gpiob_reg()->port->var = 1;
+	dev()->gpiob->ddr->var = 1;
+	dev()->gpiob->port->var = 1;
 };
 /*** Interrupt ***/
 ISR(TIMER1_COMPA_vect)
 {
-	gpiob_reg()->port->par.bit0 ^= 1;
+	dev()->gpiob->port->par.bit0 ^= 1;
 	WATCH_increment();
 }
 
