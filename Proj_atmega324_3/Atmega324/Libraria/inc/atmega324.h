@@ -209,6 +209,7 @@ Atmega324TimerCounter3_TypeDef* tc3_reg(void);
 // Timer/Counter, 8-bit (TC0)
 typedef volatile struct {
 	TIFR0_TypeDef* tifr0; // 0x0035
+	GTCCR_TypeDef* gtccr; // 0x0043
 	TCCR0A_TypeDef* tccr0a; // 0x0044
 	TCCR0B_TypeDef* tccr0b; // 0x0045
 	U_byte* tcnt0; // 0x0046
@@ -274,6 +275,56 @@ typedef volatile struct {
 } Atmega324WatchdogTimer_TypeDef;
 
 Atmega324WatchdogTimer_TypeDef* wdt_reg(void);
+
+/*******************************************************************/
+/********************** MAIN HARDWARE LAYER ************************/
+/*******************************************************************/
+typedef struct {
+	// Indirect Address Register
+	GPIAR_TypeDef* const gpiar;
+	// Analog Comparator (AC)
+	Atmega324AnalogComparator_TypeDef* const ac;
+	// Analog to Digital Converter (ADC)
+	Atmega324AnalogToDigitalConverter_TypeDef* const adc;
+	// Boot loader (BOOT_LOAD)
+	Atmega324BootLoader_TypeDef* const bootload;
+	// CPU Register (CPU)
+	Atmega324CPURegister_TypeDef* const cpu;
+	// EEPROM (EEPROM)
+	Atmega324Eeprom_TypeDef* const eeprom;
+	// External Interrupts (EXINT)
+	Atmega324ExternalInterrupts_TypeDef* const exint;
+	// I/O Port (PORTA)
+	GPIOA_TypeDef* const gpioa;
+	// I/O Port (PORTB)
+	GPIOB_TypeDef* const gpiob;
+	// I/O Port (PORTC)
+	GPIOC_TypeDef* const gpioc;
+	// I/O Port (PORTD)
+	GPIOD_TypeDef* const gpiod;
+	// JTAG Interface (JTAG)
+	Atmega324JtagInterface_TypeDef* const jtag;
+	// Serial Peripheral Interface (SPI)
+	Atmega324SerialPeripherialInterface_TypeDef* const spi;
+	// Timer/Counter, 16-bit (TC1)
+	Atmega324TimerCounter1_TypeDef* const tc1;
+	// Timer/Counter, 16-bit (TC3)
+	Atmega324TimerCounter3_TypeDef* const tc3;
+	// Timer/Counter, 8-bit (TC2)
+	Atmega324TimerCounter2_TypeDef* const tc2;
+	// Timer/Counter, 8-bit A sync (TC0)
+	Atmega324TimerCounter0_TypeDef* const tc0;
+	// Two Wire Serial Interface (TWI)
+	Atmega324TwoWireSerialInterface_TypeDef* const twi;
+	// USART (USART0)
+	Atmega324Usart0_TypeDef* const usart0;
+	// USART (USART1)
+	Atmega324Usart1_TypeDef* const usart1;
+	// Watchdog Timer (WDT)
+	Atmega324WatchdogTimer_TypeDef* const wdt;
+} dev_atmega324;
+
+dev_atmega324* dev(void);
 
 /*********************************************************************/
 /*************** Procedure and Function declaration ******************/
