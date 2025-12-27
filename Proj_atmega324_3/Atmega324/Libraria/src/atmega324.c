@@ -297,6 +297,9 @@ inline uint8_t Msk_Pos(uint8_t Msk){
 	return Pos;
 }
 /*** SUB Tools ***/
+inline uint8_t _get_pos(uint8_t size_block, uint8_t block_n){
+	return size_block * block_n;
+}
 inline uint8_t _var_mask(uint8_t var, uint8_t Msk){
 	return (var & Msk);
 }
@@ -311,9 +314,6 @@ inline uint8_t _block_to_size(uint8_t block) {
 }
 inline uint8_t _get_mask(uint8_t size_block, uint8_t Pos){
 	return _size_to_block(size_block) << Pos;
-}
-inline uint8_t _get_pos(uint8_t size_block, uint8_t block_n){
-	return size_block * block_n;
 }
 inline uint8_t _mask_pos(uint8_t Msk){
 	return Msk ? (unsigned int)__builtin_ctz(Msk) : 0U;
