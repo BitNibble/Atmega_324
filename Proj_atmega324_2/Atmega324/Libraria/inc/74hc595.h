@@ -38,7 +38,9 @@ typedef struct
 	hc595_parameter par;
 	
 	// V-table
-	void (*bit)(hc595_parameter* par, uint8_t state);
+	void (*shift_bit)(hc595_parameter* par, uint8_t state);
+	void (*shift_ibyte)(hc595_parameter* par, uint8_t byte);
+	void (*shift_byte)(hc595_parameter* par, uint8_t byte);
 	void (*ibyte)(hc595_parameter* par, uint8_t byte);
 	void (*byte)(hc595_parameter* par, uint8_t byte);
 	void (*out)(hc595_parameter* par);
