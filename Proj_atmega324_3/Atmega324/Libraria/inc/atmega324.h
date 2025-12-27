@@ -335,19 +335,44 @@ dev_atmega324* dev(void);
 /*********************************************************************/
 /*************** Procedure and Function declaration ******************/
 /*********************************************************************/
+uint16_t readHLbyte(U_word reg);
+uint16_t readLHbyte(U_word reg);
+U_word writeHLbyte(uint16_t val);
+U_word writeLHbyte(uint16_t val);
 uint16_t swapbyte(uint16_t num);
+
+/*********************************************************************/
+/*************** Procedure and Function declaration ******************/
+/*********************************************************************/
 uint16_t BAUDRATEnormal(uint32_t BAUD);
 uint16_t BAUDRATEdouble(uint32_t BAUD);
 uint16_t BAUDRATEsynchronous(uint32_t BAUD);
 
-/*** Procedure and Function ToolSet ***/
+/*********************************************************************/
+/*************** Procedure and Function declaration ******************/
+/*********************************************************************/
 void set_reg(volatile uint8_t* reg, uint8_t hbits);
 void clear_reg(volatile uint8_t* reg, uint8_t hbits);
-uint8_t get_reg_block(uint8_t reg, uint8_t size_block, uint8_t bit_n);
-void write_reg_block(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
-void set_reg_block(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
-uint8_t get_bit_block(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n);
-void set_bit_block(volatile uint8_t* reg, uint8_t size_block, uint8_t bit_n, uint8_t data);
+uint8_t get_reg_Msk_Pos(uint8_t reg, uint8_t Msk, uint8_t Pos);
+void write_reg_Msk_Pos(volatile uint8_t* reg, uint8_t Msk, uint8_t Pos, uint8_t data);
+void set_reg_Msk_Pos(volatile uint8_t* reg, uint8_t Msk, uint8_t Pos, uint8_t data);
+uint8_t get_reg_Msk(uint8_t reg, uint8_t Msk);
+void write_reg_Msk(volatile uint8_t* reg, uint8_t Msk, uint8_t data);
+void set_reg_Msk(volatile uint8_t* reg, uint8_t Msk, uint8_t data);
+uint8_t get_reg_block(uint8_t reg, uint8_t size_block, uint8_t Pos);
+void write_reg_block(volatile uint8_t* reg, uint8_t size_block, uint8_t Pos, uint8_t data);
+void set_reg_block(volatile uint8_t* reg, uint8_t size_block, uint8_t Pos, uint8_t data);
+uint8_t get_bit_block(volatile uint8_t* reg, uint8_t size_block, uint8_t Pos);
+void set_bit_block(volatile uint8_t* reg, uint8_t size_block, uint8_t Pos, uint8_t data);
+// --- Generic helpers ---
+uint8_t reg_get(uint8_t reg, uint8_t mask);
+void reg_set(volatile uint8_t *reg, uint8_t mask, uint8_t data);
+
+/*********************************************************************/
+/*************** Procedure and Function declaration ******************/
+/*********************************************************************/
+int isPtrNull(void* ptr);
+int isCharPtrFlush(void* ptr);
 
 #endif
 /*** EOF ***/
